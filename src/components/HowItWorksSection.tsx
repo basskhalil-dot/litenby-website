@@ -152,10 +152,10 @@ export function HowItWorksSection() {
 
                 {/* Label */}
                 <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center">
-                  <span className="block font-heading text-[10px] font-bold uppercase tracking-widest text-primary">
+                  <span className="block font-body text-[10px] font-semibold uppercase tracking-widest text-primary">
                     {item.step}
                   </span>
-                  <span className="block font-heading text-sm font-bold text-foreground">
+                  <span className="block font-heading text-sm font-extrabold text-foreground">
                     {item.title}
                   </span>
                 </div>

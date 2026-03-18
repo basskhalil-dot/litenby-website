@@ -182,7 +182,7 @@ export function HeroSection() {
               <div className="flex h-[320px] w-[160px] flex-col items-center justify-center rounded-[80px] border border-border/30 bg-muted/5 backdrop-blur-sm">
                 <div className="h-16 w-10 rounded-t-lg border border-border/20 bg-muted/10" />
                 <div className="mt-1 h-40 w-24 rounded-b-[40px] rounded-t-lg border border-border/20 bg-gradient-to-b from-muted/10 to-muted/5" />
-                <span className="mt-4 font-heading text-[10px] uppercase tracking-[0.3em] text-muted-foreground/40">
+                <span className="mt-4 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground/40">
                   3d asset
                 </span>
               </div>
