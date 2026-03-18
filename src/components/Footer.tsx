@@ -73,7 +73,7 @@ export function Footer() {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <h3 className="mb-4 font-heading text-xs font-bold uppercase tracking-[0.25em] text-primary">
+                <h3 className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary">
                   {col.title}
                 </h3>
                 <ul className="flex flex-col gap-3">
