@@ -42,7 +42,7 @@ export function LitenbyNavbar() {
             className="size-6 text-foreground"
           />
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetContent side="top" showClose={false} className="bg-background">
+            <SheetContent side="top" className="bg-background">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
               <nav className="flex flex-col items-center gap-6 pt-10">
                 {links.map((link) => (
