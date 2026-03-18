@@ -1,5 +1,6 @@
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { HeroSection } from '@/components/HeroSection';
+import { AboutSection } from '@/components/AboutSection';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { HowItWorksSection } from '@/components/HowItWorksSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
@@ -10,6 +11,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <LitenbyNavbar />
       <HeroSection />
+      <AboutSection />
       <ThreeLabsSection />
       <HowItWorksSection />
       <PackagingLabSection />
