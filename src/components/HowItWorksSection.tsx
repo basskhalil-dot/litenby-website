@@ -93,10 +93,10 @@ export function HowItWorksSection() {
       <div className="container">
         {/* Header */}
         <div className="mb-16 text-center">
-          <span className="mb-3 inline-block font-heading text-sm font-bold uppercase tracking-[0.3em] text-primary">
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             Process
           </span>
-          <h2 className="font-heading text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             how it works
           </h2>
         </div>
