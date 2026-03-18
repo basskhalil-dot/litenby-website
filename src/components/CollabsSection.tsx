@@ -49,10 +49,10 @@ export function CollabsSection() {
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
           className="mb-20 text-center"
         >
-          <span className="mb-3 inline-block font-heading text-sm font-bold uppercase tracking-[0.3em] text-primary">
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             Selected Work
           </span>
-          <h2 className="font-heading text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             collabs
           </h2>
         </motion.div>
