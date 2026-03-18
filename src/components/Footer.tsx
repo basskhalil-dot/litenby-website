@@ -54,7 +54,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-4"
           >
-            <h2 className="font-heading text-5xl font-bold text-foreground lg:text-7xl">
+            <h2 className="font-heading text-5xl font-extrabold text-foreground lg:text-7xl">
               litenby
             </h2>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
