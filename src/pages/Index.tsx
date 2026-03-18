@@ -2,6 +2,7 @@ import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { HeroSection } from '@/components/HeroSection';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { HowItWorksSection } from '@/components/HowItWorksSection';
+import { PackagingLabSection } from '@/components/PackagingLabSection';
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <ThreeLabsSection />
       <HowItWorksSection />
+      <PackagingLabSection />
     </div>
   );
 };
