@@ -114,7 +114,7 @@ export function HowItWorksSection() {
 
           {/* Central sun */}
           <div className="absolute z-50 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-[0_0_40px_rgba(255,165,0,0.4),0_0_80px_rgba(255,165,0,0.15)]">
-            <span className="font-heading text-xs font-bold text-primary-foreground tracking-wider">
+            <span className="font-heading text-xs font-extrabold text-primary-foreground tracking-wider">
               LBY
             </span>
           </div>
