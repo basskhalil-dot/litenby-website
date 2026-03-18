@@ -62,7 +62,7 @@ export function AboutSection() {
               viewport={{ once: true, margin: "-100px" }}
               className="flex flex-col gap-2"
             >
-              <h2 className="font-heading text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+              <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
                 the litenby story
               </h2>
             </motion.div>

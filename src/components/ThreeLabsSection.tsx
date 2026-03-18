@@ -53,10 +53,10 @@ export function ThreeLabsSection() {
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block font-heading text-sm font-bold uppercase tracking-[0.3em] text-primary">
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             What We Do
           </span>
-          <h2 className="font-heading text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the three labs
           </h2>
         </motion.div>
@@ -88,7 +88,7 @@ export function ThreeLabsSection() {
               <div className="relative flex flex-1 flex-col p-6 lg:p-8">
                 <div className="mb-4 flex items-center gap-3">
                   <lab.icon className="h-5 w-5 text-primary" />
-                  <h3 className="font-heading text-xl font-bold text-foreground lg:text-2xl">
+                  <h3 className="font-heading text-xl font-extrabold text-foreground lg:text-2xl">
                     {lab.title}
                   </h3>
                 </div>

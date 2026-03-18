@@ -54,7 +54,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-4"
           >
-            <h2 className="font-heading text-5xl font-bold text-foreground lg:text-7xl">
+            <h2 className="font-heading text-5xl font-extrabold text-foreground lg:text-7xl">
               litenby
             </h2>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
@@ -73,7 +73,7 @@ export function Footer() {
                 whileInView="visible"
                 viewport={{ once: true }}
               >
-                <h3 className="mb-4 font-heading text-xs font-bold uppercase tracking-[0.25em] text-primary">
+                <h3 className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary">
                   {col.title}
                 </h3>
                 <ul className="flex flex-col gap-3">
@@ -101,7 +101,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-3 lg:col-start-11"
           >
-            <h3 className="mb-4 font-heading text-xs font-bold uppercase tracking-[0.25em] text-primary">
+            <h3 className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary">
               social
             </h3>
             <ul className="flex flex-col gap-3">

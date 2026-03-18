@@ -93,10 +93,10 @@ export function HowItWorksSection() {
       <div className="container">
         {/* Header */}
         <div className="mb-16 text-center">
-          <span className="mb-3 inline-block font-heading text-sm font-bold uppercase tracking-[0.3em] text-primary">
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             Process
           </span>
-          <h2 className="font-heading text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+          <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             how it works
           </h2>
         </div>
@@ -114,7 +114,7 @@ export function HowItWorksSection() {
 
           {/* Central sun */}
           <div className="absolute z-50 flex h-16 w-16 items-center justify-center rounded-full bg-primary shadow-[0_0_40px_rgba(255,165,0,0.4),0_0_80px_rgba(255,165,0,0.15)]">
-            <span className="font-heading text-xs font-bold text-primary-foreground tracking-wider">
+            <span className="font-heading text-xs font-extrabold text-primary-foreground tracking-wider">
               LBY
             </span>
           </div>
@@ -152,10 +152,10 @@ export function HowItWorksSection() {
 
                 {/* Label */}
                 <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-center">
-                  <span className="block font-heading text-[10px] font-bold uppercase tracking-widest text-primary">
+                  <span className="block font-body text-[10px] font-semibold uppercase tracking-widest text-primary">
                     {item.step}
                   </span>
-                  <span className="block font-heading text-sm font-bold text-foreground">
+                  <span className="block font-heading text-sm font-extrabold text-foreground">
                     {item.title}
                   </span>
                 </div>
