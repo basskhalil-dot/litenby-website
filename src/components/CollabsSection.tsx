@@ -97,7 +97,7 @@ export function CollabsSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 {/* Title */}
                 <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <p className="font-heading text-sm font-semibold tracking-wide text-foreground">
+                  <p className="font-body text-sm font-semibold tracking-wide text-foreground">
                     {collab.title}
                   </p>
                 </div>

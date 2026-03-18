@@ -161,7 +161,7 @@ export function HeroSection() {
               animate="visible"
               className="mt-8"
             >
-              <button className="rounded-full bg-primary px-8 py-3 font-heading text-sm font-bold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
+              <button className="rounded-full bg-primary px-8 py-3 font-body text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
                 start your brand
               </button>
             </motion.div>

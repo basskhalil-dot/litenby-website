@@ -101,7 +101,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-3 lg:col-start-11"
           >
-            <h3 className="mb-4 font-heading text-xs font-bold uppercase tracking-[0.25em] text-primary">
+            <h3 className="mb-4 font-body text-xs font-semibold uppercase tracking-[0.25em] text-primary">
               social
             </h3>
             <ul className="flex flex-col gap-3">

@@ -88,7 +88,7 @@ export function ThreeLabsSection() {
               <div className="relative flex flex-1 flex-col p-6 lg:p-8">
                 <div className="mb-4 flex items-center gap-3">
                   <lab.icon className="h-5 w-5 text-primary" />
-                  <h3 className="font-heading text-xl font-bold text-foreground lg:text-2xl">
+                  <h3 className="font-heading text-xl font-extrabold text-foreground lg:text-2xl">
                     {lab.title}
                   </h3>
                 </div>
