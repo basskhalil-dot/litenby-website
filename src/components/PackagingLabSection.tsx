@@ -71,7 +71,7 @@ function PackagingCard({
       </div>
 
       {/* Product name */}
-      <p className="mt-4 text-center font-heading text-sm tracking-wide text-muted-foreground">
+      <p className="mt-4 text-center font-body text-sm font-medium tracking-wide text-muted-foreground">
         {name}
       </p>
     </motion.div>
