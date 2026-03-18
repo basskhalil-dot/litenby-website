@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { HowItWorksSection } from '@/components/HowItWorksSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
+import { CollabsSection } from '@/components/CollabsSection';
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <ThreeLabsSection />
       <HowItWorksSection />
       <PackagingLabSection />
+      <CollabsSection />
     </div>
   );
 };
