@@ -23,7 +23,7 @@ export function CTASection() {
       </div>
 
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
           {/* Text content */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.h2
