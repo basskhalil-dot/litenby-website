@@ -21,7 +21,7 @@ export function AboutSection() {
         <div className="mx-auto max-w-3xl text-center">
 
           {/* Content */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-6">
             <motion.div
               custom={1}
               variants={fadeUp}
