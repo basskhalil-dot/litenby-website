@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      delay: 0.15 * i,
-      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+      duration: 0.4,
+      delay: 0.05 * i,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   }),
 };
@@ -25,7 +25,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
             >
               <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20">
                 since 2010
@@ -37,7 +37,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="flex flex-col gap-2"
             >
               <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
@@ -50,7 +50,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
               With over 15 years of experience in{" "}
@@ -68,7 +68,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
               From concept to culture, we don't just build brands — we give them
@@ -82,7 +82,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl leading-[1.1]"
             >
               ready to start your brand journey?
@@ -93,7 +93,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg font-body"
             >
               let's build your product from scratch to the shelf.
@@ -104,7 +104,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, amount: 0.1 }}
               className="mt-4"
             >
               <button className="rounded-full bg-primary px-10 py-4 font-body text-[1.05rem] font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">

@@ -28,19 +28,6 @@ const labs = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      delay: 0.2 + i * 0.15,
-      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-    },
-  }),
-};
-
 export function ThreeLabsSection() {
   return (
     <section className="relative w-full bg-background py-16 lg:py-24">
@@ -49,8 +36,8 @@ export function ThreeLabsSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
@@ -61,16 +48,17 @@ export function ThreeLabsSection() {
           </h2>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {labs.map((lab, i) => (
-            <motion.div
+        {/* Cards grid — all appear at once */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-6 md:grid-cols-3"
+        >
+          {labs.map((lab) => (
+            <div
               key={lab.title}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(255,165,0,0.06)]"
             >
               {/* Image area */}
@@ -99,9 +87,9 @@ export function ThreeLabsSection() {
                 {/* Bottom accent line */}
                 <div className="mt-6 h-px w-full bg-gradient-to-r from-primary/40 via-primary/10 to-transparent" />
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

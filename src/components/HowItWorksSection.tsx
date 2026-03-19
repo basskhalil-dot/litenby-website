@@ -17,8 +17,8 @@ export function HowItWorksSection() {
           className="mb-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <span
             className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em]"
@@ -31,7 +31,7 @@ export function HowItWorksSection() {
           </h2>
         </motion.div>
 
-        {/* Desktop: horizontal layout */}
+        {/* Desktop: horizontal layout — all at once */}
         <div className="hidden md:block relative">
           {/* Horizontal connecting line */}
           <div
@@ -41,19 +41,20 @@ export function HowItWorksSection() {
             }}
           />
 
-          <div className="grid grid-cols-4 gap-6">
-            {steps.map((item, index) => {
+          <motion.div
+            className="grid grid-cols-4 gap-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {steps.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div
+                <div
                   key={item.step}
                   className="flex flex-col items-center text-center relative"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.4, 0.25, 1] }}
                 >
-                  {/* Step number */}
                   <span
                     className="font-body font-semibold text-xs tracking-widest mb-3"
                     style={{ color: "#FFA500" }}
@@ -61,9 +62,7 @@ export function HowItWorksSection() {
                     {item.step}
                   </span>
 
-                  {/* Glow + Icon */}
                   <div className="relative mb-5">
-                    {/* Radial glow */}
                     <div
                       className="absolute -inset-4 rounded-full blur-xl"
                       style={{ background: "radial-gradient(circle, rgba(255,165,0,0.15) 0%, transparent 70%)" }}
@@ -79,27 +78,30 @@ export function HowItWorksSection() {
                     </div>
                   </div>
 
-                  {/* Title */}
                   <h3 className="font-heading font-extrabold text-lg text-white lowercase mb-2">
                     {item.title}
                   </h3>
 
-                  {/* Description */}
                   <p
                     className="font-body font-normal text-sm leading-relaxed max-w-[200px]"
                     style={{ color: "#888888" }}
                   >
                     {item.desc}
                   </p>
-                </motion.div>
+                </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Mobile: vertical timeline */}
-        <div className="md:hidden relative pl-10">
-          {/* Vertical connecting line */}
+        {/* Mobile: vertical timeline — all at once */}
+        <motion.div
+          className="md:hidden relative pl-10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div
             className="absolute left-[22px] top-0 bottom-0 w-px"
             style={{
@@ -108,18 +110,13 @@ export function HowItWorksSection() {
           />
 
           <div className="flex flex-col gap-12">
-            {steps.map((item, index) => {
+            {steps.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div
+                <div
                   key={item.step}
                   className="relative flex items-start gap-5"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
                 >
-                  {/* Icon on the line */}
                   <div className="absolute -left-10 top-0">
                     <div className="relative">
                       <div
@@ -139,7 +136,6 @@ export function HowItWorksSection() {
                     </div>
                   </div>
 
-                  {/* Text content */}
                   <div className="pt-1">
                     <span
                       className="font-body font-semibold text-xs tracking-widest"
@@ -157,11 +153,11 @@ export function HowItWorksSection() {
                       {item.desc}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

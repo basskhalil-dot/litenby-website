@@ -33,8 +33,8 @@ export function CollabsSection() {
           style={{ color: "#FFA500" }}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           SELECTED
         </motion.p>
@@ -42,44 +42,27 @@ export function CollabsSection() {
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1], delay: 0.1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           collabs
         </motion.h2>
       </div>
 
       <div className="container">
+        {/* Entire grid appears at once — no stagger */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 gap-4"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-          }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          {mediaItems.map((item, index) => (
-            <motion.div
+          {mediaItems.map((item) => (
+            <div
               key={item.id}
-              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5]"
+              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
               style={{ border: "1px solid #333333" }}
-              variants={{
-                hidden: { y: 50, scale: 0.9, opacity: 0 },
-                visible: {
-                  y: 0,
-                  scale: 1,
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    stiffness: 350,
-                    damping: 25,
-                    delay: index * 0.05,
-                  },
-                },
-              }}
-              whileHover={{ scale: 1.02 }}
             >
               <img
                 src={item.url}
@@ -98,7 +81,7 @@ export function CollabsSection() {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>
