@@ -53,7 +53,7 @@ export function CollabsSection() {
           {mediaItems.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`relative overflow-hidden rounded-xl cursor-default ${item.span}`}
+              className={`relative overflow-hidden rounded-none cursor-default ${item.span}`}
               variants={{
                 hidden: { y: 50, scale: 0.9, opacity: 0 },
                 visible: {
