@@ -30,7 +30,7 @@ function PackagingCard({
       onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
       {/* Image container */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-white transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.15)]">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl border border-[hsl(0,0%,13%)] bg-background transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.15)]">
         <img
           src={product.primaryImage}
           alt={product.name}
