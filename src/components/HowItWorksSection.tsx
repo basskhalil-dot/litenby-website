@@ -11,7 +11,7 @@ const steps = [
 export function HowItWorksSection() {
   return (
     <section className="relative w-full" style={{ padding: "100px 0", backgroundColor: "#000000" }}>
-      <div className="container max-w-5xl mx-auto px-4">
+      <div className="container">
         {/* Header */}
         <motion.div
           className="mb-20 text-center"

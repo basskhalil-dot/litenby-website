@@ -49,7 +49,7 @@ export function CollabsSection() {
         </motion.h2>
       </div>
 
-      <div className="container mx-auto px-4 max-w-5xl">
+      <div className="container">
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 gap-4"
           initial="hidden"
