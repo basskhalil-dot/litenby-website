@@ -29,14 +29,13 @@ export function CollabsSection() {
     <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.p
-          className="font-body font-semibold lowercase text-sm tracking-[0.3em] mb-3"
-          style={{ color: "#FFA500" }}
+          className="font-body font-semibold uppercase text-sm tracking-widest mb-3 text-highlight"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          SELECTED
+          PROJECT COLLABS
         </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
