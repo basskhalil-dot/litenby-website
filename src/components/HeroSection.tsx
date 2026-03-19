@@ -121,7 +121,7 @@ export function HeroSection() {
       <div className="container relative z-10 flex min-h-[90vh] items-center">
         <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left: Text */}
-          <div className="flex flex-col items-start order-2 lg:order-1">
+          <div className="flex flex-col items-start order-2 lg:order-1 lg:pr-12">
             <motion.div
               custom={0}
               variants={fadeUpVariants}
@@ -173,17 +173,17 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative flex items-center justify-center order-1 lg:order-2 min-h-[40vh] lg:min-h-[70vh]"
+            className="relative flex items-center justify-center order-1 lg:order-2 min-h-[50vh] lg:min-h-[80vh]"
           >
             {/* Orange radial glow */}
             <div
               className="absolute pointer-events-none"
               style={{
-                width: "120%",
-                height: "120%",
-                top: "-10%",
-                left: "-10%",
-                background: "radial-gradient(ellipse at 50% 50%, rgba(255,165,0,0.15) 0%, rgba(255,165,0,0.06) 35%, transparent 65%)",
+                width: "140%",
+                height: "140%",
+                top: "-20%",
+                left: "-20%",
+                background: "radial-gradient(ellipse at 50% 50%, rgba(255,165,0,0.18) 0%, rgba(255,165,0,0.07) 35%, transparent 60%)",
               }}
             />
 
@@ -197,10 +197,9 @@ export function HeroSection() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="relative z-10 w-[50vw] sm:w-[40vw] lg:w-auto drop-shadow-[0_0_40px_rgba(255,165,0,0.15)]"
+              className="relative z-10 w-[60vw] sm:w-[45vw] lg:w-auto drop-shadow-[0_0_50px_rgba(255,165,0,0.18)]"
               style={{
-                height: "auto",
-                maxHeight: "60vh",
+                height: "75vh",
                 objectFit: "contain",
               }}
               draggable={false}
