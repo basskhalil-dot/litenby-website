@@ -23,7 +23,7 @@ export function CTASection() {
       </div>
 
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
           {/* Text content */}
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <motion.h2
@@ -32,7 +32,7 @@ export function CTASection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px] leading-[1.05]"
+              className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[58px] leading-[1.08] max-w-[620px]"
             >
               ready to start your brand journey?
             </motion.h2>
@@ -71,25 +71,21 @@ export function CTASection() {
             viewport={{ once: true, margin: "-100px" }}
             className="relative mx-auto flex items-center justify-center"
           >
-            {/* Pulsing glow behind sphere */}
-            <motion.div
-              animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            {/* Static glow behind sphere */}
+            <div
               className="absolute rounded-full"
               style={{
-                width: 280,
-                height: 280,
-                background: "radial-gradient(circle, rgba(255,165,0,0.25) 0%, rgba(255,165,0,0.08) 50%, transparent 70%)",
+                width: 300,
+                height: 300,
+                background: "radial-gradient(circle, rgba(255,165,0,0.2) 0%, rgba(255,165,0,0.06) 50%, transparent 70%)",
               }}
             />
 
-            {/* Slowly rotating sphere */}
-            <motion.img
+            {/* Static sphere */}
+            <img
               src={iconBig}
               alt="Litenby abstract sphere"
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="relative z-10 w-[180px] h-[180px] md:w-[220px] md:h-[220px]"
+              className="relative z-10 w-[180px] h-[180px] md:w-[240px] md:h-[240px] drop-shadow-[0_0_40px_rgba(255,165,0,0.2)]"
               style={{ objectFit: "contain" }}
               draggable={false}
             />
