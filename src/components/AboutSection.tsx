@@ -16,7 +16,7 @@ const fadeUp = {
 
 export function AboutSection() {
   return (
-    <section className="w-full bg-background py-24 lg:py-32">
+    <section className="w-full bg-background py-16 lg:py-24">
       <div className="container">
         <div className="mx-auto max-w-3xl text-center">
 
