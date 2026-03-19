@@ -29,7 +29,7 @@ export function CollabsSection() {
     <section className="relative w-full bg-white" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.h2
-          className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
+          className="font-heading text-4xl font-extrabold lowercase text-black md:text-5xl lg:text-[68px]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
