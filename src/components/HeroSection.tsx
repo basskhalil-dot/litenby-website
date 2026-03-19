@@ -121,7 +121,7 @@ export function HeroSection() {
       <div className="container relative z-10 flex min-h-[90vh] items-center">
         <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left: Text */}
-          <div className="flex flex-col items-start order-2 lg:order-1">
+          <div className="flex flex-col items-start order-2 lg:order-1 lg:pr-12">
             <motion.div
               custom={0}
               variants={fadeUpVariants}
