@@ -26,10 +26,10 @@ const mediaItems: MediaItemType[] = [
 
 export function CollabsSection() {
   return (
-    <section className="relative w-full bg-white" style={{ padding: "100px 0" }}>
+    <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.h2
-          className="font-heading text-4xl font-extrabold lowercase text-black md:text-5xl lg:text-[68px]"
+          className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -39,9 +39,9 @@ export function CollabsSection() {
         </motion.h2>
       </div>
 
-      <div className="w-full">
+      <div className="container mx-auto px-4 max-w-5xl">
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-0 auto-rows-[60px]"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-[60px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
@@ -53,7 +53,7 @@ export function CollabsSection() {
           {mediaItems.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`relative overflow-hidden rounded-none cursor-default ${item.span}`}
+              className={`relative overflow-hidden rounded-xl cursor-default ${item.span}`}
               variants={{
                 hidden: { y: 50, scale: 0.9, opacity: 0 },
                 visible: {
