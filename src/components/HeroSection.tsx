@@ -141,7 +141,7 @@ export function HeroSection() {
               className="font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-7xl lg:text-[110px]"
             >
               litenby is a{" "}
-              <span className="text-primary">creative</span> lab
+              <span className="lg:whitespace-nowrap"><span className="text-primary">creative</span> lab</span>
             </motion.h1>
 
             <motion.p
