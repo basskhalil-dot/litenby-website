@@ -36,7 +36,7 @@ export function CollabsSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
         >
-          projects and collaborations across branding, packaging and motion design
+          SELECTED
         </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
