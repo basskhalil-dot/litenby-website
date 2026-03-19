@@ -1,44 +1,18 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-import packBottle1 from "@/assets/pack-bottle-1.jpg";
-import packBottle1Hover from "@/assets/pack-bottle-1-hover.jpg";
-import packBottle2 from "@/assets/pack-bottle-2.jpg";
-import packBottle2Hover from "@/assets/pack-bottle-2-hover.jpg";
-import packBottle3 from "@/assets/pack-bottle-3.jpg";
-import packBottle3Hover from "@/assets/pack-bottle-3-hover.jpg";
-
-const products = [
-  {
-    name: "Aura Mist Bottle",
-    primaryImage: packBottle1,
-    hoverImage: packBottle1Hover,
-  },
-  {
-    name: "Elixir Dropper Serum",
-    primaryImage: packBottle2,
-    hoverImage: packBottle2Hover,
-  },
-  {
-    name: "Velvet Cream Jar",
-    primaryImage: packBottle3,
-    hoverImage: packBottle3Hover,
-  },
-];
+import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
 
 function PackagingCard({
-  name,
-  primaryImage,
-  hoverImage,
+  product,
   index,
 }: {
-  name: string;
-  primaryImage: string;
-  hoverImage: string;
+  product: PackagingProduct;
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -47,32 +21,33 @@ function PackagingCard({
       viewport={{ once: true, margin: "-80px" }}
       transition={{
         duration: 0.8,
-        delay: 0.2 + index * 0.15,
+        delay: 0.2 + index * 0.1,
         ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
       }}
-      className="group flex flex-col"
+      className="group flex cursor-pointer flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
       {/* Image container */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-white">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-white transition-shadow duration-500 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.15)]">
         <img
-          src={primaryImage}
-          alt={name}
-          className="absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ease-in-out"
+          src={product.primaryImage}
+          alt={product.name}
+          className="absolute inset-0 h-full w-full object-contain transition-all duration-700 ease-in-out group-hover:scale-105"
           style={{ opacity: isHovered ? 0 : 1 }}
         />
         <img
-          src={hoverImage}
-          alt={`${name} alternate view`}
-          className="absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ease-in-out"
+          src={product.hoverImage}
+          alt={`${product.name} alternate view`}
+          className="absolute inset-0 h-full w-full object-contain transition-all duration-700 ease-in-out group-hover:scale-105"
           style={{ opacity: isHovered ? 1 : 0 }}
         />
       </div>
 
       {/* Product name */}
       <p className="mt-4 text-center font-body text-sm font-medium tracking-wide text-muted-foreground">
-        {name}
+        {product.name}
       </p>
     </motion.div>
   );
@@ -81,7 +56,7 @@ function PackagingCard({
 export function PackagingLabSection() {
   return (
     <section className="relative w-full bg-background py-16 lg:py-24">
-      <div className="container">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -101,10 +76,10 @@ export function PackagingLabSection() {
           </h2>
         </motion.div>
 
-        {/* 3-card grid */}
+        {/* 3×2 grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-          {products.map((product, i) => (
-            <PackagingCard key={product.name} {...product} index={i} />
+          {packagingProducts.map((product, i) => (
+            <PackagingCard key={product.id} product={product} index={i} />
           ))}
         </div>
 
