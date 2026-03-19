@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import heroBottle from "@/assets/hero-bottle.png";
 
 function ElegantShape({
   className,
@@ -118,9 +119,9 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="container relative z-10 flex min-h-[90vh] items-center">
-        <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left: Text */}
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start order-2 lg:order-1">
             <motion.div
               custom={0}
               variants={fadeUpVariants}
@@ -167,26 +168,40 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right: 3D Bottle Placeholder */}
+          {/* Right: Hero Bottle */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative hidden lg:flex lg:items-center lg:justify-center"
+            className="relative flex items-center justify-center order-1 lg:order-2"
           >
-            <div className="relative flex h-[500px] w-[400px] items-center justify-center">
-              {/* Glow ring */}
-              <div className="absolute h-[360px] w-[360px] rounded-full border border-primary/10 shadow-[0_0_80px_rgba(255,165,0,0.08)]" />
-              <div className="absolute h-[280px] w-[280px] rounded-full border border-primary/5" />
-              {/* Placeholder bottle area */}
-              <div className="flex h-[320px] w-[160px] flex-col items-center justify-center rounded-[80px] border border-border/30 bg-muted/5 backdrop-blur-sm">
-                <div className="h-16 w-10 rounded-t-lg border border-border/20 bg-muted/10" />
-                <div className="mt-1 h-40 w-24 rounded-b-[40px] rounded-t-lg border border-border/20 bg-gradient-to-b from-muted/10 to-muted/5" />
-                <span className="mt-4 font-body text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground/40">
-                  3d asset
-                </span>
-              </div>
-            </div>
+            {/* Orange radial glow */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(circle at 50% 50%, rgba(255,165,0,0.12) 0%, rgba(255,165,0,0.04) 40%, transparent 70%)",
+              }}
+            />
+
+            {/* Floating bottle */}
+            <motion.img
+              src={heroBottle}
+              alt="Litenby branded bottle"
+              animate={{ y: [0, -12, 0] }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative z-10 w-auto max-w-[280px] sm:max-w-[320px] lg:max-w-[380px]"
+              style={{
+                height: "auto",
+                maxHeight: "50vh",
+                objectFit: "contain",
+                imageRendering: "auto",
+              }}
+              draggable={false}
+            />
           </motion.div>
         </div>
       </div>
