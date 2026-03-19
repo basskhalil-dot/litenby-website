@@ -41,7 +41,7 @@ export function CollabsSection() {
 
       <div className="container mx-auto px-4 max-w-5xl">
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-[60px]"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-0 auto-rows-[60px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
