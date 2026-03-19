@@ -6,6 +6,7 @@ import collab2 from "@/assets/collab-2.jpg";
 import collab3 from "@/assets/collab-3.jpg";
 import collab4 from "@/assets/collab-4.jpg";
 import collab5 from "@/assets/collab-5.jpg";
+import collab6 from "@/assets/collab-6.jpg";
 
 interface MediaItemType {
   id: number;
@@ -21,19 +22,29 @@ const mediaItems: MediaItemType[] = [
   { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-5" },
   { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-4" },
   { id: 5, title: "Campaign", desc: "Marketing & creative direction", url: collab5, span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-3" },
-  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab1, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-4" },
+  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-4" },
 ];
 
 export function CollabsSection() {
   return (
     <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
+        <motion.p
+          className="font-body font-semibold lowercase text-sm tracking-wide mb-3"
+          style={{ color: "#888888" }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+        >
+          projects and collaborations across branding, packaging and motion design
+        </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+          transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1], delay: 0.1 }}
         >
           collabs
         </motion.h2>
@@ -53,7 +64,8 @@ export function CollabsSection() {
           {mediaItems.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`relative overflow-hidden rounded-xl cursor-default ${item.span}`}
+              className={`relative overflow-hidden rounded-[12px] cursor-default ${item.span}`}
+              style={{ border: "1px solid #333333" }}
               variants={{
                 hidden: { y: 50, scale: 0.9, opacity: 0 },
                 visible: {
