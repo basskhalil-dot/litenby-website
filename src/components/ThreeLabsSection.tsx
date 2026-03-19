@@ -74,11 +74,11 @@ export function ThreeLabsSection() {
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(255,165,0,0.06)]"
             >
               {/* Image area */}
-              <div className="relative h-64 w-full overflow-hidden md:h-72 lg:h-80">
+              <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
                 <img
                   src={lab.image}
                   alt={lab.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
