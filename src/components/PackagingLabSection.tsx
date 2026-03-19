@@ -55,8 +55,8 @@ export function PackagingLabSection() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
-            Showcase
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
+            LAB SHOWCASE
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the packaging lab

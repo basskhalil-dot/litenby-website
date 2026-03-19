@@ -20,17 +20,16 @@ export function AboutSection() {
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           <div className="flex flex-col items-center gap-6">
-            <motion.div
+            <motion.span
               custom={1}
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
+              className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight"
             >
-              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20">
-                since 2010
-              </Badge>
-            </motion.div>
+              THE STORY
+            </motion.span>
 
             <motion.div
               custom={2}

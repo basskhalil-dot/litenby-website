@@ -20,11 +20,8 @@ export function HowItWorksSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span
-            className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em]"
-            style={{ color: "#FFA500" }}
-          >
-            Process
+          <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
+            OUR PROCESS
           </span>
           <h2 className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]">
             how it works
