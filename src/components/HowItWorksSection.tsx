@@ -89,7 +89,7 @@ export function HowItWorksSection() {
   };
 
   return (
-    <section className="relative w-full bg-background py-24 lg:py-32 overflow-hidden">
+    <section className="relative w-full bg-background py-16 lg:py-24 overflow-hidden">
       <div className="container">
         {/* Header */}
         <div className="mb-16 text-center">

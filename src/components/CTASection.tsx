@@ -102,7 +102,7 @@ const fadeUp = {
 
 export function CTASection() {
   return (
-    <section className="relative w-full bg-background overflow-hidden" style={{ paddingTop: 150, paddingBottom: 150 }}>
+    <section className="relative w-full bg-background overflow-hidden" style={{ paddingTop: 100, paddingBottom: 100 }}>
       {/* Orange glow */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="h-[500px] w-[700px] rounded-full bg-primary/10 blur-[160px]" />

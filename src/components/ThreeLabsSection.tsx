@@ -43,7 +43,7 @@ const cardVariants = {
 
 export function ThreeLabsSection() {
   return (
-    <section className="relative w-full bg-background py-24 lg:py-32">
+    <section className="relative w-full bg-background py-16 lg:py-24">
       <div className="container">
         {/* Section header */}
         <motion.div
