@@ -26,7 +26,7 @@ const mediaItems: MediaItemType[] = [
 
 export function CollabsSection() {
   return (
-    <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
+    <section className="relative w-full bg-white" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
