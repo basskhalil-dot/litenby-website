@@ -32,7 +32,7 @@ export function CTASection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px] leading-[1.05]"
+              className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[58px] leading-[1.08] max-w-[620px]"
             >
               ready to start your brand journey?
             </motion.h2>
