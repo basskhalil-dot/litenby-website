@@ -6,24 +6,14 @@ import { packagingProducts, type PackagingProduct } from "@/data/packagingProduc
 
 function PackagingCard({
   product,
-  index,
 }: {
   product: PackagingProduct;
-  index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration: 0.8,
-        delay: 0.2 + index * 0.1,
-        ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-      }}
+    <div
       className="group flex cursor-pointer flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -49,7 +39,7 @@ function PackagingCard({
       <p className="mt-4 text-center font-body text-sm font-medium tracking-wide text-muted-foreground">
         {product.name}
       </p>
-    </motion.div>
+    </div>
   );
 }
 
@@ -61,11 +51,8 @@ export function PackagingLabSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{
-            duration: 0.8,
-            ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
-          }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-[0.3em] text-primary">
@@ -76,19 +63,25 @@ export function PackagingLabSection() {
           </h2>
         </motion.div>
 
-        {/* 3×2 grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
-          {packagingProducts.map((product, i) => (
-            <PackagingCard key={product.id} product={product} index={i} />
+        {/* 3×2 grid — all appear at once */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
+        >
+          {packagingProducts.map((product) => (
+            <PackagingCard key={product.id} product={product} />
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
           <Button className="bg-primary px-8 py-3 text-base font-bold text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">

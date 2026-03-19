@@ -25,7 +25,7 @@ function ElegantShape({
       initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
       animate={{ opacity: 1, y: 0, rotate }}
       transition={{
-        duration: 2.4,
+        duration: 0.8,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
@@ -58,14 +58,14 @@ function ElegantShape({
 }
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1,
-      delay: 0.5 + i * 0.2,
-      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+      duration: 0.2,
+      delay: 0.1 + i * 0.05,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   }),
 };
@@ -76,7 +76,7 @@ export function HeroSection() {
       {/* Geometric floating shapes */}
       <div className="absolute inset-0 overflow-hidden">
         <ElegantShape
-          delay={0.3}
+          delay={0.1}
           width={600}
           height={140}
           rotate={12}
@@ -84,7 +84,7 @@ export function HeroSection() {
           className="-left-[10%] top-[15%]"
         />
         <ElegantShape
-          delay={0.5}
+          delay={0.15}
           width={500}
           height={120}
           rotate={-15}
@@ -92,7 +92,7 @@ export function HeroSection() {
           className="-right-[5%] top-[20%]"
         />
         <ElegantShape
-          delay={0.4}
+          delay={0.12}
           width={300}
           height={80}
           rotate={-8}
@@ -100,7 +100,7 @@ export function HeroSection() {
           className="bottom-[15%] left-[5%]"
         />
         <ElegantShape
-          delay={0.6}
+          delay={0.18}
           width={200}
           height={60}
           rotate={20}
@@ -108,7 +108,7 @@ export function HeroSection() {
           className="bottom-[25%] right-[15%]"
         />
         <ElegantShape
-          delay={0.7}
+          delay={0.2}
           width={150}
           height={40}
           rotate={-25}
@@ -170,9 +170,9 @@ export function HeroSection() {
 
           {/* Right: Hero Bottle */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+            transition={{ duration: 0.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative flex items-center justify-center order-1 lg:order-2 min-h-[50vh] lg:min-h-[80vh]"
           >
             {/* Orange radial glow */}
