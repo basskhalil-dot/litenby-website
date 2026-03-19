@@ -13,16 +13,15 @@ interface MediaItemType {
   title: string;
   desc: string;
   url: string;
-  span: string;
 }
 
 const mediaItems: MediaItemType[] = [
-  { id: 1, title: "Brand Identity", desc: "Visual system & logo design", url: collab1, span: "col-span-1 sm:col-span-1 md:col-span-2 row-span-4" },
-  { id: 2, title: "Packaging", desc: "Product packaging design", url: collab2, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-3" },
-  { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-5" },
-  { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-4" },
-  { id: 5, title: "Campaign", desc: "Marketing & creative direction", url: collab5, span: "col-span-1 sm:col-span-2 md:col-span-2 row-span-3" },
-  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6, span: "col-span-1 sm:col-span-1 md:col-span-1 row-span-4" },
+  { id: 1, title: "Brand Identity", desc: "Visual system & logo design", url: collab1 },
+  { id: 2, title: "Packaging", desc: "Product packaging design", url: collab2 },
+  { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3 },
+  { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4 },
+  { id: 5, title: "Campaign", desc: "Marketing & creative direction", url: collab5 },
+  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6 },
 ];
 
 export function CollabsSection() {
@@ -30,8 +29,8 @@ export function CollabsSection() {
     <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.p
-          className="font-body font-semibold lowercase text-sm tracking-wide mb-3"
-          style={{ color: "#888888" }}
+          className="font-body font-semibold lowercase text-sm tracking-[0.3em] mb-3"
+          style={{ color: "#FFA500" }}
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -52,7 +51,7 @@ export function CollabsSection() {
 
       <div className="container mx-auto px-4 max-w-5xl">
         <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 auto-rows-[60px]"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
@@ -64,7 +63,7 @@ export function CollabsSection() {
           {mediaItems.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`relative overflow-hidden rounded-[12px] cursor-default ${item.span}`}
+              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5]"
               style={{ border: "1px solid #333333" }}
               variants={{
                 hidden: { y: 50, scale: 0.9, opacity: 0 },
@@ -89,20 +88,16 @@ export function CollabsSection() {
                 loading="lazy"
                 decoding="async"
               />
-              <motion.div
-                className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4 pointer-events-none"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              >
+              {/* Hover overlay with title & description */}
+              <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                <h3 className="relative text-white text-xs sm:text-sm font-heading font-extrabold lowercase line-clamp-1">
+                <h3 className="relative text-white text-xs sm:text-sm font-body font-semibold lowercase line-clamp-1">
                   {item.title}
                 </h3>
-                <p className="relative text-white/60 text-[10px] sm:text-xs mt-0.5 font-body line-clamp-2">
+                <p className="relative text-white/60 text-[10px] sm:text-xs mt-0.5 font-body font-normal line-clamp-2">
                   {item.desc}
                 </p>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
