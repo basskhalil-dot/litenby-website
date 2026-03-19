@@ -173,13 +173,17 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="relative flex items-center justify-center order-1 lg:order-2"
+            className="relative flex items-center justify-center order-1 lg:order-2 min-h-[40vh] lg:min-h-[70vh]"
           >
             {/* Orange radial glow */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute pointer-events-none"
               style={{
-                background: "radial-gradient(circle at 50% 50%, rgba(255,165,0,0.12) 0%, rgba(255,165,0,0.04) 40%, transparent 70%)",
+                width: "120%",
+                height: "120%",
+                top: "-10%",
+                left: "-10%",
+                background: "radial-gradient(ellipse at 50% 50%, rgba(255,165,0,0.15) 0%, rgba(255,165,0,0.06) 35%, transparent 65%)",
               }}
             />
 
@@ -187,18 +191,17 @@ export function HeroSection() {
             <motion.img
               src={heroBottle}
               alt="Litenby branded bottle"
-              animate={{ y: [0, -12, 0] }}
+              animate={{ y: [0, -20, 0] }}
               transition={{
-                duration: 6,
+                duration: 4.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="relative z-10 w-auto max-w-[280px] sm:max-w-[320px] lg:max-w-[380px]"
+              className="relative z-10 w-[50vw] sm:w-[40vw] lg:w-auto drop-shadow-[0_0_40px_rgba(255,165,0,0.15)]"
               style={{
                 height: "auto",
-                maxHeight: "50vh",
+                maxHeight: "60vh",
                 objectFit: "contain",
-                imageRendering: "auto",
               }}
               draggable={false}
             />
