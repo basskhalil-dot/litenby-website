@@ -71,25 +71,21 @@ export function CTASection() {
             viewport={{ once: true, margin: "-100px" }}
             className="relative mx-auto flex items-center justify-center"
           >
-            {/* Pulsing glow behind sphere */}
-            <motion.div
-              animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            {/* Static glow behind sphere */}
+            <div
               className="absolute rounded-full"
               style={{
-                width: 280,
-                height: 280,
-                background: "radial-gradient(circle, rgba(255,165,0,0.25) 0%, rgba(255,165,0,0.08) 50%, transparent 70%)",
+                width: 300,
+                height: 300,
+                background: "radial-gradient(circle, rgba(255,165,0,0.2) 0%, rgba(255,165,0,0.06) 50%, transparent 70%)",
               }}
             />
 
-            {/* Slowly rotating sphere */}
-            <motion.img
+            {/* Static sphere */}
+            <img
               src={iconBig}
               alt="Litenby abstract sphere"
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="relative z-10 w-[180px] h-[180px] md:w-[220px] md:h-[220px]"
+              className="relative z-10 w-[180px] h-[180px] md:w-[240px] md:h-[240px] drop-shadow-[0_0_40px_rgba(255,165,0,0.2)]"
               style={{ objectFit: "contain" }}
               draggable={false}
             />
