@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
