@@ -2,22 +2,28 @@ import React from 'react';
 import { Sheet, SheetContent, SheetFooter, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { MenuToggle } from '@/components/ui/menu-toggle';
+import litenbyLogo from '@/assets/litenby-logo.png';
 
 export function LitenbyNavbar() {
   const [open, setOpen] = React.useState(false);
 
   const links = [
-    { label: 'work', href: '#' },
-    { label: 'services', href: '#' },
-    { label: 'about', href: '#' },
+    { label: 'brand', href: '#' },
+    { label: 'packaging lab', href: '#' },
+    { label: 'launch', href: '#' },
+    { label: 'insight', href: '#' },
   ];
 
   return (
     <header className="w-full border-b border-border/40">
       <div className="container flex items-center justify-between py-4">
         {/* Logo */}
-        <a href="/" className="font-heading text-xl font-bold tracking-tight text-foreground">
-          litenby
+        <a href="/" className="flex-shrink-0">
+          <img
+            src={litenbyLogo}
+            alt="Litenby"
+            className="h-8 w-auto md:h-9"
+          />
         </a>
 
         {/* Desktop Nav */}
@@ -26,7 +32,7 @@ export function LitenbyNavbar() {
             <a
               key={link.label}
               href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="font-body text-sm font-semibold lowercase text-foreground transition-colors duration-300 hover:text-primary"
             >
               {link.label}
             </a>
@@ -49,7 +55,7 @@ export function LitenbyNavbar() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="text-lg text-muted-foreground transition-colors hover:text-foreground"
+                    className="font-body text-lg font-semibold lowercase text-foreground transition-colors duration-300 hover:text-primary"
                   >
                     {link.label}
                   </a>
