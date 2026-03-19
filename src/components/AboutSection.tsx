@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import aboutStudio from "@/assets/about-studio.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -19,29 +18,10 @@ export function AboutSection() {
   return (
     <section className="w-full bg-background py-24 lg:py-32">
       <div className="container">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          {/* Image */}
-          <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="order-last lg:order-first"
-          >
-            <div className="relative overflow-hidden rounded-2xl">
-              <img
-                src={aboutStudio}
-                alt="Litenby creative studio workspace"
-                className="h-auto w-full object-cover"
-              />
-              {/* Subtle overlay */}
-              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-foreground/5" />
-            </div>
-          </motion.div>
+        <div className="mx-auto max-w-3xl text-center">
 
           {/* Content */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-6">
             <motion.div
               custom={1}
               variants={fadeUp}
