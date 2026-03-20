@@ -31,7 +31,8 @@ export function Footer() {
               variant="ghost"
               size="icon"
               asChild
-              className="h-10 w-10 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              className="h-10 w-10 rounded-full text-black hover:opacity-80"
+              style={{ background: "#FFFF00" }}
             >
               <a href="#" aria-label="Instagram">
                 <Instagram className="h-4 w-4" />
