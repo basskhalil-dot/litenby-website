@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import iconBig from "@/assets/icon-big.png";
 
 const fadeUp = {
