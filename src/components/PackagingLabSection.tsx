@@ -84,9 +84,7 @@ export function PackagingLabSection() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
-          <Button className="bg-primary px-8 py-3 text-base font-bold text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
-            explore packaging
-          </Button>
+          <Button size="lg">explore packaging</Button>
         </motion.div>
       </div>
     </section>
