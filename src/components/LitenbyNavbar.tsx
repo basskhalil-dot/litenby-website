@@ -37,7 +37,7 @@ export function LitenbyNavbar() {
               {link.label}
             </a>
           ))}
-          <Button size="default">start your brand</Button>
+          <Button variant="gooeyRight" size="default">start your brand</Button>
         </nav>
 
         {/* Mobile Toggle */}
