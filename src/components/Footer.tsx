@@ -24,14 +24,15 @@ export function Footer() {
         {/* Top row: logo + social */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src={litenbyLogo} alt="Litenby" className="h-16 w-auto md:h-20" />
+            <img src={litenbyLogo} alt="Litenby" className="h-10 w-auto md:h-14" />
           </div>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
               asChild
-              className="h-10 w-10 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              className="h-10 w-10 rounded-full text-black hover:opacity-80"
+              style={{ background: "#FFFF00" }}
             >
               <a href="#" aria-label="Instagram">
                 <Instagram className="h-4 w-4" />
