@@ -37,7 +37,7 @@ export function LitenbyNavbar() {
               {link.label}
             </a>
           ))}
-          <Button size="default">start your brand</Button>
+          <Button variant="gooeyRight" size="default">start your brand</Button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -62,7 +62,7 @@ export function LitenbyNavbar() {
                 ))}
               </nav>
               <SheetFooter className="mt-8 flex flex-col items-center gap-3 sm:flex-col">
-                <Button className="w-full max-w-xs">start your brand</Button>
+                <Button variant="gooeyRight" className="w-full max-w-xs">start your brand</Button>
               </SheetFooter>
             </SheetContent>
           </Sheet>
