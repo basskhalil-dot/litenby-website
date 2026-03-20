@@ -24,7 +24,7 @@ export function Footer() {
         {/* Top row: logo + social */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src={litenbyLogo} alt="Litenby" className="h-16 w-auto md:h-20" />
+            <img src={litenbyLogo} alt="Litenby" className="h-10 w-auto md:h-14" />
           </div>
           <div className="flex items-center gap-2">
             <Button
