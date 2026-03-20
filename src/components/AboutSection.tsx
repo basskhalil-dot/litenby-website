@@ -82,7 +82,7 @@ export function AboutSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-foreground md:text-4xl lg:text-5xl leading-[1.1]"
+              className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
             >
               ready to start your brand journey?
             </motion.h3>
