@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 
 const fadeUp = {
@@ -106,9 +107,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-4"
             >
-              <button className="rounded-full bg-primary px-10 py-4 font-body text-[1.05rem] font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
-                start your brand
-              </button>
+              <Button size="lg">start your brand</Button>
             </motion.div>
           </div>
         </div>
