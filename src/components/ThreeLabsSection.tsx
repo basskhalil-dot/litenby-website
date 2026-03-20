@@ -84,8 +84,6 @@ export function ThreeLabsSection() {
                   {lab.description}
                 </p>
 
-                {/* Bottom accent line */}
-                <div className="mt-6 h-px w-full bg-gradient-to-r from-primary/40 via-primary/10 to-transparent" />
               </div>
             </div>
           ))}
