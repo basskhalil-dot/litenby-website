@@ -59,7 +59,7 @@ export function ThreeLabsSection() {
           {labs.map((lab) => (
             <div
               key={lab.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(255,165,0,0.06)]"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,165,0,0.06)]"
             >
               {/* Image area */}
               <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
