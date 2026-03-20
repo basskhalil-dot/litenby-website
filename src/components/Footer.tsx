@@ -39,8 +39,8 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-[hsl(0,0%,0%)]">
-      <div className="container py-16 lg:py-20">
+    <footer className="w-full" style={{ background: "#000000" }}>
+      <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,8 +50,8 @@ export function Footer() {
         >
           {/* Brand */}
           <div className="lg:col-span-4">
-            <img src={litenbyLogo} alt="Litenby" className="h-16 w-auto md:h-20" />
-            <p className="mt-4 max-w-xs font-body text-sm leading-relaxed text-muted-foreground">
+            <img src={litenbyLogo} alt="Litenby" className="h-20 w-auto md:h-28" />
+            <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-muted-foreground">
               a creative lab for brands that refuse to blend in.
             </p>
           </div>
@@ -60,7 +60,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-7 lg:col-start-6">
             {columns.map((col) => (
               <div key={col.title}>
-                <h3 className="mb-4 font-heading text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+                <h3 className="mb-5 font-body text-xs font-semibold uppercase tracking-widest text-highlight">
                   {col.title}
                 </h3>
                 <ul className="flex flex-col gap-3">
@@ -68,7 +68,7 @@ export function Footer() {
                     <li key={link.label}>
                       <a
                         href={link.href}
-                        className="inline-flex items-center gap-2 font-body text-sm text-foreground/70 transition-colors duration-300 hover:text-primary"
+                        className="inline-flex items-center gap-2 font-body text-sm text-foreground/70 transition-colors duration-300 hover:text-highlight"
                       >
                         {link.icon && <Instagram className="h-4 w-4" />}
                         {link.label}
@@ -81,15 +81,17 @@ export function Footer() {
           </div>
         </motion.div>
 
-        <div className="my-14 h-px w-full bg-border/40" />
+        {/* Separator */}
+        <div className="my-16 h-px w-full" style={{ background: "rgba(255,255,255,0.08)" }} />
 
+        {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="font-body text-xs text-muted-foreground/50">
             © 2026 litenby creative lab
           </p>
           <button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 font-body text-xs text-muted-foreground transition-colors duration-300 hover:text-primary"
+            className="group flex items-center gap-2 font-body text-xs text-muted-foreground transition-colors duration-300 hover:text-highlight"
           >
             back to top
             <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
