@@ -39,7 +39,7 @@ export function HowItWorksSection() {
         {/* Desktop blueprint */}
         <div className="hidden md:block relative">
           {/* Animated dashed connecting line */}
-          <div className="absolute left-[12.5%] right-[12.5%] pointer-events-none" style={{ top: "68px" }}>
+          <div className="absolute left-[12.5%] right-[12.5%] pointer-events-none" style={{ top: "60px" }}>
             <motion.div
               className="h-px w-full origin-left"
               style={{
