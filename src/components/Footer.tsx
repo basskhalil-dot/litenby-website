@@ -32,7 +32,7 @@ export function Footer() {
               size="icon"
               asChild
               className="h-10 w-10 rounded-full text-black hover:opacity-80"
-              style={{ background: "#FFFF00" }}
+              style={{ background: "#FFA500" }}
             >
               <a href="#" aria-label="Instagram">
                 <Instagram className="h-4 w-4" />
