@@ -1,5 +1,4 @@
 import { Instagram, ArrowUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import litenbyLogo from "@/assets/litenby-logo.png";
 
 const columns = [
@@ -27,6 +26,10 @@ const columns = [
       { label: "contact", href: "mailto:hello@litenby.net" },
     ],
   },
+  {
+    title: "social",
+    links: [{ label: "Instagram", href: "#", icon: true }],
+  },
 ];
 
 export function Footer() {
@@ -36,31 +39,18 @@ export function Footer() {
   return (
     <footer style={{ background: "#000000" }}>
       <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
-        {/* Top: brand + social */}
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex items-center gap-4">
-            <img src={litenbyLogo} alt="Litenby" className="h-24 w-auto md:h-32" />
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-full text-muted-foreground hover:text-white">
-              <a href="#" aria-label="Instagram">
-                <Instagram className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
-        </div>
-
-        {/* Middle: nav columns + tagline */}
-        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Tagline */}
+        {/* Top: logo + columns */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+          {/* Brand */}
           <div className="lg:col-span-4">
-            <p className="max-w-xs font-body text-sm leading-relaxed text-muted-foreground">
+            <img src={litenbyLogo} alt="Litenby" className="h-24 w-auto md:h-32" />
+            <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-muted-foreground">
               a creative lab for brands that refuse to blend in.
             </p>
           </div>
 
           {/* Nav columns */}
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-7 lg:col-start-6">
             {columns.map((col) => (
               <div key={col.title}>
                 <h3
@@ -74,8 +64,9 @@ export function Footer() {
                     <li key={link.label}>
                       <a
                         href={link.href}
-                        className="font-body text-sm text-muted-foreground transition-colors duration-200 hover:text-white"
+                        className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground transition-colors duration-200 hover:text-white"
                       >
+                        {link.icon && <Instagram className="h-4 w-4" />}
                         {link.label}
                       </a>
                     </li>
