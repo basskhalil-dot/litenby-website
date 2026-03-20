@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import iconBig from "@/assets/icon-big.png";
 
 const fadeUp = {
@@ -57,9 +56,9 @@ export function CTASection() {
               viewport={{ once: true, margin: "-100px" }}
               className="mt-10"
             >
-              <Button variant="gooeyRight" className="px-10 py-4 font-body text-[1.05rem] font-semibold hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
+              <button className="rounded-full bg-primary px-10 py-4 font-body text-[1.05rem] font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
                 start your brand
-              </Button>
+              </button>
             </motion.div>
           </div>
 

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import heroBottle from "@/assets/hero-bottle.png";
 
 function ElegantShape({
@@ -163,9 +162,9 @@ export function HeroSection() {
               animate="visible"
               className="mt-8"
             >
-              <Button variant="gooeyRight" className="px-9 py-3.5 font-body text-[0.938rem] font-semibold hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
+              <button className="rounded-full bg-primary px-9 py-3.5 font-body text-[0.938rem] font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
                 start your brand
-              </Button>
+              </button>
             </motion.div>
           </div>
 
