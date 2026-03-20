@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Instagram, ArrowUp } from "lucide-react";
 import litenbyLogo from "@/assets/litenby-logo.png";
 
@@ -41,16 +40,15 @@ export function Footer() {
   return (
     <footer className="w-full" style={{ background: "#000000" }}>
       <div className="mx-auto max-w-7xl px-6 py-20 lg:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 gap-16 lg:grid-cols-12"
-        >
-          {/* Brand */}
+        {/* Main grid */}
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+          {/* Brand column */}
           <div className="lg:col-span-4">
-            <img src={litenbyLogo} alt="Litenby" className="h-20 w-auto md:h-28" />
+            <img
+              src={litenbyLogo}
+              alt="Litenby"
+              className="h-24 w-auto md:h-32"
+            />
             <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-muted-foreground">
               a creative lab for brands that refuse to blend in.
             </p>
@@ -60,7 +58,10 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-7 lg:col-start-6">
             {columns.map((col) => (
               <div key={col.title}>
-                <h3 className="mb-5 font-body text-xs font-semibold uppercase tracking-widest text-highlight">
+                <h3
+                  className="mb-5 font-body text-xs font-semibold uppercase tracking-widest"
+                  style={{ color: "#FFFF00" }}
+                >
                   {col.title}
                 </h3>
                 <ul className="flex flex-col gap-3">
@@ -68,7 +69,7 @@ export function Footer() {
                     <li key={link.label}>
                       <a
                         href={link.href}
-                        className="inline-flex items-center gap-2 font-body text-sm text-foreground/70 transition-colors duration-300 hover:text-highlight"
+                        className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground transition-colors duration-300 hover:text-white"
                       >
                         {link.icon && <Instagram className="h-4 w-4" />}
                         {link.label}
@@ -79,10 +80,13 @@ export function Footer() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Separator */}
-        <div className="my-16 h-px w-full" style={{ background: "rgba(255,255,255,0.08)" }} />
+        <div
+          className="my-16 h-px w-full"
+          style={{ background: "rgba(255,255,255,0.12)" }}
+        />
 
         {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -91,7 +95,7 @@ export function Footer() {
           </p>
           <button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 font-body text-xs text-muted-foreground transition-colors duration-300 hover:text-highlight"
+            className="group flex items-center gap-2 font-body text-xs text-muted-foreground transition-colors duration-300 hover:text-white"
           >
             back to top
             <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
