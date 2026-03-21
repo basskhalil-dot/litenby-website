@@ -4,7 +4,7 @@ import litenbyLogo from "@/assets/litenby-logo.png";
 
 const mainLinks = [
   { label: "branding", href: "/brand" },
-  { label: "packaging", href: "#" },
+  { label: "packaging", href: "/packaging" },
   { label: "storytelling", href: "#" },
   { label: "contact", href: "mailto:hello@litenby.net" },
 ];
