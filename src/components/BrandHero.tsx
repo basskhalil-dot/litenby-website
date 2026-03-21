@@ -24,7 +24,7 @@ export const BrandHero: React.FC<BrandHeroProps> = ({ images, className }) => {
   return (
     <section className={cn("relative w-full overflow-hidden bg-background", className)}>
       {/* Text content */}
-      <div className="mx-auto max-w-7xl px-6 pt-24 pb-16 text-center">
+      <div className="mx-auto max-w-7xl px-6 pt-24 pb-16 text-center lg:pt-32">
         <motion.p
           custom={0}
           variants={fadeVariants}
