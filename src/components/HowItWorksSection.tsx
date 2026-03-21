@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { Lightbulb, PenTool, Box, Rocket } from "lucide-react";
 
 const steps = [
-  { step: "01", title: "idea", desc: "You come with a concept and a product idea\nthat you want to bring to life.", icon: Lightbulb },
-  { step: "02", title: "brand", desc: "We design the identity, logo, and label system\nto shape how your product is perceived.", icon: PenTool },
-  { step: "03", title: "container", desc: "We help you choose the right packaging format\nbased on your product and positioning.", icon: Box },
-  { step: "04", title: "launch", desc: "We create visuals, content, and campaigns\nto introduce your product to the market.", icon: Rocket },
+  { step: "01", title: "idea", desc: "Every product begins with a vision.", icon: Lightbulb },
+  { step: "02", title: "brand", desc: "Building the core identity and strategy.", icon: PenTool },
+  { step: "03", title: "container", desc: "Designing the physical packaging lab.", icon: Box },
+  { step: "04", title: "launch", desc: "Full-spectrum storytelling and market release.", icon: Rocket },
 ];
 
 export function HowItWorksSection() {
@@ -85,7 +85,7 @@ export function HowItWorksSection() {
                   </h3>
 
                   {/* Description */}
-                  <p className="font-body font-normal text-sm leading-relaxed max-w-[200px] text-muted-foreground whitespace-pre-line">
+                  <p className="font-body font-normal text-sm leading-relaxed max-w-[200px] text-muted-foreground">
                     {item.desc}
                   </p>
                 </div>
@@ -136,7 +136,7 @@ export function HowItWorksSection() {
                     <h3 className="font-heading font-extrabold text-lg text-foreground lowercase mt-1 mb-1">
                       {item.title}
                     </h3>
-                    <p className="font-body font-normal text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
+                    <p className="font-body font-normal text-sm leading-relaxed text-muted-foreground">
                       {item.desc}
                     </p>
                   </div>

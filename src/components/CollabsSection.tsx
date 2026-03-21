@@ -35,7 +35,7 @@ export function CollabsSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          SELECTED WORK
+          PROJECT COLLABS
         </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
@@ -46,15 +46,6 @@ export function CollabsSection() {
         >
           collabs
         </motion.h2>
-        <motion.p
-          className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Selected projects and collaborations across branding, packaging, and motion.
-        </motion.p>
       </div>
 
       <div className="container">

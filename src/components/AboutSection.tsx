@@ -42,7 +42,7 @@ export function AboutSection() {
               className="flex flex-col gap-2"
             >
               <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
-                the litenby approach
+                the litenby story
               </h2>
             </motion.div>
 
@@ -54,7 +54,14 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              Litenby is built around a simple idea — turning concepts into real, tangible products.
+              With over 15 years of experience in{" "}
+              <span className="text-primary font-medium">advertising</span>,{" "}
+              <span className="text-primary font-medium">motion design</span>,
+              and{" "}
+              <span className="text-primary font-medium">branding</span>, we've
+              built Litenby into a creative lab obsessed with craft. Every
+              project is a chance to push boundaries — blending strategy with
+              bold aesthetics to create work that resonates and endures.
             </motion.p>
 
             <motion.p
@@ -65,7 +72,9 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              We collaborate with designers, manufacturers, and production partners<br />to create brands that are not only designed, but actually made and launched.
+              From concept to culture, we don't just build brands — we give them
+              a pulse. Our studio thrives at the intersection of design thinking
+              and cinematic storytelling, delivering identities that move people.
             </motion.p>
 
             {/* CTA — merged inline */}
@@ -77,7 +86,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
             >
-              start your brand
+              ready to start your brand journey?
             </motion.h3>
 
             <motion.p
@@ -88,7 +97,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg font-body"
             >
-              Bring us an idea and we will help you shape the brand,<br />choose the packaging, and launch it to the market.
+              let's build your product from scratch to the shelf.
             </motion.p>
 
             <motion.div

@@ -8,21 +8,21 @@ const labs = [
   {
     title: "Brand",
     description:
-      "We design identities, logos, and label systems\nthat give products a clear and distinctive voice.",
+      "We distill your vision into a bold identity system — logo, type, color, voice — built to cut through noise and command attention.",
     icon: Paintbrush,
     image: labBrand,
   },
   {
     title: "Packaging Lab",
     description:
-      "Browse a curated selection of jars, bottles, and boxes\nready to carry your product and brand into the market.",
+      "From concept to shelf, we design packaging that stops thumbs and turns heads. Tactile, iconic, impossible to ignore.",
     icon: Package,
     image: labPackaging,
   },
   {
     title: "Launch",
     description:
-      "We create photography, campaigns, and content\nthat position your product and make it visible.",
+      "Strategy, content, and go-to-market firepower. We don't just build brands — we launch them into culture.",
     icon: Rocket,
     image: labLaunch,
   },
@@ -46,9 +46,6 @@ export function ThreeLabsSection() {
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the three labs
           </h2>
-          <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
-            Three disciplines working together to design, build, and launch products.
-          </p>
         </motion.div>
 
         {/* Cards grid — all appear at once */}
@@ -83,7 +80,7 @@ export function ThreeLabsSection() {
                     {lab.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base whitespace-pre-line">
+                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base">
                   {lab.description}
                 </p>
 
