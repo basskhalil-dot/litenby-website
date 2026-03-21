@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { packagingLabProducts } from "@/data/packagingLabProducts";
@@ -76,43 +77,46 @@ function ProductCard({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex cursor-pointer flex-col"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Image container */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]" style={{ border: "1px solid #333333" }}>
-        {/* Naked / primary */}
-        <img
-          src={product.primaryImage}
-          alt={product.name}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
-          style={{ opacity: hovered ? 0 : 1 }}
-        />
-        {/* Labeled / hover */}
-        <img
-          src={product.hoverImage}
-          alt={`${product.name} labeled`}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
-          style={{ opacity: hovered ? 1 : 0 }}
-        />
-      </div>
+    <Link to={`/packaging-lab/${product.id}`}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="group flex cursor-pointer flex-col"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Image container */}
+        <div
+          className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 group-hover:scale-[1.02]"
+          style={{ border: "1px solid #333333" }}
+        >
+          <img
+            src={product.primaryImage}
+            alt={product.name}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+            style={{ opacity: hovered ? 0 : 1 }}
+          />
+          <img
+            src={product.hoverImage}
+            alt={`${product.name} labeled`}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+            style={{ opacity: hovered ? 1 : 0 }}
+          />
+        </div>
 
-      {/* Info */}
-      <div className="mt-2 sm:mt-3 flex items-center justify-between gap-2">
-        <p className="font-body text-xs sm:text-sm font-semibold lowercase text-foreground line-clamp-1">
-          {product.name}
-        </p>
-        <span className="rounded-full bg-primary/10 px-2 py-0.5 font-body text-[10px] sm:text-[11px] font-semibold capitalize text-primary">
-          {product.material}
-        </span>
-      </div>
-    </motion.div>
+        {/* Info */}
+        <div className="mt-2 sm:mt-3 flex items-center justify-between gap-2">
+          <p className="font-body text-xs sm:text-sm font-semibold lowercase line-clamp-1 transition-colors duration-300 text-foreground group-hover:text-primary">
+            {product.name}
+          </p>
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 font-body text-[10px] sm:text-[11px] font-semibold capitalize text-primary">
+            {product.material}
+          </span>
+        </div>
+      </motion.div>
+    </Link>
   );
 }
 
