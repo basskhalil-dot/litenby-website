@@ -48,10 +48,7 @@ function ElegantShape({
             "absolute inset-0 rounded-full",
             "bg-gradient-to-r to-transparent",
             gradient,
-            "backdrop-blur-[2px] border border-foreground/[0.05]",
-            "shadow-[0_8px_32px_0_rgba(255,165,0,0.08)]",
-            "after:absolute after:inset-0 after:rounded-full",
-            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,165,0,0.06),transparent_70%)]"
+            "backdrop-blur-[2px] border border-foreground/[0.05]"
           )}
         />
       </motion.div>
