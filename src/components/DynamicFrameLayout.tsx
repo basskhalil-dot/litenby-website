@@ -124,26 +124,60 @@ export function DynamicFrameLayout({
   };
 
   return (
-    <div
-      className={`relative w-full ${className}`}
-      style={{
-        display: "grid",
-        gridTemplateRows: getRowSizes(),
-        gridTemplateColumns: getColSizes(),
-        gap: `${gapSize}px`,
-        transition: "grid-template-rows 0.4s ease, grid-template-columns 0.4s ease",
-        aspectRatio: "16 / 9",
-      }}
-    >
-      {frames.map((frame) => (
-        <FrameCell
-          key={frame.id}
-          frame={frame}
-          isHovered={hovered?.row === frame.row && hovered?.col === frame.col}
-          onHover={() => setHovered({ row: frame.row, col: frame.col })}
-          onLeave={() => setHovered(null)}
-        />
-      ))}
-    </div>
+    <>
+      {/* Desktop: 2×3 dynamic grid */}
+      <div
+        className={`relative hidden w-full md:grid ${className}`}
+        style={{
+          gridTemplateRows: getRowSizes(),
+          gridTemplateColumns: getColSizes(),
+          gap: `${gapSize}px`,
+          transition: "grid-template-rows 0.4s ease, grid-template-columns 0.4s ease",
+          aspectRatio: "16 / 9",
+        }}
+      >
+        {frames.map((frame) => (
+          <FrameCell
+            key={frame.id}
+            frame={frame}
+            isHovered={hovered?.row === frame.row && hovered?.col === frame.col}
+            onHover={() => setHovered({ row: frame.row, col: frame.col })}
+            onLeave={() => setHovered(null)}
+          />
+        ))}
+      </div>
+
+      {/* Mobile: single column, 6 rows */}
+      <div
+        className={`grid w-full grid-cols-1 md:hidden ${className}`}
+        style={{ gap: `${gapSize}px` }}
+      >
+        {frames.map((frame) => (
+          <div key={frame.id} className="relative aspect-[16/9] overflow-hidden">
+            <video
+              className="absolute inset-0 h-full w-full object-cover opacity-40"
+              src={frame.video}
+              loop
+              muted
+              playsInline
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%)",
+              }}
+            />
+            <div
+              className="absolute inset-0 border border-border/10"
+            />
+            <div className="absolute inset-0 flex items-end p-5">
+              <span className="font-heading text-base font-bold text-foreground">
+                {frame.title}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
