@@ -114,7 +114,7 @@ export default function Contact() {
                   <Input
                     type="email"
                     placeholder="hello@example.com"
-                    className="rounded-[10px] border-[#333333] bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
+                    className="rounded-[10px] border-2 border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                   />
                 </div>
 
