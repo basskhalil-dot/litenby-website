@@ -7,6 +7,9 @@ import Index from "./pages/Index.tsx";
 import Brand from "./pages/Brand.tsx";
 import Packaging from "./pages/Packaging.tsx";
 import PackagingDetail from "./pages/PackagingDetail.tsx";
+import Storytelling from "./pages/Storytelling.tsx";
+import Blog from "./pages/Blog.tsx";
+import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
