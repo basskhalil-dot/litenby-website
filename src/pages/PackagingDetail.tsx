@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { packagingProducts } from "@/data/packagingProducts";
+import { packagingLabProducts } from "@/data/packagingLabProducts";
 import { Button } from "@/components/ui/button";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
@@ -9,7 +10,17 @@ import { ArrowLeft } from "lucide-react";
 const PackagingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const product = packagingProducts.find((p) => p.id === id);
+  const homeProduct = packagingProducts.find((p) => p.id === id);
+  const labProduct = packagingLabProducts.find((p) => p.id === id);
+
+  // Normalize lab product to match the shape expected by the template
+  const product = homeProduct ?? (labProduct ? {
+    id: labProduct.id,
+    name: labProduct.name,
+    primaryImage: labProduct.primaryImage,
+    hoverImage: labProduct.hoverImage,
+    description: `Premium ${labProduct.material} ${labProduct.shape} designed for ${labProduct.category}. Crafted with precision for high-end brand presentations.`,
+  } : undefined);
 
   if (!product) {
     return (
