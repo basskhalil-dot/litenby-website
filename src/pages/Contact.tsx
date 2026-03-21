@@ -93,7 +93,7 @@ export default function Contact() {
                     </label>
                     <Input
                       placeholder="John"
-                      className="rounded-[10px] border-border/20 bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary"
+                      className="rounded-[10px] border-[#333333] bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                     />
                   </div>
                   <div className="space-y-2">
