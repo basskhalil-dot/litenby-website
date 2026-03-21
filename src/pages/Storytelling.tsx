@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Clapperboard, Layers3, Film, Sparkles, Lightbulb, Monitor } from "lucide-react";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { DynamicFrameLayout } from "@/components/DynamicFrameLayout";
@@ -93,6 +94,63 @@ export default function Storytelling() {
           >
             <DynamicFrameLayout frames={serviceFrames} gapSize={3} hoverSize={5} />
           </motion.div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-[120px]">
+        <div className="mx-auto max-w-7xl space-y-16 px-6">
+          <div className="mx-auto max-w-xl space-y-5 text-center">
+            <h2 className="font-heading text-4xl font-extrabold lowercase text-foreground lg:text-[56px] lg:leading-[1.1]">
+              where strategy meets motion.
+            </h2>
+            <p className="font-body text-base text-muted-foreground">
+              We provide the full spectrum of production services to turn brand concepts into cinematic reality.
+            </p>
+          </div>
+
+          <div className="relative mx-auto grid max-w-4xl divide-x divide-y divide-border/20 border border-border/20 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Clapperboard,
+                title: "Cinematic Direction",
+                desc: "15 years of experience directing high-end TV commercials and advertising campaigns across the GCC.",
+              },
+              {
+                icon: Layers3,
+                title: "Advanced Motion Design",
+                desc: "High-fidelity 2D and 3D animations that bring brand identities to life with realistic physics.",
+              },
+              {
+                icon: Film,
+                title: "Post-Production",
+                desc: "Expert editing, color grading, and sound design to ensure every frame meets international broadcast standards.",
+              },
+              {
+                icon: Sparkles,
+                title: "Visual Effects",
+                desc: "Integrating CGI and motion tracking to create impossible visuals that command attention.",
+              },
+              {
+                icon: Lightbulb,
+                title: "Creative Strategy",
+                desc: "We don't just execute; we conceptualize the narrative arc to ensure maximum audience resonance.",
+              },
+              {
+                icon: Monitor,
+                title: "Technical Precision",
+                desc: "Using the latest rendering engines and production tools to deliver 4K+ high-resolution content.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="space-y-3 p-8 lg:p-10">
+                <div className="flex items-center gap-3">
+                  <item.icon className="size-5 text-primary" strokeWidth={1.5} />
+                  <h3 className="font-heading text-sm font-bold text-foreground">{item.title}</h3>
+                </div>
+                <p className="font-body text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
