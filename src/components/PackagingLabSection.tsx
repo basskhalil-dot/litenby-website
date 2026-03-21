@@ -14,29 +14,34 @@ function PackagingCard({
 
   return (
     <div
-      className="group flex cursor-pointer flex-col"
+      className="group relative flex cursor-pointer flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
-      {/* Image container */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-white transition-all duration-300">
+      {/* Image container — matches Collabs DNA */}
+      <div
+        className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]"
+        style={{ border: "1px solid #333333" }}
+      >
         <img
           src={product.primaryImage}
           alt={product.name}
-          className="absolute inset-0 h-full w-full object-contain transition-all duration-700 ease-in-out group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: isHovered ? 0 : 1 }}
+          loading="lazy"
         />
         <img
           src={product.hoverImage}
           alt={`${product.name} alternate view`}
-          className="absolute inset-0 h-full w-full object-contain transition-all duration-700 ease-in-out group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: isHovered ? 1 : 0 }}
+          loading="lazy"
         />
       </div>
 
       {/* Product name */}
-      <p className="mt-4 text-center font-body text-sm font-medium tracking-wide text-muted-foreground">
+      <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">
         {product.name}
       </p>
     </div>
