@@ -98,7 +98,7 @@ function ProductCard({
         <img
           src={product.hoverImage}
           alt={`${product.name} labeled`}
-          className="absolute inset-0 h-full w-full object-contain p-6 transition-opacity duration-700 ease-in-out"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: hovered ? 1 : 0 }}
         />
       </div>
