@@ -136,7 +136,7 @@ export function HowItWorksSection() {
                     <h3 className="font-heading font-extrabold text-lg text-foreground lowercase mt-1 mb-1">
                       {item.title}
                     </h3>
-                    <p className="font-body font-normal text-sm leading-relaxed text-muted-foreground">
+                    <p className="font-body font-normal text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
                       {item.desc}
                     </p>
                   </div>
