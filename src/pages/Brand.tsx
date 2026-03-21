@@ -2,6 +2,7 @@ import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Footer } from '@/components/Footer';
 import { BrandHero } from '@/components/BrandHero';
 import { BrandMethodology } from '@/components/BrandMethodology';
+import { BrandCraft } from '@/components/BrandCraft';
 
 import labBrand from '@/assets/lab-brand.jpg';
 import labPackaging from '@/assets/lab-packaging.jpg';
@@ -15,6 +16,7 @@ const Brand = () => {
       <LitenbyNavbar />
       <BrandHero images={marqueeImages} />
       <BrandMethodology />
+      <BrandCraft />
       <Footer />
     </div>
   );
