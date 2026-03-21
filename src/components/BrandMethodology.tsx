@@ -71,7 +71,7 @@ export function BrandMethodology() {
             <div key={step.title} className="space-y-3 p-8 lg:p-10">
               <div className="flex items-center gap-3">
                 <step.icon className="size-5 text-primary" strokeWidth={1.5} />
-                <h3 className="font-heading text-sm font-bold lowercase text-primary">
+                <h3 className="font-heading text-sm font-bold lowercase text-foreground">
                   {step.title}
                 </h3>
               </div>
