@@ -12,6 +12,7 @@ export function LitenbyNavbar() {
     { label: 'packaging', href: '/packaging' },
     { label: 'storytelling', href: '/storytelling' },
     { label: 'blog', href: '/blog' },
+    { label: 'contact', href: '/contact' },
   ];
 
   return (
