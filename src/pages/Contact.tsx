@@ -17,30 +17,8 @@ export default function Contact() {
     <div className="min-h-screen" style={{ background: "#000000" }}>
       <LitenbyNavbar />
 
-      {/* Hero header */}
-      <section className="pb-8 pt-24 lg:pt-32">
-        <div className="mx-auto max-w-7xl px-6 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary"
-          >
-            GET IN TOUCH
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl font-extrabold lowercase text-foreground md:text-5xl lg:text-[68px]"
-          >
-            contact
-          </motion.h1>
-        </div>
-      </section>
-
       {/* Contact split layout */}
-      <section className="py-16 lg:py-24">
+      <section className="pt-24 pb-16 lg:pt-32 lg:pb-24">
         <div className="mx-auto max-w-7xl px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
