@@ -47,7 +47,7 @@ export function ThreeLabsSection() {
             the three labs
           </h2>
           <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
-            Three disciplines working together to build products.
+            Three disciplines working together to design, build, and launch products.
           </p>
         </motion.div>
 
