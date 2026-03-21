@@ -122,10 +122,6 @@ export function HowItWorksSection() {
                   {/* Yellow node */}
                   <div className="relative flex-shrink-0">
                     <div
-                      className="absolute inset-0 rounded-full blur-xl opacity-40"
-                      style={{ background: "hsl(var(--highlight))", transform: "scale(1.8)" }}
-                    />
-                    <div
                       className="relative w-14 h-14 rounded-full flex items-center justify-center z-10"
                       style={{ background: "hsl(var(--highlight))" }}
                     >
