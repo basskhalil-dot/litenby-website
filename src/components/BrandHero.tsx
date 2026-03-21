@@ -13,7 +13,7 @@ const fadeVariants = {
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 20, delay: i * 0.1 },
+    transition: { type: "spring" as const, stiffness: 100, damping: 20, delay: i * 0.1 },
   }),
 };
 
