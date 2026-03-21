@@ -86,7 +86,7 @@ function ProductCard({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image container */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] border border-border/30 transition-colors duration-300 group-hover:border-primary/40" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]" style={{ border: "1px solid #333333" }}>
         {/* Naked / primary */}
         <img
           src={product.primaryImage}
