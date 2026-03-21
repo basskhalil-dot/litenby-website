@@ -113,39 +113,39 @@ export default function Storytelling() {
             {[
               {
                 icon: Clapperboard,
-                title: "Cinematic Direction",
+                title: "cinematic direction",
                 desc: "15 years of experience directing high-end TV commercials and advertising campaigns across the GCC.",
               },
               {
                 icon: Layers3,
-                title: "Advanced Motion Design",
+                title: "advanced motion design",
                 desc: "High-fidelity 2D and 3D animations that bring brand identities to life with realistic physics.",
               },
               {
                 icon: Film,
-                title: "Post-Production",
+                title: "post-production",
                 desc: "Expert editing, color grading, and sound design to ensure every frame meets international broadcast standards.",
               },
               {
                 icon: Sparkles,
-                title: "Visual Effects",
+                title: "visual effects",
                 desc: "Integrating CGI and motion tracking to create impossible visuals that command attention.",
               },
               {
                 icon: Lightbulb,
-                title: "Creative Strategy",
+                title: "creative strategy",
                 desc: "We don't just execute; we conceptualize the narrative arc to ensure maximum audience resonance.",
               },
               {
                 icon: Monitor,
-                title: "Technical Precision",
+                title: "technical precision",
                 desc: "Using the latest rendering engines and production tools to deliver 4K+ high-resolution content.",
               },
             ].map((item) => (
               <div key={item.title} className="space-y-3 p-8 lg:p-10">
                 <div className="flex items-center gap-3">
                   <item.icon className="size-5 text-primary" strokeWidth={1.5} />
-                  <h3 className="font-heading text-sm font-bold text-foreground">{item.title}</h3>
+                  <h3 className="font-heading text-sm font-bold lowercase text-primary">{item.title}</h3>
                 </div>
                 <p className="font-body text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
               </div>
