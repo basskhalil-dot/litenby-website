@@ -9,6 +9,7 @@ import Packaging from "./pages/Packaging.tsx";
 import PackagingDetail from "./pages/PackagingDetail.tsx";
 import Storytelling from "./pages/Storytelling.tsx";
 import Blog from "./pages/Blog.tsx";
+import BlogDetail from "./pages/BlogDetail.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/packaging-lab/:id" element={<PackagingDetail />} />
           <Route path="/storytelling" element={<Storytelling />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
