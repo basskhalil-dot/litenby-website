@@ -8,21 +8,21 @@ const labs = [
   {
     title: "Brand",
     description:
-      "We design identities, logos, and labels that give products their voice.",
+      "We design identities, logos, and label systems\nthat give products a clear and distinctive voice.",
     icon: Paintbrush,
     image: labBrand,
   },
   {
     title: "Packaging Lab",
     description:
-      "Choose from a curated collection of jars, bottles, and boxes ready for your brand.",
+      "Browse a curated selection of jars, bottles, and boxes\nready to carry your product and brand into the market.",
     icon: Package,
     image: labPackaging,
   },
   {
     title: "Launch",
     description:
-      "We create photography, campaigns, and content to bring your product to life.",
+      "We create photography, campaigns, and content\nthat position your product and make it visible.",
     icon: Rocket,
     image: labLaunch,
   },
@@ -47,7 +47,7 @@ export function ThreeLabsSection() {
             the three labs
           </h2>
           <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
-            Three disciplines working together to build products.
+            Three disciplines working together to design, build, and launch products.
           </p>
         </motion.div>
 
@@ -83,7 +83,7 @@ export function ThreeLabsSection() {
                     {lab.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base">
+                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base whitespace-pre-line">
                   {lab.description}
                 </p>
 

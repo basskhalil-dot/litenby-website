@@ -44,7 +44,7 @@ export function CollabsSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          selected collaborations
+          collabs
         </motion.h2>
         <motion.p
           className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg"
@@ -53,7 +53,7 @@ export function CollabsSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          Projects and collaborations across branding, packaging, and motion design.
+          Selected projects and collaborations across branding, packaging, and motion.
         </motion.p>
       </div>
 
