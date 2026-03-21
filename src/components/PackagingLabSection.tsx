@@ -84,7 +84,7 @@ export function PackagingLabSection() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
-          <Button size="lg">explore packaging</Button>
+          <Button size="lg" asChild><a href="/packaging">explore packaging</a></Button>
         </motion.div>
       </div>
     </section>

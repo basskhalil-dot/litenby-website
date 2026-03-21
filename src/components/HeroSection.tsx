@@ -164,7 +164,7 @@ export function HeroSection() {
               animate="visible"
               className="mt-8"
             >
-              <Button size="lg">start your brand</Button>
+              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
             </motion.div>
           </div>
 

@@ -108,7 +108,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-4"
             >
-              <Button size="lg">start your brand</Button>
+              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
             </motion.div>
           </div>
         </div>

@@ -64,7 +64,7 @@ export function LitenbyNavbar() {
                 ))}
               </nav>
               <SheetFooter className="mt-8 flex flex-col items-center gap-3 sm:flex-col">
-                <Button className="w-full max-w-xs">start your brand</Button>
+                <Button className="w-full max-w-xs" asChild><Link to="/contact#form">start your brand</Link></Button>
               </SheetFooter>
             </SheetContent>
           </Sheet>

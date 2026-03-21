@@ -58,7 +58,7 @@ export function CTASection() {
               viewport={{ once: true, margin: "-100px" }}
               className="mt-10"
             >
-              <Button size="lg">start your brand</Button>
+              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
             </motion.div>
           </div>
 
