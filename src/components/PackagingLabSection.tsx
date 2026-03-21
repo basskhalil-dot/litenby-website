@@ -74,7 +74,7 @@ export function PackagingLabSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
+          className="grid grid-cols-2 gap-4 md:grid-cols-3"
         >
           {packagingProducts.map((product) => (
             <PackagingCard key={product.id} product={product} />
