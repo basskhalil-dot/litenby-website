@@ -1,18 +1,18 @@
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Footer } from '@/components/Footer';
+import { BrandHero } from '@/components/BrandHero';
+
+import labBrand from '@/assets/lab-brand.jpg';
+import labPackaging from '@/assets/lab-packaging.jpg';
+import labLaunch from '@/assets/lab-launch.jpg';
+
+const marqueeImages = [labBrand, labPackaging, labLaunch];
 
 const Brand = () => {
   return (
     <div className="min-h-screen bg-background">
       <LitenbyNavbar />
-
-      {/* Hero Section - Blank skeleton */}
-      <section className="relative min-h-[90vh] w-full">
-        <div className="mx-auto max-w-7xl px-6">
-          {/* Add hero content here */}
-        </div>
-      </section>
-
+      <BrandHero images={marqueeImages} />
       <Footer />
     </div>
   );
