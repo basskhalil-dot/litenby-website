@@ -1,6 +1,7 @@
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Footer } from '@/components/Footer';
 import { BrandHero } from '@/components/BrandHero';
+import { BrandMethodology } from '@/components/BrandMethodology';
 
 import labBrand from '@/assets/lab-brand.jpg';
 import labPackaging from '@/assets/lab-packaging.jpg';
