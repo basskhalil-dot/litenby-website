@@ -86,7 +86,7 @@ function ProductCard({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image container */}
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border/30 transition-all duration-300 group-hover:border-primary/40" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] border border-border/30 transition-colors duration-300 group-hover:border-primary/40" style={{ backgroundColor: '#0A0A0A' }}>
         {/* Naked / primary */}
         <img
           src={product.primaryImage}
@@ -104,11 +104,11 @@ function ProductCard({
       </div>
 
       {/* Info */}
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <p className="font-heading text-sm font-semibold text-foreground">
+      <div className="mt-2 sm:mt-3 flex items-center justify-between gap-2">
+        <p className="font-body text-xs sm:text-sm font-semibold lowercase text-foreground line-clamp-1">
           {product.name}
         </p>
-        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-body text-[11px] font-semibold capitalize text-primary">
+        <span className="rounded-full bg-primary/10 px-2 py-0.5 font-body text-[10px] sm:text-[11px] font-semibold capitalize text-primary">
           {product.material}
         </span>
       </div>
@@ -178,7 +178,7 @@ export default function Packaging() {
               no products match the current filters.
             </p>
           ) : (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
               {filtered.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
