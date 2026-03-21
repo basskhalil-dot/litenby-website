@@ -64,8 +64,11 @@ export function PackagingLabSection() {
             LAB SHOWCASE
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
-            the packaging lab
+            choose your container
           </h2>
+          <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
+            Start with the packaging. Build your brand around it.
+          </p>
         </motion.div>
 
         {/* 3×2 grid — all appear at once */}

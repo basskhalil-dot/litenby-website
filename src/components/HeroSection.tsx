@@ -142,8 +142,7 @@ export function HeroSection() {
               animate="visible"
               className="font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-7xl lg:text-[110px]"
             >
-              litenby is a{" "}
-              <span className="lg:whitespace-nowrap"><span className="text-primary">creative</span> lab</span>
+              from idea to product.
             </motion.h1>
 
             <motion.p
@@ -153,8 +152,17 @@ export function HeroSection() {
               animate="visible"
               className="mt-6 max-w-md text-base text-muted-foreground sm:text-lg"
             >
-              crafting exceptional digital experiences through innovative design
-              and cutting-edge brand strategy.
+              Litenby is a creative lab where brands, packaging, and launch campaigns are built together.
+            </motion.p>
+
+            <motion.p
+              custom={2.5}
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+              className="mt-3 max-w-md text-sm text-muted-foreground sm:text-base"
+            >
+              We help founders turn ideas into real products through brand identity, packaging selection, and launch campaigns.
             </motion.p>
 
             <motion.div
@@ -164,7 +172,10 @@ export function HeroSection() {
               animate="visible"
               className="mt-8"
             >
-              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
+                <Button size="lg" variant="outline" asChild><Link to="/packaging">explore packaging</Link></Button>
+              </div>
             </motion.div>
           </div>
 

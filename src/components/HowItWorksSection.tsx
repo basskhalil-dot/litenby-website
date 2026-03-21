@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { Lightbulb, PenTool, Box, Rocket } from "lucide-react";
 
 const steps = [
-  { step: "01", title: "idea", desc: "Every product begins with a vision.", icon: Lightbulb },
-  { step: "02", title: "brand", desc: "Building the core identity and strategy.", icon: PenTool },
-  { step: "03", title: "container", desc: "Designing the physical packaging lab.", icon: Box },
-  { step: "04", title: "launch", desc: "Full-spectrum storytelling and market release.", icon: Rocket },
+  { step: "01", title: "idea", desc: "You come with a concept.", icon: Lightbulb },
+  { step: "02", title: "brand", desc: "We design the identity and label.", icon: PenTool },
+  { step: "03", title: "container", desc: "We match your product with the right packaging.", icon: Box },
+  { step: "04", title: "launch", desc: "We create visuals and campaigns to introduce it.", icon: Rocket },
 ];
 
 export function HowItWorksSection() {
