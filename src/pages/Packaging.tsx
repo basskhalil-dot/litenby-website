@@ -104,11 +104,11 @@ function ProductCard({
       </div>
 
       {/* Info */}
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <p className="font-heading text-sm font-semibold text-foreground">
+      <div className="mt-2 sm:mt-3 flex items-center justify-between gap-2">
+        <p className="font-body text-xs sm:text-sm font-semibold lowercase text-foreground line-clamp-1">
           {product.name}
         </p>
-        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-body text-[11px] font-semibold capitalize text-primary">
+        <span className="rounded-full bg-primary/10 px-2 py-0.5 font-body text-[10px] sm:text-[11px] font-semibold capitalize text-primary">
           {product.material}
         </span>
       </div>
