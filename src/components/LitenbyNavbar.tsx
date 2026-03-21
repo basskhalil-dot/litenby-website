@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetFooter, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { MenuToggle } from '@/components/ui/menu-toggle';
@@ -38,7 +39,7 @@ export function LitenbyNavbar() {
               {link.label}
             </a>
           ))}
-          <Button size="default">start your brand</Button>
+          <Button size="default" asChild><Link to="/contact#form">start your brand</Link></Button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -63,7 +64,7 @@ export function LitenbyNavbar() {
                 ))}
               </nav>
               <SheetFooter className="mt-8 flex flex-col items-center gap-3 sm:flex-col">
-                <Button className="w-full max-w-xs">start your brand</Button>
+                <Button className="w-full max-w-xs" asChild><Link to="/contact#form">start your brand</Link></Button>
               </SheetFooter>
             </SheetContent>
           </Sheet>

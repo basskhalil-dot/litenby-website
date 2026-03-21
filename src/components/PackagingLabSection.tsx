@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
 
@@ -84,7 +84,7 @@ export function PackagingLabSection() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
-          <Button size="lg">explore packaging</Button>
+          <Button size="lg" asChild><Link to="/packaging">explore packaging</Link></Button>
         </motion.div>
       </div>
     </section>

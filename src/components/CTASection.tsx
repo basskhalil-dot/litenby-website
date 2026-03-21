@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import iconBig from "@/assets/icon-big.png";
 
@@ -57,7 +58,7 @@ export function CTASection() {
               viewport={{ once: true, margin: "-100px" }}
               className="mt-10"
             >
-              <Button size="lg">start your brand</Button>
+              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
             </motion.div>
           </div>
 

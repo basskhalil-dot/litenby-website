@@ -81,7 +81,7 @@ export default function Contact() {
             </div>
 
             {/* Right column — form */}
-            <div className="flex flex-col justify-center">
+            <div id="form" className="flex flex-col justify-center">
               <form
                 onSubmit={(e) => e.preventDefault()}
                 className="space-y-5"
