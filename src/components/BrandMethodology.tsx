@@ -48,7 +48,7 @@ const cardVariants = {
 export function BrandMethodology() {
   return (
     <section className="w-full bg-background py-[120px]">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-6 text-center">
         {/* Pre-title */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -66,7 +66,7 @@ export function BrandMethodology() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="mt-4 max-w-2xl font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          className="mx-auto mt-4 max-w-2xl font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
         >
           building the soul of the brand.
         </motion.h2>
