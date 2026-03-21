@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import litenbyLogo from "@/assets/litenby-logo.png";
 
 const mainLinks = [
-  { label: "branding", href: "/brand" },
+  { label: "brand", href: "/brand" },
   { label: "packaging", href: "/packaging" },
-  { label: "storytelling", href: "#" },
-  { label: "contact", href: "mailto:hello@litenby.net" },
+  { label: "storytelling", href: "/storytelling" },
+  { label: "blog", href: "/blog" },
+  { label: "contact", href: "/contact" },
 ];
 
 const legalLinks = [

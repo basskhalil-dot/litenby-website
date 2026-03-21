@@ -9,9 +9,9 @@ export function LitenbyNavbar() {
 
   const links = [
     { label: 'brand', href: '/brand' },
-    { label: 'packaging lab', href: '/packaging' },
-    { label: 'launch', href: '#' },
-    { label: 'insight', href: '#' },
+    { label: 'packaging', href: '/packaging' },
+    { label: 'storytelling', href: '/storytelling' },
+    { label: 'blog', href: '/blog' },
   ];
 
   return (
