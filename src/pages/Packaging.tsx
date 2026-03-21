@@ -1,0 +1,193 @@
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
+import { LitenbyNavbar } from "@/components/LitenbyNavbar";
+import { Footer } from "@/components/Footer";
+import { packagingLabProducts } from "@/data/packagingLabProducts";
+import { cn } from "@/lib/utils";
+
+const materials = ["all", "glass", "carton", "bags", "plastic"] as const;
+const shapes = ["all", "bottles", "jars", "boxes", "tubes"] as const;
+
+function FilterBar({
+  activeMaterial,
+  activeShape,
+  onMaterialChange,
+  onShapeChange,
+}: {
+  activeMaterial: string;
+  activeShape: string;
+  onMaterialChange: (v: string) => void;
+  onShapeChange: (v: string) => void;
+}) {
+  return (
+    <div className="sticky top-0 z-30 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+        {/* Material filters */}
+        <div className="flex items-center gap-2">
+          <span className="mr-2 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            Material
+          </span>
+          {materials.map((m) => (
+            <button
+              key={m}
+              onClick={() => onMaterialChange(m)}
+              className={cn(
+                "rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
+                activeMaterial === m
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {m}
+            </button>
+          ))}
+        </div>
+
+        {/* Shape filters */}
+        <div className="flex items-center gap-2">
+          <span className="mr-2 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            Shape
+          </span>
+          {shapes.map((s) => (
+            <button
+              key={s}
+              onClick={() => onShapeChange(s)}
+              className={cn(
+                "rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
+                activeShape === s
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductCard({
+  product,
+}: {
+  product: (typeof packagingLabProducts)[0];
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="group flex cursor-pointer flex-col"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Image container */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border/30 bg-secondary/40 transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.08)]">
+        {/* Naked / primary */}
+        <img
+          src={product.primaryImage}
+          alt={product.name}
+          className="absolute inset-0 h-full w-full object-contain p-6 transition-opacity duration-700 ease-in-out"
+          style={{ opacity: hovered ? 0 : 1 }}
+        />
+        {/* Labeled / hover */}
+        <img
+          src={product.hoverImage}
+          alt={`${product.name} labeled`}
+          className="absolute inset-0 h-full w-full object-contain p-6 transition-opacity duration-700 ease-in-out"
+          style={{ opacity: hovered ? 1 : 0 }}
+        />
+      </div>
+
+      {/* Info */}
+      <div className="mt-4 flex items-center justify-between gap-2">
+        <p className="font-heading text-sm font-semibold text-foreground">
+          {product.name}
+        </p>
+        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-body text-[11px] font-semibold capitalize text-primary">
+          {product.material}
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Packaging() {
+  const [activeMaterial, setActiveMaterial] = useState("all");
+  const [activeShape, setActiveShape] = useState("all");
+
+  const filtered = useMemo(() => {
+    return packagingLabProducts.filter((p) => {
+      const matOk = activeMaterial === "all" || p.material === activeMaterial;
+      const shpOk = activeShape === "all" || p.shape === activeShape;
+      return matOk && shpOk;
+    });
+  }, [activeMaterial, activeShape]);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <LitenbyNavbar />
+
+      {/* Hero heading */}
+      <section className="pb-8 pt-16 lg:pt-24">
+        <div className="mx-auto max-w-7xl px-6 text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary"
+          >
+            LAB SHOWCASE
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-heading text-4xl font-extrabold lowercase text-foreground md:text-5xl lg:text-[68px]"
+          >
+            the packaging lab.
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground"
+          >
+            high-end mockups ready for your brand. hover to see the magic.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Filter bar */}
+      <FilterBar
+        activeMaterial={activeMaterial}
+        activeShape={activeShape}
+        onMaterialChange={setActiveMaterial}
+        onShapeChange={setActiveShape}
+      />
+
+      {/* Product grid */}
+      <section className="py-12 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          {filtered.length === 0 ? (
+            <p className="py-20 text-center font-body text-muted-foreground">
+              no products match the current filters.
+            </p>
+          ) : (
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}
