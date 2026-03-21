@@ -85,7 +85,7 @@ export function HowItWorksSection() {
                   </h3>
 
                   {/* Description */}
-                  <p className="font-body font-normal text-sm leading-relaxed max-w-[200px] text-muted-foreground">
+                  <p className="font-body font-normal text-sm leading-relaxed max-w-[200px] text-muted-foreground whitespace-pre-line">
                     {item.desc}
                   </p>
                 </div>
