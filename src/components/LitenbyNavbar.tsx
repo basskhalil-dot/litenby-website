@@ -8,7 +8,7 @@ export function LitenbyNavbar() {
   const [open, setOpen] = React.useState(false);
 
   const links = [
-    { label: 'brand', href: '#' },
+    { label: 'brand', href: '/brand' },
     { label: 'packaging lab', href: '#' },
     { label: 'launch', href: '#' },
     { label: 'insight', href: '#' },
