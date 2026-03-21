@@ -114,7 +114,7 @@ export default function Blog() {
                   className="group block cursor-pointer"
                 >
                   {/* Image */}
-                  <div className="overflow-hidden rounded-[12px] transition-shadow duration-300 group-hover:shadow-[0_0_20px_-4px_hsl(var(--primary)/0.4)]">
+                  <div className="overflow-hidden rounded-[12px]">
                     <AspectRatio ratio={16 / 9}>
                       <img
                         src={article.image}

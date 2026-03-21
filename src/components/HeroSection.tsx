@@ -172,18 +172,6 @@ export function HeroSection() {
             transition={{ duration: 0.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="relative flex items-center justify-center order-1 lg:order-2 min-h-[50vh] lg:min-h-[80vh]"
           >
-            {/* Orange radial glow */}
-            <div
-              className="absolute pointer-events-none"
-              style={{
-                width: "140%",
-                height: "140%",
-                top: "-20%",
-                left: "-20%",
-                background: "radial-gradient(ellipse at 50% 50%, rgba(255,165,0,0.18) 0%, rgba(255,165,0,0.07) 35%, transparent 60%)",
-              }}
-            />
-
             {/* Floating bottle */}
             <motion.img
               src={heroBottle}
@@ -194,7 +182,7 @@ export function HeroSection() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="relative z-10 w-[60vw] sm:w-[45vw] lg:w-auto drop-shadow-[0_0_50px_rgba(255,165,0,0.18)]"
+              className="relative z-10 w-[60vw] sm:w-[45vw] lg:w-auto"
               style={{
                 height: "75vh",
                 objectFit: "contain",
