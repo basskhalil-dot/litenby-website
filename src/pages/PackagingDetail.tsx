@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { packagingProducts } from "@/data/packagingProducts";
+import { packagingLabProducts } from "@/data/packagingLabProducts";
 import { Button } from "@/components/ui/button";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
