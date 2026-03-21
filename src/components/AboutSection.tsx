@@ -54,8 +54,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              Litenby means small village.
-              We believe great products come from simple ideas, carefully crafted.
+              Litenby is built around a simple idea — turning concepts into real, tangible products.
             </motion.p>
 
             <motion.p
@@ -66,7 +65,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              We work with designers, manufacturers, and production partners to turn concepts into real, tangible products.
+              We collaborate with designers, manufacturers, and production partners<br />to create brands that are not only designed, but actually made and launched.
             </motion.p>
 
             {/* CTA — merged inline */}
