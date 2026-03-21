@@ -86,19 +86,19 @@ function ProductCard({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image container */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border/30 bg-secondary/40 transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.08)]">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border/30 transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_30px_rgba(255,165,0,0.12)]" style={{ backgroundColor: '#0A0A0A' }}>
         {/* Naked / primary */}
         <img
           src={product.primaryImage}
           alt={product.name}
-          className="absolute inset-0 h-full w-full object-contain p-6 transition-opacity duration-700 ease-in-out"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: hovered ? 0 : 1 }}
         />
         {/* Labeled / hover */}
         <img
           src={product.hoverImage}
           alt={`${product.name} labeled`}
-          className="absolute inset-0 h-full w-full object-contain p-6 transition-opacity duration-700 ease-in-out"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: hovered ? 1 : 0 }}
         />
       </div>
