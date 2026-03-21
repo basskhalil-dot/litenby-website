@@ -172,7 +172,10 @@ export function HeroSection() {
               animate="visible"
               className="mt-8"
             >
-              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
+                <Button size="lg" variant="outline" asChild><Link to="/packaging">explore packaging</Link></Button>
+              </div>
             </motion.div>
           </div>
 

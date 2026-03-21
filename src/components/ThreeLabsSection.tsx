@@ -46,6 +46,9 @@ export function ThreeLabsSection() {
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the three labs
           </h2>
+          <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
+            Three disciplines working together to build products.
+          </p>
         </motion.div>
 
         {/* Cards grid — all appear at once */}
