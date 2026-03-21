@@ -88,7 +88,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg font-body"
             >
-              Bring us an idea. We'll help you shape the brand, choose the packaging, and launch it.
+              Bring us an idea and we will help you shape the brand,<br />choose the packaging, and launch it to the market.
             </motion.p>
 
             <motion.div

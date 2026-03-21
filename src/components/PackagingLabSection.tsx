@@ -66,8 +66,8 @@ export function PackagingLabSection() {
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             choose your container
           </h2>
-          <p className="mt-4 mx-auto max-w-lg text-base text-muted-foreground lg:text-lg">
-            Start with the packaging. Build your brand around it.
+          <p className="mt-4 mx-auto max-w-xl text-base text-muted-foreground lg:text-lg">
+            Start with the packaging and explore a selection of containers<br />designed to fit different products and brand directions.
           </p>
         </motion.div>
 

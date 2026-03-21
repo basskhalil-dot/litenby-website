@@ -83,7 +83,7 @@ export function ThreeLabsSection() {
                     {lab.title}
                   </h3>
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base">
+                <p className="text-sm leading-relaxed text-muted-foreground lg:text-base whitespace-pre-line">
                   {lab.description}
                 </p>
 
