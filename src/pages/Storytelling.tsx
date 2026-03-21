@@ -145,7 +145,7 @@ export default function Storytelling() {
               <div key={item.title} className="space-y-3 p-8 lg:p-10">
                 <div className="flex items-center gap-3">
                   <item.icon className="size-5 text-primary" strokeWidth={1.5} />
-                  <h3 className="font-heading text-sm font-bold lowercase text-primary">{item.title}</h3>
+                  <h3 className="font-heading text-sm font-bold lowercase text-foreground">{item.title}</h3>
                 </div>
                 <p className="font-body text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
               </div>
