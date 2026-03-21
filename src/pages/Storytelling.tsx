@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Clapperboard, Layers3, Film, Sparkles, Lightbulb, Monitor } from "lucide-react";
+import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { DynamicFrameLayout } from "@/components/DynamicFrameLayout";
 
