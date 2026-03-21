@@ -71,7 +71,7 @@ export default function Storytelling() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="font-heading text-4xl font-bold lowercase text-foreground md:text-5xl lg:text-[68px]"
           >
-            narratives that move.
+            narratives that move
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 15 }}

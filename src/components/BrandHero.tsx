@@ -40,10 +40,9 @@ export const BrandHero: React.FC<BrandHeroProps> = ({ images, className }) => {
           variants={fadeVariants}
           initial="hidden"
           animate="show"
-          className="mt-6 font-heading text-5xl font-extrabold lowercase leading-[1.05] tracking-tight text-foreground sm:text-7xl lg:text-[110px]"
+          className="mt-6 font-heading text-4xl font-bold lowercase text-foreground md:text-5xl lg:text-[68px]"
         >
-          the brand{" "}
-          <span className="text-primary">lab.</span>
+          the brand lab
         </motion.h1>
 
         <motion.p

@@ -133,7 +133,7 @@ export default function Packaging() {
       <LitenbyNavbar />
 
       {/* Hero heading */}
-      <section className="pb-8 pt-16 lg:pt-24">
+      <section className="pb-8 pt-24 lg:pt-32">
         <div className="mx-auto max-w-7xl px-6 text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
@@ -147,9 +147,9 @@ export default function Packaging() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl font-extrabold lowercase text-foreground md:text-5xl lg:text-[68px]"
+            className="font-heading text-4xl font-bold lowercase text-foreground md:text-5xl lg:text-[68px]"
           >
-            the packaging lab.
+            the packaging lab
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
