@@ -17,7 +17,7 @@ export function HeroScrollSequence() {
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
       const img = images.current[frameIndex];
-      if (!canvas || !ctx || !img) return;
+      if (!canvas || !ctx || !img || !img.complete || !img.naturalWidth) return;
 
       const dpr = window.devicePixelRatio || 1;
       const w = canvas.clientWidth;
@@ -33,17 +33,20 @@ export function HeroScrollSequence() {
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, w, h);
 
-      // contain logic
+      // contain logic — mobile gets bigger bottle via scale factor
+      const isMobile = w < 768;
+      const scaleFactor = isMobile ? 0.95 : 0.75;
+
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = w / h;
       let dw: number, dh: number, dx: number, dy: number;
 
       if (imgRatio > canvasRatio) {
-        dw = w;
-        dh = w / imgRatio;
+        dw = w * scaleFactor;
+        dh = dw / imgRatio;
       } else {
-        dh = h;
-        dw = h * imgRatio;
+        dh = h * scaleFactor;
+        dw = dh * imgRatio;
       }
       dx = (w - dw) / 2;
       dy = (h - dh) / 2;
@@ -55,7 +58,6 @@ export function HeroScrollSequence() {
 
   useEffect(() => {
     if (!loaded) return;
-    // Draw first frame immediately
     drawFrame(0);
 
     const onScroll = () => {
@@ -66,11 +68,12 @@ export function HeroScrollSequence() {
 
         const rect = section.getBoundingClientRect();
         const scrollableHeight = section.offsetHeight - window.innerHeight;
+        if (scrollableHeight <= 0) return;
         const scrolled = -rect.top;
         const rawProgress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
         const frameIndex = Math.min(
           totalFrames - 1,
-          Math.floor(rawProgress * totalFrames)
+          Math.floor(rawProgress * (totalFrames - 1))
         );
 
         if (frameIndex !== currentFrameRef.current) {
@@ -81,8 +84,6 @@ export function HeroScrollSequence() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Handle resize
     const onResize = () => drawFrame(currentFrameRef.current);
     window.addEventListener("resize", onResize);
 
@@ -97,11 +98,11 @@ export function HeroScrollSequence() {
     <section
       ref={sectionRef}
       className="relative w-full"
-      style={{ height: "300vh" }}
+      style={{ height: "200vh" }}
     >
       {/* Preloader */}
       {!loaded && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black">
           <img
             src={litenbyLogo}
             alt="Litenby"
@@ -128,36 +129,38 @@ export function HeroScrollSequence() {
           style={{ background: "#000000" }}
         />
 
-        {/* UI Overlay */}
+        {/* UI Overlay — left-aligned within max-w-7xl */}
         {loaded && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 sm:pb-20">
-            <div className="flex flex-col items-center gap-4 text-center">
-              <h1 className="font-heading text-3xl font-extrabold lowercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">
-                <span className="block">narratives</span>
-                <span className="block">
-                  that <span className="text-primary">move</span>
-                </span>
-              </h1>
+          <div className="absolute inset-0 z-20 flex items-end pb-16 sm:pb-20">
+            <div className="container mx-auto max-w-7xl px-8">
+              <div className="flex flex-col items-start gap-4 text-left">
+                <h1 className="font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">
+                  <span className="block">narratives</span>
+                  <span className="block">
+                    that <span className="text-primary">move</span>
+                  </span>
+                </h1>
 
-              <p className="max-w-md font-body text-sm text-white/60 sm:text-base">
-                from idea to product — brand, packaging & story, all under one
-                roof.
-              </p>
+                <p className="max-w-md font-body text-sm text-white/60 sm:text-base">
+                  from idea to product — brand, packaging & story, all under one
+                  roof.
+                </p>
 
-              <div className="mt-2 flex gap-3">
-                <Button size="lg" asChild>
-                  <Link to="/contact#form">start your brand</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/packaging">explore packaging</Link>
-                </Button>
+                <div className="mt-2 flex gap-3">
+                  <Button size="lg" asChild>
+                    <Link to="/contact#form">start your brand</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link to="/packaging">explore packaging</Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Bottom fade for seamless transition */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 h-32 bg-gradient-to-t from-background to-transparent" />
+        {/* Bottom fade */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-32 bg-gradient-to-t from-background to-transparent" />
       </div>
     </section>
   );

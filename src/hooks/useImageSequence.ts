@@ -14,20 +14,23 @@ export function useImageSequence() {
 
   useEffect(() => {
     let count = 0;
-    const images: HTMLImageElement[] = [];
+    const imgs: HTMLImageElement[] = new Array(TOTAL_FRAMES);
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
+      img.decoding = "async";
       img.src = getFramePath(i);
-      img.onload = img.onerror = () => {
+      imgs[i] = img;
+      const done = () => {
         count++;
         setProgress(Math.round((count / TOTAL_FRAMES) * 100));
         if (count === TOTAL_FRAMES) {
-          imagesRef.current = images;
+          imagesRef.current = imgs;
           setLoaded(true);
         }
       };
-      images.push(img);
+      img.onload = done;
+      img.onerror = done;
     }
   }, []);
 

@@ -17,7 +17,7 @@ export function LitenbyNavbar() {
   ];
 
   return (
-    <header className="w-full border-b border-border/40">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
       <div className="container flex items-center justify-between py-4">
         {/* Logo */}
         <a href="/" className="flex-shrink-0">
