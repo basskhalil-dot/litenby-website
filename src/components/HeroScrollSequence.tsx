@@ -8,8 +8,8 @@ export function HeroScrollSequence() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
-  const [textOpacity, setTextOpacity] = useState(1);
-  const [textTranslateY, setTextTranslateY] = useState(0);
+  const [descOpacity, setDescOpacity] = useState(0);
+  const [ctaOpacity, setCtaOpacity] = useState(0);
 
   const { images, loaded, totalFrames } = useImageSequence();
 
@@ -31,27 +31,21 @@ export function HeroScrollSequence() {
       }
 
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, w, h);
-
-      const isMobile = w < 768;
-      const scaleFactor = isMobile ? 0.85 : 0.7;
 
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = w / h;
       let dw: number, dh: number, dx: number, dy: number;
 
+      // Contain the image and center it
       if (imgRatio > canvasRatio) {
-        dw = w * scaleFactor;
+        dw = w * 0.88;
         dh = dw / imgRatio;
       } else {
-        dh = h * scaleFactor;
+        dh = h * 0.88;
         dw = dh * imgRatio;
       }
       dx = (w - dw) / 2;
-      // Push bottle up slightly to leave room for text below
-      const verticalOffset = isMobile ? -h * 0.06 : -h * 0.08;
-      dy = (h - dh) / 2 + verticalOffset;
+      dy = (h - dh) / 2;
 
       ctx.drawImage(img, dx, dy, dw, dh);
     },
@@ -96,10 +90,13 @@ export function HeroScrollSequence() {
           drawFrame(frameIndex);
         }
 
-        // Parallax: text moves up 2x faster and fades out in first 40% of scroll
-        const textProgress = Math.min(1, rawProgress / 0.4);
-        setTextOpacity(1 - textProgress);
-        setTextTranslateY(-textProgress * 120);
+        // Stage 2: Description fades in between 15%-50% scroll
+        const descProgress = Math.max(0, Math.min(1, (rawProgress - 0.15) / 0.35));
+        setDescOpacity(descProgress);
+
+        // Stage 3: CTA buttons fade in between 65%-90% scroll
+        const ctaProgress = Math.max(0, Math.min(1, (rawProgress - 0.65) / 0.25));
+        setCtaOpacity(ctaProgress);
       });
     };
 
@@ -117,42 +114,42 @@ export function HeroScrollSequence() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full"
-      style={{ height: "200vh" }}
+      className="relative w-full bg-background"
+      style={{ height: "280vh" }}
     >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Canvas */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
-          style={{ background: "#000000" }}
-        />
-
-        {/* UI Overlay — centered below bottle */}
-        <div
-          className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-center pb-10 sm:pb-14"
-          style={{
-            opacity: textOpacity,
-            transform: `translateY(${textTranslateY}px)`,
-            willChange: "transform, opacity",
-            pointerEvents: textOpacity < 0.1 ? "none" : "auto",
-          }}
-        >
-          <div className="flex flex-col items-center gap-3 text-center px-6">
-            <h1 className="font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">
-              <span className="block">narratives</span>
-              <span className="block">
-                that <span className="text-primary">move</span>
-              </span>
+        <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 md:flex-row md:items-center md:gap-12 lg:gap-20">
+          {/* Left column — Text */}
+          <div className="z-20 flex w-full flex-col items-center pt-20 text-center md:w-[45%] md:items-start md:pt-0 md:text-left order-2 md:order-1">
+            <h1 className="font-heading text-3xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-4xl lg:text-6xl">
+              litenby is a{" "}
+              <span className="text-primary">creative lab</span>
             </h1>
 
-            <p className="max-w-md font-body text-sm text-white/60 sm:text-base">
+            <p
+              className="mt-4 max-w-md font-body text-sm text-muted-foreground sm:text-base lg:text-lg"
+              style={{
+                opacity: descOpacity,
+                transform: `translateY(${(1 - descOpacity) * 16}px)`,
+                willChange: "transform, opacity",
+                transition: "none",
+              }}
+            >
               from idea to product — brand, packaging & story, all under one
               roof.
             </p>
 
-            <div className="mt-2 flex gap-3">
+            <div
+              className="mt-6 flex gap-3"
+              style={{
+                opacity: ctaOpacity,
+                transform: `translateY(${(1 - ctaOpacity) * 16}px)`,
+                willChange: "transform, opacity",
+                transition: "none",
+                pointerEvents: ctaOpacity < 0.1 ? "none" : "auto",
+              }}
+            >
               <Button size="lg" asChild>
                 <Link to="/contact#form">start your brand</Link>
               </Button>
@@ -160,6 +157,14 @@ export function HeroScrollSequence() {
                 <Link to="/packaging">explore packaging</Link>
               </Button>
             </div>
+          </div>
+
+          {/* Right column — Canvas */}
+          <div className="relative w-full md:w-[55%] order-1 md:order-2" style={{ aspectRatio: "1 / 1" }}>
+            <canvas
+              ref={canvasRef}
+              className="h-full w-full"
+            />
           </div>
         </div>
 
