@@ -1,10 +1,9 @@
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { HeroScrollSequence } from '@/components/HeroScrollSequence';
-import { AboutSection } from '@/components/AboutSection';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
-import { HowItWorksSection } from '@/components/HowItWorksSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
 import { CollabsSection } from '@/components/CollabsSection';
+import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
 
 const Index = () => {
@@ -13,7 +12,6 @@ const Index = () => {
       <LitenbyNavbar />
       <HeroScrollSequence />
       <ThreeLabsSection />
-      <HowItWorksSection />
       <PackagingLabSection />
       <CollabsSection />
       <AboutSection />
