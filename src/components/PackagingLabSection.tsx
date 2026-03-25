@@ -74,9 +74,9 @@ export function PackagingLabSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 gap-4 md:grid-cols-3"
+          className="grid grid-cols-2 gap-4 md:grid-cols-4"
         >
-          {packagingProducts.map((product) => (
+          {packagingProducts.slice(0, 12).map((product) => (
             <PackagingCard key={product.id} product={product} />
           ))}
         </motion.div>
