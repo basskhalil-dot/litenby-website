@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useImageSequence } from "@/hooks/useImageSequence";
 import { Button } from "@/components/ui/button";
@@ -8,8 +8,6 @@ export function HeroScrollSequence() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
-  const [descOpacity, setDescOpacity] = useState(0);
-  const [ctaOpacity, setCtaOpacity] = useState(0);
 
   const { images, loaded, totalFrames } = useImageSequence();
 
@@ -36,12 +34,11 @@ export function HeroScrollSequence() {
       const canvasRatio = w / h;
       let dw: number, dh: number, dx: number, dy: number;
 
-      // Contain the image and center it
       if (imgRatio > canvasRatio) {
-        dw = w * 0.88;
+        dw = w;
         dh = dw / imgRatio;
       } else {
-        dh = h * 0.88;
+        dh = h;
         dw = dh * imgRatio;
       }
       dx = (w - dw) / 2;
@@ -52,7 +49,6 @@ export function HeroScrollSequence() {
     [images]
   );
 
-  // Draw first frame immediately as placeholder
   useEffect(() => {
     const img = images.current[0];
     if (!img) return;
@@ -80,7 +76,6 @@ export function HeroScrollSequence() {
         const scrolled = -rect.top;
         const rawProgress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
 
-        // Frame animation
         const frameIndex = Math.min(
           totalFrames - 1,
           Math.floor(rawProgress * (totalFrames - 1))
@@ -89,14 +84,6 @@ export function HeroScrollSequence() {
           currentFrameRef.current = frameIndex;
           drawFrame(frameIndex);
         }
-
-        // Stage 2: Description fades in between 15%-50% scroll
-        const descProgress = Math.max(0, Math.min(1, (rawProgress - 0.15) / 0.35));
-        setDescOpacity(descProgress);
-
-        // Stage 3: CTA buttons fade in between 65%-90% scroll
-        const ctaProgress = Math.max(0, Math.min(1, (rawProgress - 0.65) / 0.25));
-        setCtaOpacity(ctaProgress);
       });
     };
 
@@ -117,54 +104,37 @@ export function HeroScrollSequence() {
       className="relative w-full bg-background"
       style={{ height: "280vh" }}
     >
-      {/* Sticky container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 md:flex-row md:items-center md:gap-12 lg:gap-20">
-          {/* Left column — Text */}
-          <div className="z-20 flex w-full flex-col items-center pt-20 text-center md:w-[45%] md:items-start md:pt-0 md:text-left order-2 md:order-1">
-            <h1 className="font-heading text-3xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-4xl lg:text-6xl">
-              litenby is a{" "}
-              <span className="text-primary">creative lab</span>
-            </h1>
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-start">
+        {/* Bottle canvas — 70-80% of viewport height, near full width on mobile */}
+        <div
+          className="w-[92vw] md:w-auto flex-shrink-0 mt-16 md:mt-12"
+          style={{ height: "75vh" }}
+        >
+          <canvas
+            ref={canvasRef}
+            className="h-full w-full"
+            style={{ aspectRatio: "1 / 1" }}
+          />
+        </div>
 
-            <p
-              className="mt-4 max-w-md font-body text-sm text-muted-foreground sm:text-base lg:text-lg"
-              style={{
-                opacity: descOpacity,
-                transform: `translateY(${(1 - descOpacity) * 16}px)`,
-                willChange: "transform, opacity",
-                transition: "none",
-              }}
-            >
-              from idea to product — brand, packaging & story, all under one
-              roof.
-            </p>
+        {/* Breathing space + text stack */}
+        <div className="flex flex-col items-center text-center px-6 pt-8 md:pt-10">
+          <h1 className="font-heading text-3xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-4xl lg:text-6xl">
+            litenby is a{" "}
+            <span className="text-primary">creative lab</span>
+          </h1>
 
-            <div
-              className="mt-6 flex gap-3"
-              style={{
-                opacity: ctaOpacity,
-                transform: `translateY(${(1 - ctaOpacity) * 16}px)`,
-                willChange: "transform, opacity",
-                transition: "none",
-                pointerEvents: ctaOpacity < 0.1 ? "none" : "auto",
-              }}
-            >
-              <Button size="lg" asChild>
-                <Link to="/contact#form">start your brand</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link to="/packaging">explore packaging</Link>
-              </Button>
-            </div>
-          </div>
+          <p className="mt-4 max-w-md font-body text-sm text-muted-foreground sm:text-base lg:text-lg">
+            from idea to product — brand, packaging & story, all under one roof.
+          </p>
 
-          {/* Right column — Canvas */}
-          <div className="relative w-full md:w-[55%] order-1 md:order-2" style={{ aspectRatio: "1 / 1" }}>
-            <canvas
-              ref={canvasRef}
-              className="h-full w-full"
-            />
+          <div className="mt-6 flex gap-3">
+            <Button size="lg" asChild>
+              <Link to="/contact#form">start your brand</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link to="/packaging">explore packaging</Link>
+            </Button>
           </div>
         </div>
 
