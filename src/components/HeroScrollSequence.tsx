@@ -1,16 +1,17 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { useImageSequence } from "@/hooks/useImageSequence";
 import { Button } from "@/components/ui/button";
-import litenbyLogo from "@/assets/litenby-logo.png";
 
 export function HeroScrollSequence() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const currentFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
+  const [textOpacity, setTextOpacity] = useState(1);
+  const [textTranslateY, setTextTranslateY] = useState(0);
 
-  const { images, loaded, progress, totalFrames } = useImageSequence();
+  const { images, loaded, totalFrames } = useImageSequence();
 
   const drawFrame = useCallback(
     (frameIndex: number) => {
@@ -33,9 +34,8 @@ export function HeroScrollSequence() {
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, w, h);
 
-      // contain logic — mobile gets bigger bottle via scale factor
       const isMobile = w < 768;
-      const scaleFactor = isMobile ? 0.95 : 0.75;
+      const scaleFactor = isMobile ? 0.85 : 0.7;
 
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = w / h;
@@ -49,16 +49,30 @@ export function HeroScrollSequence() {
         dw = dh * imgRatio;
       }
       dx = (w - dw) / 2;
-      dy = (h - dh) / 2;
+      // Push bottle up slightly to leave room for text below
+      const verticalOffset = isMobile ? -h * 0.06 : -h * 0.08;
+      dy = (h - dh) / 2 + verticalOffset;
 
       ctx.drawImage(img, dx, dy, dw, dh);
     },
     [images]
   );
 
+  // Draw first frame immediately as placeholder
+  useEffect(() => {
+    const img = images.current[0];
+    if (!img) return;
+    const tryDraw = () => drawFrame(0);
+    if (img.complete && img.naturalWidth) {
+      tryDraw();
+    } else {
+      img.addEventListener("load", tryDraw, { once: true });
+    }
+  }, [drawFrame, images]);
+
   useEffect(() => {
     if (!loaded) return;
-    drawFrame(0);
+    drawFrame(currentFrameRef.current);
 
     const onScroll = () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -71,15 +85,21 @@ export function HeroScrollSequence() {
         if (scrollableHeight <= 0) return;
         const scrolled = -rect.top;
         const rawProgress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+
+        // Frame animation
         const frameIndex = Math.min(
           totalFrames - 1,
           Math.floor(rawProgress * (totalFrames - 1))
         );
-
         if (frameIndex !== currentFrameRef.current) {
           currentFrameRef.current = frameIndex;
           drawFrame(frameIndex);
         }
+
+        // Parallax: text moves up 2x faster and fades out in first 40% of scroll
+        const textProgress = Math.min(1, rawProgress / 0.4);
+        setTextOpacity(1 - textProgress);
+        setTextTranslateY(-textProgress * 120);
       });
     };
 
@@ -100,26 +120,6 @@ export function HeroScrollSequence() {
       className="relative w-full"
       style={{ height: "200vh" }}
     >
-      {/* Preloader */}
-      {!loaded && (
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-black">
-          <img
-            src={litenbyLogo}
-            alt="Litenby"
-            className="mb-8 h-10 w-auto opacity-80"
-          />
-          <div className="relative h-[2px] w-48 overflow-hidden rounded-full bg-white/10">
-            <div
-              className="absolute inset-y-0 left-0 bg-primary transition-all duration-200"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <span className="mt-3 font-body text-xs tracking-widest text-muted-foreground">
-            {progress}%
-          </span>
-        </div>
-      )}
-
       {/* Sticky container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Canvas */}
@@ -129,35 +129,39 @@ export function HeroScrollSequence() {
           style={{ background: "#000000" }}
         />
 
-        {/* UI Overlay — left-aligned within max-w-7xl */}
-        {loaded && (
-          <div className="absolute inset-0 z-20 flex items-end pb-16 sm:pb-20">
-            <div className="container mx-auto max-w-7xl px-8">
-              <div className="flex flex-col items-start gap-4 text-left">
-                <h1 className="font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">
-                  <span className="block">narratives</span>
-                  <span className="block">
-                    that <span className="text-primary">move</span>
-                  </span>
-                </h1>
+        {/* UI Overlay — centered below bottle */}
+        <div
+          className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-center pb-10 sm:pb-14"
+          style={{
+            opacity: textOpacity,
+            transform: `translateY(${textTranslateY}px)`,
+            willChange: "transform, opacity",
+            pointerEvents: textOpacity < 0.1 ? "none" : "auto",
+          }}
+        >
+          <div className="flex flex-col items-center gap-3 text-center px-6">
+            <h1 className="font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">
+              <span className="block">narratives</span>
+              <span className="block">
+                that <span className="text-primary">move</span>
+              </span>
+            </h1>
 
-                <p className="max-w-md font-body text-sm text-white/60 sm:text-base">
-                  from idea to product — brand, packaging & story, all under one
-                  roof.
-                </p>
+            <p className="max-w-md font-body text-sm text-white/60 sm:text-base">
+              from idea to product — brand, packaging & story, all under one
+              roof.
+            </p>
 
-                <div className="mt-2 flex gap-3">
-                  <Button size="lg" asChild>
-                    <Link to="/contact#form">start your brand</Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link to="/packaging">explore packaging</Link>
-                  </Button>
-                </div>
-              </div>
+            <div className="mt-2 flex gap-3">
+              <Button size="lg" asChild>
+                <Link to="/contact#form">start your brand</Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link to="/packaging">explore packaging</Link>
+              </Button>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Bottom fade */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-32 bg-gradient-to-t from-background to-transparent" />
