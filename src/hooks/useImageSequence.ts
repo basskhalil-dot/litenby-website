@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
-const TOTAL_FRAMES = 72;
+const TOTAL_FRAMES = 48;
 
 function getFramePath(index: number): string {
-  const padded = String(index).padStart(2, "0");
-  return `/hero-sequence/Bottle${padded}.jpg`;
+  const num = 100 + index; // bottle100.jpg → bottle147.jpg
+  return `/hero-sequence/bottle${num}.jpg`;
 }
 
 export function useImageSequence() {
