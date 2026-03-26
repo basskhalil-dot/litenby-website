@@ -10,16 +10,16 @@ gsap.registerPlugin(ScrollTrigger);
 export function HeroScrollSequence() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const currentFrameRef = useRef(0);
-
+  const frameRef = useRef(0);
   const { images, loaded, totalFrames } = useImageSequence();
 
+  /* ── draw a single frame ── */
   const drawFrame = useCallback(
-    (frameIndex: number) => {
+    (index: number) => {
       const canvas = canvasRef.current;
       const ctx = canvas?.getContext("2d");
-      const img = images.current[frameIndex];
-      if (!canvas || !ctx || !img || !img.complete || !img.naturalWidth) return;
+      const img = images.current[index];
+      if (!canvas || !ctx || !img?.complete || !img.naturalWidth) return;
 
       const dpr = window.devicePixelRatio || 1;
       const w = canvas.clientWidth;
@@ -28,49 +28,37 @@ export function HeroScrollSequence() {
       if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
         canvas.width = w * dpr;
         canvas.height = h * dpr;
-        ctx.scale(dpr, dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
       ctx.clearRect(0, 0, w, h);
 
-      const imgRatio = img.naturalWidth / img.naturalHeight;
-      const canvasRatio = w / h;
-      let dw: number, dh: number, dx: number, dy: number;
-
-      if (imgRatio > canvasRatio) {
-        dh = h;
-        dw = dh * imgRatio;
-      } else {
-        dw = w;
-        dh = dw / imgRatio;
-      }
-      dx = (w - dw) / 2;
-      dy = (h - dh) / 2;
-
-      ctx.drawImage(img, dx, dy, dw, dh);
+      // cover-fit the image
+      const ir = img.naturalWidth / img.naturalHeight;
+      const cr = w / h;
+      let dw: number, dh: number;
+      if (ir > cr) { dh = h; dw = dh * ir; }
+      else { dw = w; dh = dw / ir; }
+      ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
     },
-    [images]
+    [images],
   );
 
-  /* Draw first frame immediately as placeholder */
+  /* ── draw frame 0 as soon as it loads ── */
   useEffect(() => {
     const img = images.current[0];
     if (!img) return;
-    const tryDraw = () => drawFrame(0);
-    if (img.complete && img.naturalWidth) {
-      tryDraw();
-    } else {
-      img.addEventListener("load", tryDraw, { once: true });
-    }
+    const paint = () => drawFrame(0);
+    if (img.complete && img.naturalWidth) paint();
+    else img.addEventListener("load", paint, { once: true });
   }, [drawFrame, images]);
 
-  /* GSAP ScrollTrigger */
+  /* ── GSAP scroll-driven animation ── */
   useEffect(() => {
     if (!loaded || !sectionRef.current) return;
-    drawFrame(currentFrameRef.current);
+    drawFrame(0);
 
     const obj = { frame: 0 };
-
     const tween = gsap.to(obj, {
       frame: totalFrames - 1,
       snap: "frame",
@@ -79,43 +67,39 @@ export function HeroScrollSequence() {
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 2,
-        snap: 1 / (totalFrames - 1),
+        scrub: 1.5,
       },
       onUpdate: () => {
-        const idx = Math.round(obj.frame);
-        if (idx !== currentFrameRef.current) {
-          currentFrameRef.current = idx;
-          drawFrame(idx);
+        const i = Math.round(obj.frame);
+        if (i !== frameRef.current) {
+          frameRef.current = i;
+          drawFrame(i);
         }
       },
     });
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-    };
+    return () => { tween.scrollTrigger?.kill(); tween.kill(); };
   }, [loaded, drawFrame, totalFrames]);
 
-  /* Resize */
+  /* ── redraw on resize ── */
   useEffect(() => {
-    const onResize = () => drawFrame(currentFrameRef.current);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    const fn = () => drawFrame(frameRef.current);
+    window.addEventListener("resize", fn);
+    return () => window.removeEventListener("resize", fn);
   }, [drawFrame]);
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full bg-background"
-      style={{ height: "280vh" }}
+      style={{ height: "300vh" }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-start">
+      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-visible">
 
-        {/* ── Bottle canvas (top) ── */}
+        {/* ── Upper: Bottle canvas ── */}
         <div
-          className="w-[88vw] sm:w-[60vw] md:w-[50vw] lg:w-[42vw] flex-shrink-0 mt-16"
-          style={{ maxHeight: "60vh", paddingBottom: "100px" }}
+          className="w-[90vw] sm:w-[62vw] md:w-[50vw] lg:w-[44vw] flex-shrink-0 mt-10 sm:mt-14"
+          style={{ maxHeight: "55vh", paddingBottom: "50px", overflow: "visible" }}
         >
           <canvas
             ref={canvasRef}
@@ -124,8 +108,8 @@ export function HeroScrollSequence() {
           />
         </div>
 
-        {/* ── Text stack (bottom) ── */}
-        <div className="flex flex-col items-center text-center px-6">
+        {/* ── Lower: Text + Buttons ── */}
+        <div className="flex flex-col items-center text-center px-6 mt-2">
           <span className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground sm:text-sm">
             Creative Agency
           </span>
@@ -149,8 +133,8 @@ export function HeroScrollSequence() {
           </div>
         </div>
 
-        {/* Bottom fade */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-20 bg-gradient-to-t from-background to-transparent" />
+        {/* bottom fade */}
+        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-background to-transparent" />
       </div>
     </section>
   );
