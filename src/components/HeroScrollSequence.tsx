@@ -2,15 +2,19 @@ import { useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useImageSequence } from "@/hooks/useImageSequence";
 import { Button } from "@/components/ui/button";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function HeroScrollSequence() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const currentFrameRef = useRef(0);
-  const rafRef = useRef<number>(0);
 
   const { images, loaded, totalFrames } = useImageSequence();
 
+  /* ── draw a frame ── */
   const drawFrame = useCallback(
     (frameIndex: number) => {
       const canvas = canvasRef.current;
@@ -30,16 +34,17 @@ export function HeroScrollSequence() {
 
       ctx.clearRect(0, 0, w, h);
 
+      /* cover-fit */
       const imgRatio = img.naturalWidth / img.naturalHeight;
       const canvasRatio = w / h;
       let dw: number, dh: number, dx: number, dy: number;
 
       if (imgRatio > canvasRatio) {
-        dw = w;
-        dh = dw / imgRatio;
-      } else {
         dh = h;
         dw = dh * imgRatio;
+      } else {
+        dw = w;
+        dh = dw / imgRatio;
       }
       dx = (w - dw) / 2;
       dy = (h - dh) / 2;
@@ -49,6 +54,7 @@ export function HeroScrollSequence() {
     [images]
   );
 
+  /* ── draw first frame immediately as placeholder ── */
   useEffect(() => {
     const img = images.current[0];
     if (!img) return;
@@ -60,43 +66,45 @@ export function HeroScrollSequence() {
     }
   }, [drawFrame, images]);
 
+  /* ── GSAP ScrollTrigger scrub ── */
   useEffect(() => {
-    if (!loaded) return;
+    if (!loaded || !sectionRef.current) return;
+
     drawFrame(currentFrameRef.current);
 
-    const onScroll = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => {
-        const section = sectionRef.current;
-        if (!section) return;
+    const obj = { frame: 0 };
 
-        const rect = section.getBoundingClientRect();
-        const scrollableHeight = section.offsetHeight - window.innerHeight;
-        if (scrollableHeight <= 0) return;
-        const scrolled = -rect.top;
-        const rawProgress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-
-        const frameIndex = Math.min(
-          totalFrames - 1,
-          Math.floor(rawProgress * (totalFrames - 1))
-        );
-        if (frameIndex !== currentFrameRef.current) {
-          currentFrameRef.current = frameIndex;
-          drawFrame(frameIndex);
+    const tween = gsap.to(obj, {
+      frame: totalFrames - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5,
+      },
+      onUpdate: () => {
+        const idx = Math.round(obj.frame);
+        if (idx !== currentFrameRef.current) {
+          currentFrameRef.current = idx;
+          drawFrame(idx);
         }
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    const onResize = () => drawFrame(currentFrameRef.current);
-    window.addEventListener("resize", onResize);
+      },
+    });
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      tween.scrollTrigger?.kill();
+      tween.kill();
     };
   }, [loaded, drawFrame, totalFrames]);
+
+  /* ── resize handler ── */
+  useEffect(() => {
+    const onResize = () => drawFrame(currentFrameRef.current);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [drawFrame]);
 
   return (
     <section
@@ -104,42 +112,54 @@ export function HeroScrollSequence() {
       className="relative w-full bg-background"
       style={{ height: "280vh" }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-start">
-        {/* Bottle canvas — 70-80% of viewport height, near full width on mobile */}
+      {/* ── sticky viewport ── */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+
+        {/* ── text layer (behind bottle) ── */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 pt-[12vh]">
+          {/* pre-title */}
+          <span className="font-body text-xs uppercase tracking-[0.3em] text-muted-foreground sm:text-sm">
+            Creative Agency
+          </span>
+
+          {/* main title */}
+          <h1 className="mt-3 font-heading text-4xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-5xl lg:text-7xl">
+            litenby is a{" "}
+            <span className="text-primary">creative lab</span>
+          </h1>
+
+          {/* description */}
+          <p className="mt-5 max-w-lg font-body text-sm text-muted-foreground sm:text-base lg:text-lg">
+            from idea to product — brand, packaging &amp; story, all under one roof.
+          </p>
+
+          {/* CTA buttons */}
+          <div className="mt-8 flex gap-4">
+            <Button size="lg" asChild>
+              <Link to="/contact#form">start your brand</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link to="/packaging">our work</Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* ── bottle canvas (in front of text) ── */}
         <div
-          className="w-[92vw] md:w-auto flex-shrink-0 mt-16 md:mt-12"
-          style={{ height: "75vh" }}
+          className="relative z-20 w-[92vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] flex-shrink-0 pointer-events-none"
+          style={{ height: "80vh" }}
         >
           <canvas
             ref={canvasRef}
             className="h-full w-full"
             style={{ aspectRatio: "1 / 1" }}
           />
+          {/* reflection fade — lets the AE gradient mesh blend into bg */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
         </div>
 
-        {/* Breathing space + text stack */}
-        <div className="flex flex-col items-center text-center px-6 pt-8 md:pt-10">
-          <h1 className="font-heading text-3xl font-extrabold lowercase leading-tight tracking-tight text-foreground sm:text-4xl lg:text-6xl">
-            litenby is a{" "}
-            <span className="text-primary">creative lab</span>
-          </h1>
-
-          <p className="mt-4 max-w-md font-body text-sm text-muted-foreground sm:text-base lg:text-lg">
-            from idea to product — brand, packaging & story, all under one roof.
-          </p>
-
-          <div className="mt-6 flex gap-3">
-            <Button size="lg" asChild>
-              <Link to="/contact#form">start your brand</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/packaging">explore packaging</Link>
-            </Button>
-          </div>
-        </div>
-
-        {/* Bottom fade */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-32 bg-gradient-to-t from-background to-transparent" />
+        {/* bottom edge fade */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-20 bg-gradient-to-t from-background to-transparent" />
       </div>
     </section>
   );
