@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
@@ -30,7 +29,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight"
             >
-              THE STORY
+              STORY
             </motion.span>
 
             <motion.div
@@ -42,7 +41,7 @@ export function AboutSection() {
               className="flex flex-col gap-2"
             >
               <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
-                the litenby story
+                the litenby way
               </h2>
             </motion.div>
 
@@ -54,14 +53,11 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              With over 15 years of experience in{" "}
-              <span className="text-primary font-medium">advertising</span>,{" "}
-              <span className="text-primary font-medium">motion design</span>,
-              and{" "}
-              <span className="text-primary font-medium">branding</span>, we've
-              built Litenby into a creative lab obsessed with craft. Every
-              project is a chance to push boundaries — blending strategy with
-              bold aesthetics to create work that resonates and endures.
+              With over 15 years of experience in <span className="text-primary font-medium">advertising</span>,{" "}
+              <span className="text-primary font-medium">motion design</span>, and{" "}
+              <span className="text-primary font-medium">branding</span>, we've built Litenby into a creative lab
+              obsessed with craft. Every project is a chance to push boundaries — blending strategy with bold aesthetics
+              to create work that resonates and endures.
             </motion.p>
 
             <motion.p
@@ -72,9 +68,8 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              From concept to culture, we don't just build brands — we give them
-              a pulse. Our studio thrives at the intersection of design thinking
-              and cinematic storytelling, delivering identities that move people.
+              From concept to culture, we don't just build brands — we give them a pulse. Our studio thrives at the
+              intersection of design thinking and cinematic storytelling, delivering identities that move people.
             </motion.p>
 
             {/* CTA — merged inline */}
@@ -108,7 +103,9 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-4"
             >
-              <Button size="lg" asChild><Link to="/contact#form">start your brand</Link></Button>
+              <Button size="lg" asChild>
+                <Link to="/contact#form">start your brand</Link>
+              </Button>
             </motion.div>
           </div>
         </div>
