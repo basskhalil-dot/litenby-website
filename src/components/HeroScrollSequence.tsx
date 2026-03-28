@@ -28,6 +28,7 @@ export function HeroScrollSequence() {
     const offCtx = offscreen.getContext("2d");
 
     let loaded = 0;
+    let errors = 0;
 
     frames.forEach((src, i) => {
       const img = new Image();
@@ -36,18 +37,21 @@ export function HeroScrollSequence() {
       images[i] = img;
 
       img.onload = () => {
-        // Force decode by drawing to offscreen canvas
+        console.log(`✅ Hero frame loaded: ${src} (${img.naturalWidth}x${img.naturalHeight})`);
         offCtx?.drawImage(img, 0, 0, 4, 4);
         loaded++;
-        if (loaded === FRAME_COUNT && !cancelled) {
+        if (loaded + errors === FRAME_COUNT && !cancelled) {
+          console.log(`🎬 All hero frames processed: ${loaded} loaded, ${errors} errors`);
           imagesRef.current = images;
           setReady(true);
         }
       };
 
       img.onerror = () => {
-        loaded++;
-        if (loaded === FRAME_COUNT && !cancelled) {
+        console.error(`❌ Hero frame 404: ${src} — full URL: ${window.location.origin}${src}`);
+        errors++;
+        if (loaded + errors === FRAME_COUNT && !cancelled) {
+          console.log(`🎬 All hero frames processed: ${loaded} loaded, ${errors} errors`);
           imagesRef.current = images;
           setReady(true);
         }
@@ -92,10 +96,6 @@ export function HeroScrollSequence() {
     const resizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      canvas.getContext("2d")?.scale(dpr, dpr);
-      // Correct: set logical dimensions for drawFrame
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       drawFrame(currentFrameRef.current);
