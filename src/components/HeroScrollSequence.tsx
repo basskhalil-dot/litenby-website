@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const FRAME_COUNT = 48;
 const frames: string[] = Array.from(
   { length: FRAME_COUNT },
-  (_, i) => `/hero-sequence/Bottle_${String(i).padStart(5, "0")}.jpg`
+  (_, i) => `https://cdn.jsdelivr.net/gh/basskhalil-dot/litenby-website@main/public/hero-sequence/Bottle_${String(i).padStart(5, "0")}.jpg`
 );
 
 export function HeroScrollSequence() {
