@@ -4,11 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
 
-function PackagingCard({
-  product,
-}: {
-  product: PackagingProduct;
-}) {
+function PackagingCard({ product }: { product: PackagingProduct }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -41,9 +37,7 @@ function PackagingCard({
       </div>
 
       {/* Product name */}
-      <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">
-        {product.name}
-      </p>
+      <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">{product.name}</p>
     </div>
   );
 }
@@ -61,7 +55,7 @@ export function PackagingLabSection() {
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
-            LAB SHOWCASE
+            CONTAINERS
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the packaging lab
@@ -89,7 +83,9 @@ export function PackagingLabSection() {
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
-          <Button size="lg" asChild><Link to="/packaging">explore packaging</Link></Button>
+          <Button size="lg" asChild>
+            <Link to="/packaging">explore packaging</Link>
+          </Button>
         </motion.div>
       </div>
     </section>
