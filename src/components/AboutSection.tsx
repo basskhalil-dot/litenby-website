@@ -29,7 +29,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight"
             >
-              STORY
+              Story
             </motion.span>
 
             <motion.div
@@ -53,11 +53,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              With over 15 years of experience in <span className="text-primary font-medium">advertising</span>,{" "}
-              <span className="text-primary font-medium">motion design</span>, and{" "}
-              <span className="text-primary font-medium">branding</span>, we've built Litenby into a creative lab
-              obsessed with craft. Every project is a chance to push boundaries — blending strategy with bold aesthetics
-              to create work that resonates and endures.
+              litenby was built on one belief: a great product without a strong brand is a missed opportunity. We exist for the founders, the makers, and the creative teams who refuse to leave that to chance — bringing branding, packaging, and storytelling together from a single source.
             </motion.p>
 
             <motion.p
@@ -68,8 +64,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              From concept to culture, we don't just build brands — we give them a pulse. Our studio thrives at the
-              intersection of design thinking and cinematic storytelling, delivering identities that move people.
+              From brief to brand, bottle to campaign — everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
             </motion.p>
 
             {/* CTA — merged inline */}
@@ -81,7 +76,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
             >
-              ready to start your brand journey?
+              let's build what you've been imagining.
             </motion.h3>
 
             <motion.p
@@ -92,7 +87,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg font-body"
             >
-              let's build your product from scratch to the shelf.
+              Your brand starts with a conversation.
             </motion.p>
 
             <motion.div

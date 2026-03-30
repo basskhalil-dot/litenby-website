@@ -8,21 +8,21 @@ const labs = [
   {
     title: "Brand",
     description:
-      "We distill your vision into a bold identity system — logo, type, color, voice — built to cut through noise and command attention.",
+      "Your identity, built from scratch — logo, color, type, and voice — designed to be recognised before a single word is read.",
     icon: Paintbrush,
     image: labBrand,
   },
   {
-    title: "Packaging Lab",
+    title: "Packaging",
     description:
-      "From concept to shelf, we design packaging that stops thumbs and turns heads. Tactile, iconic, impossible to ignore.",
+      "Container, label, finish — every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
     icon: Package,
     image: labPackaging,
   },
   {
-    title: "Launch",
+    title: "Storytelling",
     description:
-      "Strategy, content, and go-to-market firepower. We don't just build brands — we launch them into culture.",
+      "Strategy, content, and go-to-market built around your brand's story. So when you launch, you don't just show up. You make an entrance.",
     icon: Rocket,
     image: labLaunch,
   },
@@ -41,11 +41,14 @@ export function ThreeLabsSection() {
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
-            WHAT WE DO
+            Process
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the three labs
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-muted-foreground font-body">
+            Brand it. Pack it. Launch it.
+          </p>
         </motion.div>
 
         {/* Cards grid — all appear at once */}
