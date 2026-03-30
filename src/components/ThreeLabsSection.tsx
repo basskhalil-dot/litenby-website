@@ -41,11 +41,14 @@ export function ThreeLabsSection() {
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
-            WHAT WE DO
+            Process
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the three labs
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-muted-foreground font-body">
+            Brand it. Pack it. Launch it.
+          </p>
         </motion.div>
 
         {/* Cards grid — all appear at once */}

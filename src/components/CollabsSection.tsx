@@ -35,7 +35,7 @@ export function CollabsSection() {
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          PROJECTS
+          Project
         </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
@@ -46,6 +46,15 @@ export function CollabsSection() {
         >
           collabs
         </motion.h2>
+        <motion.p
+          className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-muted-foreground font-body"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          Ideas that made it to the shelf.
+        </motion.p>
       </div>
 
       <div className="container">

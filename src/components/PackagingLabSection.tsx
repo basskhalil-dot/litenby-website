@@ -55,11 +55,14 @@ export function PackagingLabSection() {
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
-            CONTAINERS
+            Containers
           </span>
           <h2 className="font-heading text-4xl font-extrabold text-foreground md:text-5xl lg:text-[68px]">
             the packaging lab
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-muted-foreground font-body">
+            Choose the form. We'll build the rest.
+          </p>
         </motion.div>
 
         {/* 3×2 grid — all appear at once */}
