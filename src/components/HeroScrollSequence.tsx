@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOTAL_FRAMES = 10;
+const TOTAL_FRAMES = 20;
 
 function generateFrames(): string[] {
   return Array.from({ length: TOTAL_FRAMES }, (_, i) =>
@@ -110,7 +110,7 @@ export function HeroScrollSequence() {
         trigger: wrapperRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5,
+        scrub: 1,
         pin: canvasRef.current?.parentElement,
       },
     });
@@ -135,7 +135,7 @@ export function HeroScrollSequence() {
   }, [ready]);
 
   return (
-    <div ref={wrapperRef} style={{ height: "300vh" }}>
+    <div ref={wrapperRef} style={{ height: "150vh" }}>
       <div
         className="w-full bg-background flex items-center justify-center"
         style={{ height: "100vh" }}
