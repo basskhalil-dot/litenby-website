@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOTAL_FRAMES = 40;
+const TOTAL_FRAMES = 48;
 
 function generateFrames(): string[] {
   return Array.from({ length: TOTAL_FRAMES }, (_, i) =>
