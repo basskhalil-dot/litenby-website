@@ -44,7 +44,6 @@ export function HeroScrollSequence() {
         }
       };
       img.onerror = () => {
-        console.error(`❌ Failed to load frame: ${src}`);
         loaded++;
         if (loaded === TOTAL_FRAMES) {
           imagesRef.current = imgs;
