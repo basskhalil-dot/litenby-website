@@ -110,7 +110,7 @@ export function HeroScrollSequence() {
         trigger: wrapperRef.current,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5,
+        scrub: 1,
         pin: canvasRef.current?.parentElement,
       },
     });
