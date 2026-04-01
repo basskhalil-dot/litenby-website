@@ -108,9 +108,10 @@ export function HeroScrollSequence() {
       scrollTrigger: {
         trigger: wrapperRef.current,
         start: "top top",
-        end: "bottom bottom",
+        end: "+=50vh",
         scrub: 1,
-        pin: canvasRef.current?.parentElement,
+        pin: true,
+        pinSpacing: true,
       },
     });
 
