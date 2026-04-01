@@ -108,10 +108,11 @@ export function HeroScrollSequence() {
       scrollTrigger: {
         trigger: wrapperRef.current,
         start: "top top",
-        end: "+=50vh",
+        end: "+=70vh",
         scrub: 1,
         pin: true,
         pinSpacing: true,
+        anticipatePin: 1,
       },
     });
 
