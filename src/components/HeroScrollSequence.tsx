@@ -108,9 +108,10 @@ export function HeroScrollSequence() {
       scrollTrigger: {
         trigger: wrapperRef.current,
         start: "top top",
-        end: "bottom bottom",
+        end: "+=50vh",
         scrub: 1,
-        pin: canvasRef.current?.parentElement,
+        pin: true,
+        pinSpacing: true,
       },
     });
 
@@ -134,7 +135,7 @@ export function HeroScrollSequence() {
   }, [ready]);
 
   return (
-    <div ref={wrapperRef} style={{ height: "150vh" }}>
+    <div ref={wrapperRef} style={{ height: "100vh" }}>
       <div
         className="w-full bg-background flex items-center justify-center"
         style={{ height: "100vh" }}
