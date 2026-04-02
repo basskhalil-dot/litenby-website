@@ -6,6 +6,7 @@ import { PackagingLabSection } from '@/components/PackagingLabSection';
 import { CollabsSection } from '@/components/CollabsSection';
 import { AboutSection } from '@/components/AboutSection';
 import { Footer } from '@/components/Footer';
+import { BackToTop } from '@/components/BackToTop';
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <CollabsSection />
       <AboutSection />
       <Footer />
+      <BackToTop />
     </div>
   );
 };

@@ -8,14 +8,14 @@ const labs = [
   {
     title: "Brand",
     description:
-      "Your identity, built from scratch — logo, color, type, and voice — designed to be recognised before a single word is read.",
+      "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
     icon: Paintbrush,
     image: labBrand,
   },
   {
     title: "Packaging",
     description:
-      "Container, label, finish — every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
+      "Container, label, finish. Every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
     icon: Package,
     image: labPackaging,
   },

@@ -65,7 +65,7 @@ export function HeroGeometric() {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
       {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--foreground)/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--foreground)/0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      {/* Grid overlay removed */}
 
       {/* Floating shapes */}
       <div className="absolute inset-0 overflow-hidden">
@@ -74,7 +74,7 @@ export function HeroGeometric() {
           width={600}
           height={140}
           rotate={12}
-          gradient="from-primary/[0.10]"
+          gradient="from-primary/[0.04]"
           className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
         />
         <ElegantShape
@@ -82,7 +82,7 @@ export function HeroGeometric() {
           width={500}
           height={120}
           rotate={-15}
-          gradient="from-primary/[0.08]"
+          gradient="from-primary/[0.03]"
           className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
         />
         <ElegantShape
@@ -90,7 +90,7 @@ export function HeroGeometric() {
           width={300}
           height={80}
           rotate={-8}
-          gradient="from-primary/[0.06]"
+          gradient="from-primary/[0.02]"
           className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
         />
         <ElegantShape
@@ -98,7 +98,7 @@ export function HeroGeometric() {
           width={200}
           height={60}
           rotate={20}
-          gradient="from-primary/[0.07]"
+          gradient="from-primary/[0.03]"
           className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
         />
         <ElegantShape
@@ -106,7 +106,7 @@ export function HeroGeometric() {
           width={150}
           height={40}
           rotate={-25}
-          gradient="from-primary/[0.05]"
+          gradient="from-primary/[0.02]"
           className="left-[20%] md:left-[25%] top-[5%] md:top-[8%]"
         />
       </div>
@@ -150,7 +150,7 @@ export function HeroGeometric() {
             animate="visible"
             className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-muted-foreground font-body"
           >
-            branding, packaging, and storytelling — built together, from a single source.
+            branding, packaging, and storytelling built together, from a single source.
           </motion.p>
 
           {/* Buttons */}
