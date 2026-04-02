@@ -15,7 +15,7 @@ const labs = [
   {
     title: "Packaging",
     description:
-      "Container, label, finish — every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
+      "Container, label, finish. Every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
     icon: Package,
     image: labPackaging,
   },

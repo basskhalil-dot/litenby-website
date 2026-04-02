@@ -150,7 +150,7 @@ export function HeroGeometric() {
             animate="visible"
             className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-muted-foreground font-body"
           >
-            branding, packaging, and storytelling — built together, from a single source.
+            branding, packaging, and storytelling built together, from a single source.
           </motion.p>
 
           {/* Buttons */}

@@ -64,7 +64,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              From brief to brand, bottle to campaign — everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
+              From brief to brand, bottle to campaign. Everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
             </motion.p>
 
             {/* CTA — merged inline */}
