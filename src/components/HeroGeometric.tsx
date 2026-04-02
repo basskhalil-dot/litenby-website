@@ -106,7 +106,7 @@ export function HeroGeometric() {
           width={150}
           height={40}
           rotate={-25}
-          gradient="from-primary/[0.05]"
+          gradient="from-primary/[0.02]"
           className="left-[20%] md:left-[25%] top-[5%] md:top-[8%]"
         />
       </div>
