@@ -8,7 +8,7 @@ const labs = [
   {
     title: "Brand",
     description:
-      "Your identity, built from scratch — logo, color, type, and voice — designed to be recognised before a single word is read.",
+      "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
     icon: Paintbrush,
     image: labBrand,
   },
