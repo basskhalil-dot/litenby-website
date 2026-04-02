@@ -65,7 +65,7 @@ export function HeroGeometric() {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
       {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--foreground)/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--foreground)/0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      {/* Grid overlay removed */}
 
       {/* Floating shapes */}
       <div className="absolute inset-0 overflow-hidden">
