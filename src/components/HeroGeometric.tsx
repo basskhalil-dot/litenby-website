@@ -98,7 +98,7 @@ export function HeroGeometric() {
           width={200}
           height={60}
           rotate={20}
-          gradient="from-primary/[0.07]"
+          gradient="from-primary/[0.03]"
           className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
         />
         <ElegantShape
