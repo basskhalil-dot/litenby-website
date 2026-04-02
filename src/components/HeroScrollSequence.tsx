@@ -133,7 +133,7 @@ export function HeroScrollSequence() {
   }, [ready]);
 
   return (
-    <div ref={wrapperRef} style={{ height: "170vh" }}>
+    <div ref={wrapperRef} style={{ height: "170vh", overflow: "clip" }}>
       <div
         className="w-full bg-background flex items-center justify-center"
         style={{ position: "sticky", top: 0, height: "100vh" }}
