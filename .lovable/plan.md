@@ -1,47 +1,47 @@
 
 
-## Fix: Entry Jump in Bottle Scroll Sequence
+## Diagnosis: Why the Bottle Jumps
 
-### Root Cause
+The root cause is the **navbar**. It's set to `position: sticky` (line 20 of LitenbyNavbar.tsx), which means it **takes up space in the document flow** (~60px). The HeroScrollSequence wrapper starts *below* the navbar, not at the top of the viewport. When you scroll, the wrapper reaches viewport top and the CSS sticky canvas snaps into position — that's the visible jump.
 
-GSAP's `pin: true` is the problem. When ScrollTrigger activates, it rips the wrapper out of normal document flow (`position: static` → `position: fixed`) and injects a spacer div. This layout reflow is the visible "snap." No amount of `anticipatePin` fully eliminates it because the browser must repaint the layout shift.
+The bottle is never truly "at the top" on page load. It's offset by the navbar height.
 
-### Solution: Remove Pinning Entirely
-
-Instead of asking GSAP to pin the element (which always causes a reflow), we make the section naturally tall (170vh) and position the canvas as a sticky element inside it. The canvas stays visually fixed while the user scrolls through the tall section — no GSAP pin, no spacer injection, no jump.
-
-GSAP is only used to scrub the frame index based on scroll progress through the section. No `pin`, no `pinSpacing`, no `anticipatePin`.
-
-### Changes to `src/components/HeroScrollSequence.tsx`
-
-**Layout structure:**
 ```text
-<div ref={wrapperRef} style={{ height: "170vh" }}>        ← tall scrollable runway
-  <div style={{ position: "sticky", top: 0, height: "100vh" }}>  ← sticks to viewport naturally
-    <canvas ... />
-  </div>
-</div>
+Current layout (causes jump):
+
+┌──────────────────────┐  ← viewport top
+│  Navbar (sticky, ~60px flow space)
+├──────────────────────┤
+│  HeroScrollSequence  │  ← starts 60px below viewport top
+│  (170vh wrapper)     │     sticky canvas engages late = JUMP
+└──────────────────────┘
 ```
 
-**ScrollTrigger config (no pin):**
-```typescript
-scrollTrigger: {
-  trigger: wrapperRef.current,
-  start: "top top",
-  end: "bottom bottom",   // scrub across the full 170vh height
-  scrub: true,             // immediate 1:1 response, no lag
-}
+## Fix
+
+Two changes:
+
+### 1. Navbar: `sticky` → `fixed` (LitenbyNavbar.tsx)
+
+Change the navbar from `sticky` to `fixed` positioning. This removes it from document flow so the hero section starts at the true top of the viewport. The bottle is visible and centered the instant the page loads — no offset, no jump.
+
+Line 20: change `sticky` to `fixed` in the className.
+
+### 2. HeroScrollSequence: add `overflow: clip` (HeroScrollSequence.tsx)
+
+Add `overflow: "clip"` to the wrapper div so the section boundary is clean and the sticky element doesn't peek outside the wrapper bounds during the handoff to the next section.
+
+Line 136: add `overflow: "clip"` to the wrapper style.
+
+```text
+Fixed layout (no jump):
+
+┌──────────────────────┐  ← viewport top
+│  Navbar (fixed, overlays, no flow space)
+│  HeroScrollSequence  │  ← starts at viewport top
+│  (170vh wrapper)     │     sticky canvas is already in position = SMOOTH
+└──────────────────────┘
 ```
 
-- `scrub: true` instead of `scrub: 1` — removes the 1-second smoothing delay that makes the first scroll feel laggy
-- `end: "bottom bottom"` — the animation plays across the natural 70vh of extra scroll distance (170vh wrapper minus 100vh viewport = 70vh runway)
-- No `pin`, `pinSpacing`, or `anticipatePin` — eliminating the source of the jump entirely
-
-**Why this works:**
-- CSS `position: sticky` keeps the canvas viewport-fixed without any JavaScript layout changes
-- No DOM manipulation on first scroll = no reflow = no jump
-- The 70vh of extra wrapper height provides the same scroll runway as before
-- When the wrapper scrolls past, the sticky element naturally releases — seamless transition to the next section
-
-### No other files change.
+No other files change. The ScrollTrigger config stays as-is — it's correct with `scrub: true`, `start: "top top"`, `end: "bottom bottom"`, no pin.
 
