@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 48;
+const EARLY_FRAMES = 10;
 
 function generateFrames(): string[] {
   return Array.from({ length: TOTAL_FRAMES }, (_, i) =>
@@ -12,17 +13,23 @@ function generateFrames(): string[] {
   );
 }
 
-export function HeroScrollSequence() {
+interface HeroScrollSequenceProps {
+  onEarlyLoad?: () => void;
+}
+
+export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameIndexRef = useRef(0);
   const [ready, setReady] = useState(false);
+  const earlyFiredRef = useRef(false);
 
   /* ---------- preload ---------- */
   useEffect(() => {
     const urls = generateFrames();
     let loaded = 0;
+    let earlyLoaded = 0;
     const imgs: HTMLImageElement[] = [];
 
     const offscreen = document.createElement("canvas");
@@ -37,6 +44,16 @@ export function HeroScrollSequence() {
           offscreen.height = img.height;
           offCtx.drawImage(img, 0, 0);
         }
+
+        // Track early frames
+        if (idx < EARLY_FRAMES) {
+          earlyLoaded++;
+          if (earlyLoaded >= EARLY_FRAMES && !earlyFiredRef.current) {
+            earlyFiredRef.current = true;
+            onEarlyLoad?.();
+          }
+        }
+
         loaded++;
         if (loaded === TOTAL_FRAMES) {
           imagesRef.current = imgs;
@@ -44,6 +61,13 @@ export function HeroScrollSequence() {
         }
       };
       img.onerror = () => {
+        if (idx < EARLY_FRAMES) {
+          earlyLoaded++;
+          if (earlyLoaded >= EARLY_FRAMES && !earlyFiredRef.current) {
+            earlyFiredRef.current = true;
+            onEarlyLoad?.();
+          }
+        }
         loaded++;
         if (loaded === TOTAL_FRAMES) {
           imagesRef.current = imgs;
@@ -151,11 +175,6 @@ export function HeroScrollSequence() {
             className="w-full h-full"
             style={{ display: ready ? "block" : "none" }}
           />
-          {!ready && (
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
-              Loading…
-            </div>
-          )}
         </div>
       </div>
     </div>
