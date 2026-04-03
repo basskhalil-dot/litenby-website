@@ -1,47 +1,86 @@
 
 
-## Diagnosis: Why the Bottle Jumps
+## Global Homepage Refinement
 
-The root cause is the **navbar**. It's set to `position: sticky` (line 20 of LitenbyNavbar.tsx), which means it **takes up space in the document flow** (~60px). The HeroScrollSequence wrapper starts *below* the navbar, not at the top of the viewport. When you scroll, the wrapper reaches viewport top and the CSS sticky canvas snaps into position — that's the visible jump.
+### 1. Rename "Brand" → "Branding" Across the Site
 
-The bottle is never truly "at the top" on page load. It's offset by the navbar height.
+**Files:** `LitenbyNavbar.tsx`, `Footer.tsx`, `ThreeLabsSection.tsx`
 
-```text
-Current layout (causes jump):
+- Navbar & Footer: Change `label: 'brand'` to `label: 'branding'` (the `href: '/brand'` stays the same — it's a route, not display text)
+- ThreeLabsSection: Change the first lab's `title` from `"Brand"` to `"Branding"`
 
-┌──────────────────────┐  ← viewport top
-│  Navbar (sticky, ~60px flow space)
-├──────────────────────┤
-│  HeroScrollSequence  │  ← starts 60px below viewport top
-│  (170vh wrapper)     │     sticky canvas engages late = JUMP
-└──────────────────────┘
+### 2. Color System Audit
+
+The CSS variables are already unified — `--primary`, `--accent`, `--highlight`, `--ring` all resolve to `39 100% 50%` (Brand Orange). No rogue hex values or secondary yellows found in the homepage components. The `shadow-[…rgba(255,165,0,…)]` in `HeroGeometric.tsx` ElegantShape uses the same orange. **No changes needed** — the color system is already a single primary yellow.
+
+### 3. "Explore Packaging" Button Hover → White
+
+**File:** `HeroGeometric.tsx` (line 167)
+
+Currently the outline button hovers to `hover:bg-primary hover:text-primary-foreground`. Change to:
+```
+hover:bg-white hover:text-black hover:border-white
 ```
 
-## Fix
+This distinguishes it from "Start Your Brand" which hovers to transparent/orange-border.
 
-Two changes:
+### 4. Vertical Rhythm & Spacing
 
-### 1. Navbar: `sticky` → `fixed` (LitenbyNavbar.tsx)
+**Mobile gap fix (Bottle → Hero text):** The `HeroScrollSequence` wrapper is `170vh` and `HeroGeometric` is `min-h-screen`. On mobile, the combined height creates excessive whitespace. Changes:
 
-Change the navbar from `sticky` to `fixed` positioning. This removes it from document flow so the hero section starts at the true top of the viewport. The bottle is visible and centered the instant the page loads — no offset, no jump.
+- **`HeroScrollSequence.tsx`**: No changes to sticky/scroll logic. Only reduce wrapper height on mobile: change `style={{ height: "170vh" }}` to a responsive approach using a className `h-[150vh] md:h-[170vh]` (shorter runway on mobile = tighter feel).
+- **`HeroGeometric.tsx`**: Change `min-h-screen` to `min-h-[80vh] lg:min-h-screen` so the hero text section is tighter on mobile.
 
-Line 20: change `sticky` to `fixed` in the className.
+**Global section spacing normalization:**
+- `ThreeLabsSection`: `py-16 lg:py-24` → `py-20 lg:py-28` (bump to ~80-112px)
+- `PackagingLabSection`: `py-16 lg:py-24` → `py-20 lg:py-28`
+- `CollabsSection`: already `padding: 100px 0` — keep as is
+- `AboutSection`: already `paddingTop/Bottom: 100` — keep as is
 
-### 2. HeroScrollSequence: add `overflow: clip` (HeroScrollSequence.tsx)
+All sections will land in the 80–112px range, consistent flow.
 
-Add `overflow: "clip"` to the wrapper div so the section boundary is clean and the sticky element doesn't peek outside the wrapper bounds during the handoff to the next section.
+### 5. Professional Preloader
 
-Line 136: add `overflow: "clip"` to the wrapper style.
+**New file:** `src/components/Preloader.tsx`
 
-```text
-Fixed layout (no jump):
+A full-screen black overlay (`z-[9999]`) with a centered horizontal loading bar in primary yellow. Logic:
 
-┌──────────────────────┐  ← viewport top
-│  Navbar (fixed, overlays, no flow space)
-│  HeroScrollSequence  │  ← starts at viewport top
-│  (170vh wrapper)     │     sticky canvas is already in position = SMOOTH
-└──────────────────────┘
-```
+- In `HeroScrollSequence`, expose a callback/state when the first 10 frames are loaded (separate counter from full load)
+- Create a `Preloader` component that:
+  - Renders a full-screen black div with a centered thin progress bar
+  - Accepts a `progress` value (0–100) and an `onComplete` callback
+  - Once progress hits 100, fades out over 600ms then unmounts
+- In `Index.tsx`, manage preloader state:
+  - `HeroScrollSequence` reports when 10/10 early frames are loaded
+  - `Promise.all` with font-loading check (`document.fonts.ready`)
+  - Once both resolve, trigger preloader fade-out
 
-No other files change. The ScrollTrigger config stays as-is — it's correct with `scrub: true`, `start: "top top"`, `end: "bottom bottom"`, no pin.
+**Changes to `HeroScrollSequence.tsx`:**
+- Add `onEarlyLoad?: () => void` prop
+- Track first 10 frames loaded separately; call `onEarlyLoad` when count reaches 10
+- Remove the "Loading…" text fallback entirely
+- Keep canvas hidden until `ready` (full load) — the preloader covers this period
+
+**Changes to `Index.tsx`:**
+- Add `Preloader` component with state management
+- Pass `onEarlyLoad` to `HeroScrollSequence`
+- Combine with `document.fonts.ready` in Promise.all
+- Fade preloader out when both conditions met
+
+**Preloader visual:** A minimal centered progress bar (2px height, max-width 120px) that fills from left to right as frames load, matching the Litenby brand.
+
+### Files Modified
+
+| File | Changes |
+|---|---|
+| `src/components/LitenbyNavbar.tsx` | "brand" → "branding" label |
+| `src/components/Footer.tsx` | "brand" → "branding" label |
+| `src/components/ThreeLabsSection.tsx` | "Brand" → "Branding" title, spacing |
+| `src/components/HeroGeometric.tsx` | Button hover to white, reduce min-h on mobile |
+| `src/components/HeroScrollSequence.tsx` | Remove "Loading…", add `onEarlyLoad` prop, responsive height |
+| `src/components/PackagingLabSection.tsx` | Spacing normalization |
+| `src/components/Preloader.tsx` | New — full-screen preloader overlay |
+| `src/pages/Index.tsx` | Integrate preloader, pass callbacks |
+
+No changes to sticky/scroll/GSAP logic in `HeroScrollSequence`.
 
