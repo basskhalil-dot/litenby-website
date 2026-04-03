@@ -1,86 +1,44 @@
 
 
-## Global Homepage Refinement
+## Assessment: Simultaneous Lateral Movement + Frame Scrub
 
-### 1. Rename "Brand" → "Branding" Across the Site
+### Question 1: Can X-axis movement be added to the existing ScrollTrigger?
 
-**Files:** `LitenbyNavbar.tsx`, `Footer.tsx`, `ThreeLabsSection.tsx`
+**Yes, trivially.** The existing GSAP timeline already scrubs `obj.frame` from 0→47. You can add a second `.to()` on the same timeline targeting the canvas container's `x` property (e.g., from `0` to `25vw`). Both animations share the same ScrollTrigger and progress — no second trigger needed. The lateral slide and frame rotation happen in perfect sync, driven by the same scroll position.
 
-- Navbar & Footer: Change `label: 'brand'` to `label: 'branding'` (the `href: '/brand'` stays the same — it's a route, not display text)
-- ThreeLabsSection: Change the first lab's `title` from `"Brand"` to `"Branding"`
-
-### 2. Color System Audit
-
-The CSS variables are already unified — `--primary`, `--accent`, `--highlight`, `--ring` all resolve to `39 100% 50%` (Brand Orange). No rogue hex values or secondary yellows found in the homepage components. The `shadow-[…rgba(255,165,0,…)]` in `HeroGeometric.tsx` ElegantShape uses the same orange. **No changes needed** — the color system is already a single primary yellow.
-
-### 3. "Explore Packaging" Button Hover → White
-
-**File:** `HeroGeometric.tsx` (line 167)
-
-Currently the outline button hovers to `hover:bg-primary hover:text-primary-foreground`. Change to:
-```
-hover:bg-white hover:text-black hover:border-white
+```text
+tl.to(obj, { frame: 47, onUpdate: drawFrame })    // existing
+  .to(containerEl, { x: "25vw" }, 0);              // simultaneous (position 0 = same start)
 ```
 
-This distinguishes it from "Start Your Brand" which hovers to transparent/orange-border.
+### Question 2: Risk level of modifying HeroScrollSequence vs HeroGeometric only
 
-### 4. Vertical Rhythm & Spacing
-
-**Mobile gap fix (Bottle → Hero text):** The `HeroScrollSequence` wrapper is `170vh` and `HeroGeometric` is `min-h-screen`. On mobile, the combined height creates excessive whitespace. Changes:
-
-- **`HeroScrollSequence.tsx`**: No changes to sticky/scroll logic. Only reduce wrapper height on mobile: change `style={{ height: "170vh" }}` to a responsive approach using a className `h-[150vh] md:h-[170vh]` (shorter runway on mobile = tighter feel).
-- **`HeroGeometric.tsx`**: Change `min-h-screen` to `min-h-[80vh] lg:min-h-screen` so the hero text section is tighter on mobile.
-
-**Global section spacing normalization:**
-- `ThreeLabsSection`: `py-16 lg:py-24` → `py-20 lg:py-28` (bump to ~80-112px)
-- `PackagingLabSection`: `py-16 lg:py-24` → `py-20 lg:py-28`
-- `CollabsSection`: already `padding: 100px 0` — keep as is
-- `AboutSection`: already `paddingTop/Bottom: 100` — keep as is
-
-All sections will land in the 80–112px range, consistent flow.
-
-### 5. Professional Preloader
-
-**New file:** `src/components/Preloader.tsx`
-
-A full-screen black overlay (`z-[9999]`) with a centered horizontal loading bar in primary yellow. Logic:
-
-- In `HeroScrollSequence`, expose a callback/state when the first 10 frames are loaded (separate counter from full load)
-- Create a `Preloader` component that:
-  - Renders a full-screen black div with a centered thin progress bar
-  - Accepts a `progress` value (0–100) and an `onComplete` callback
-  - Once progress hits 100, fades out over 600ms then unmounts
-- In `Index.tsx`, manage preloader state:
-  - `HeroScrollSequence` reports when 10/10 early frames are loaded
-  - `Promise.all` with font-loading check (`document.fonts.ready`)
-  - Once both resolve, trigger preloader fade-out
-
-**Changes to `HeroScrollSequence.tsx`:**
-- Add `onEarlyLoad?: () => void` prop
-- Track first 10 frames loaded separately; call `onEarlyLoad` when count reaches 10
-- Remove the "Loading…" text fallback entirely
-- Keep canvas hidden until `ready` (full load) — the preloader covers this period
-
-**Changes to `Index.tsx`:**
-- Add `Preloader` component with state management
-- Pass `onEarlyLoad` to `HeroScrollSequence`
-- Combine with `document.fonts.ready` in Promise.all
-- Fade preloader out when both conditions met
-
-**Preloader visual:** A minimal centered progress bar (2px height, max-width 120px) that fills from left to right as frames load, matching the Litenby brand.
-
-### Files Modified
-
-| File | Changes |
+| Approach | Risk |
 |---|---|
-| `src/components/LitenbyNavbar.tsx` | "brand" → "branding" label |
-| `src/components/Footer.tsx` | "brand" → "branding" label |
-| `src/components/ThreeLabsSection.tsx` | "Brand" → "Branding" title, spacing |
-| `src/components/HeroGeometric.tsx` | Button hover to white, reduce min-h on mobile |
-| `src/components/HeroScrollSequence.tsx` | Remove "Loading…", add `onEarlyLoad` prop, responsive height |
-| `src/components/PackagingLabSection.tsx` | Spacing normalization |
-| `src/components/Preloader.tsx` | New — full-screen preloader overlay |
-| `src/pages/Index.tsx` | Integrate preloader, pass callbacks |
+| Modify only HeroGeometric (previous plan) | **Low** — isolated, no scroll logic touched |
+| Add X-axis tween inside HeroScrollSequence | **Medium** — you're adding to the same timeline that controls the canvas. If the container shifts, the canvas resize listener and drawFrame centering math still work (they use `getBoundingClientRect`). But the sticky positioning + lateral movement interaction needs careful testing: `position: sticky` + `transform: translateX()` is valid CSS but can behave unexpectedly on some mobile browsers. |
 
-No changes to sticky/scroll/GSAP logic in `HeroScrollSequence`.
+Main risks of the simultaneous approach:
+- **Sticky + transform**: Some older browsers treat `transform` on a sticky element as creating a new containing block, which can break the sticky behavior. Mitigation: apply the `x` tween to the inner container (the `maxWidth: 600px` div), not the sticky div itself.
+- **Canvas resize**: The canvas uses `getBoundingClientRect()` on resize. If the container is mid-transform, the rect is still correct — `getBoundingClientRect` accounts for transforms. Low risk.
+- **Mobile**: The lateral movement needs to be reduced or disabled on small screens (bottle would go off-screen). Needs a responsive check.
+
+### Question 3: The crossfade middle ground
+
+Yes — the canvas stays centered throughout all 48 frames. At the end of the scroll range, a static `<img>` of the final frame (already positioned on the right) fades in while the canvas simultaneously fades out. This creates the illusion of the bottle sliding right without ever moving the canvas.
+
+**Pros**: Zero risk to scroll/sticky logic. Canvas is untouched. The transition is purely a CSS opacity crossfade between two elements.
+**Cons**: It's not truly continuous motion — it's a dissolve. On slow scrolls, a perceptive user might notice the bottle isn't physically traveling. The "wow factor" is lower.
+
+### Question 4: Best visual result vs lowest risk
+
+| Approach | Visual Quality | Risk | Recommendation |
+|---|---|---|---|
+| A. GSAP X-tween on inner container | ★★★★★ — true continuous motion | Medium | **Best result** |
+| B. Crossfade canvas → static image | ★★★☆☆ — dissolve trick | Low | Safe fallback |
+| C. Only modify HeroGeometric (no motion) | ★★★★☆ — clean split, no travel | Low | Previous plan |
+
+**Recommendation**: **Approach A** — add the X-axis tween to the inner container (not the sticky div). Apply it to the same timeline at position `0` so it's synchronized. On mobile (`< 768px`), keep the bottle centered (no lateral movement) and stack the layout vertically. This gives the premium editorial feel with genuine continuous motion, and the risk is manageable because the tween targets a child of the sticky element, not the sticky element itself.
+
+If during implementation the sticky+transform interaction causes issues on any browser, falling back to Approach B (crossfade) is a 10-minute swap.
 
