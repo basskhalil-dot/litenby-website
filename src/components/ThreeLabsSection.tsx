@@ -30,7 +30,7 @@ const labs = [
 
 export function ThreeLabsSection() {
   return (
-    <section className="relative w-full bg-background py-16 lg:py-24">
+    <section className="relative w-full bg-background py-20 lg:py-28">
       <div className="container">
         {/* Section header */}
         <motion.div

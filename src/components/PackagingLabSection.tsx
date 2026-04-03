@@ -44,7 +44,7 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
 
 export function PackagingLabSection() {
   return (
-    <section className="relative w-full bg-background py-16 lg:py-24">
+    <section className="relative w-full bg-background py-20 lg:py-28">
       <div className="container">
         {/* Header */}
         <motion.div
