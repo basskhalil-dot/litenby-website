@@ -6,7 +6,7 @@ import labLaunch from "@/assets/lab-launch.jpg";
 
 const labs = [
   {
-    title: "Brand",
+    title: "Branding",
     description:
       "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
     icon: Paintbrush,
