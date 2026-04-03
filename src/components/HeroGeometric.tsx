@@ -63,7 +63,7 @@ const fadeUpVariants = {
 
 export function HeroGeometric() {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[80vh] lg:min-h-screen w-full flex items-center justify-center overflow-hidden bg-background">
       {/* Grid overlay */}
       {/* Grid overlay removed */}
 
