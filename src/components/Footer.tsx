@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import litenbyLogo from "@/assets/litenby-logo.png";
 
 const mainLinks = [
-  { label: "brand", href: "/brand" },
+  { label: "branding", href: "/brand" },
   { label: "packaging", href: "/packaging" },
   { label: "storytelling", href: "/storytelling" },
   { label: "blog", href: "/blog" },

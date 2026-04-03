@@ -6,7 +6,7 @@ import labLaunch from "@/assets/lab-launch.jpg";
 
 const labs = [
   {
-    title: "Brand",
+    title: "Branding",
     description:
       "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
     icon: Paintbrush,
@@ -30,7 +30,7 @@ const labs = [
 
 export function ThreeLabsSection() {
   return (
-    <section className="relative w-full bg-background py-16 lg:py-24">
+    <section className="relative w-full bg-background py-20 lg:py-28">
       <div className="container">
         {/* Section header */}
         <motion.div
