@@ -20,6 +20,7 @@ interface HeroScrollSequenceProps {
 export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameIndexRef = useRef(0);
   const [ready, setReady] = useState(false);
@@ -38,14 +39,12 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
     urls.forEach((src, idx) => {
       const img = new Image();
       img.onload = () => {
-        // force-decode
         if (offCtx) {
           offscreen.width = img.width;
           offscreen.height = img.height;
           offCtx.drawImage(img, 0, 0);
         }
 
-        // Track early frames
         if (idx < EARLY_FRAMES) {
           earlyLoaded++;
           if (earlyLoaded >= EARLY_FRAMES && !earlyFiredRef.current) {
@@ -127,6 +126,8 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
 
     drawFrame(0);
 
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
     const obj = { frame: 0 };
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -137,6 +138,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       },
     });
 
+    // Frame scrub
     tl.to(obj, {
       frame: TOTAL_FRAMES - 1,
       snap: "frame",
@@ -149,6 +151,18 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         }
       },
     });
+
+    // Lateral movement — desktop only, on the inner container (not the sticky div)
+    if (isDesktop && innerRef.current) {
+      tl.to(
+        innerRef.current,
+        {
+          x: "18vw",
+          ease: "power1.inOut",
+        },
+        0 // position 0 = starts at the same time as the frame scrub
+      );
+    }
 
     return () => {
       tl.kill();
@@ -163,11 +177,13 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         style={{ position: "sticky", top: 0, height: "100vh" }}
       >
         <div
+          ref={innerRef}
           style={{
             width: "100%",
             maxWidth: "600px",
             aspectRatio: "1 / 1",
             maxHeight: "70vh",
+            willChange: "transform",
           }}
         >
           <canvas
