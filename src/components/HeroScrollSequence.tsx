@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Circle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +24,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameIndexRef = useRef(0);
   const [ready, setReady] = useState(false);
@@ -152,16 +156,35 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       },
     });
 
-    // Lateral movement — desktop only, on the inner container (not the sticky div)
-    if (isDesktop && innerRef.current) {
-      tl.to(
-        innerRef.current,
-        {
-          x: "18vw",
-          ease: "power1.inOut",
-        },
-        0 // position 0 = starts at the same time as the frame scrub
-      );
+    if (isDesktop) {
+      // Lateral movement on the bottle container
+      if (innerRef.current) {
+        tl.to(
+          innerRef.current,
+          { x: "18vw", ease: "power1.inOut" },
+          0
+        );
+      }
+
+      // Text reveal — fades in during the last 25% of scroll
+      if (textRef.current) {
+        gsap.set(textRef.current, { opacity: 0, y: 40 });
+        tl.to(
+          textRef.current,
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.25 },
+          0.75 // starts at 75% of timeline progress
+        );
+      }
+    } else {
+      // Mobile: text visible after scroll, no lateral movement
+      if (textRef.current) {
+        gsap.set(textRef.current, { opacity: 0, y: 30 });
+        tl.to(
+          textRef.current,
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 },
+          0.7
+        );
+      }
     }
 
     return () => {
@@ -171,26 +194,77 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
   }, [ready]);
 
   return (
-    <div ref={wrapperRef} className="h-[150vh] md:h-[170vh]" style={{ overflow: "clip" }}>
+    <div ref={wrapperRef} className="h-[200vh] md:h-[220vh]" style={{ overflow: "clip" }}>
       <div
-        className="w-full bg-background flex items-center justify-center"
-        style={{ position: "sticky", top: 0, height: "100vh" }}
+        className="w-full bg-background"
+        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
+        {/* Bottle canvas — centered, slides right on desktop */}
         <div
-          ref={innerRef}
-          style={{
-            width: "100%",
-            maxWidth: "600px",
-            aspectRatio: "1 / 1",
-            maxHeight: "70vh",
-            willChange: "transform",
-          }}
+          className="absolute inset-0 flex items-center justify-center"
         >
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full"
-            style={{ display: ready ? "block" : "none" }}
-          />
+          <div
+            ref={innerRef}
+            style={{
+              width: "100%",
+              maxWidth: "600px",
+              aspectRatio: "1 / 1",
+              maxHeight: "70vh",
+              willChange: "transform",
+            }}
+          >
+            <canvas
+              ref={canvasRef}
+              className="w-full h-full"
+              style={{ display: ready ? "block" : "none" }}
+            />
+          </div>
+        </div>
+
+        {/* Hero text — overlaid on the left, animated via GSAP */}
+        <div
+          ref={textRef}
+          className="absolute inset-0 flex items-center pointer-events-none"
+          style={{ opacity: 0 }}
+        >
+          <div className="container mx-auto px-6 md:px-12 lg:px-20 pointer-events-auto">
+            <div className="max-w-xl md:max-w-lg lg:max-w-xl">
+              {/* Badge */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-1.5">
+                <Circle className="h-2 w-2 fill-primary text-primary" />
+                <span className="text-sm font-body font-semibold uppercase tracking-widest text-primary">
+                  Creative Lab
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-foreground lowercase">
+                from idea to shelf,{" "}
+                <br className="hidden md:block" />
+                and <span className="text-primary">everything</span> in between.
+              </h1>
+
+              {/* Subtitle */}
+              <p className="mt-5 max-w-md text-base sm:text-lg text-muted-foreground font-body">
+                branding, packaging, and storytelling built together, from a single source.
+              </p>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
+                <Button size="lg" asChild>
+                  <Link to="/contact#form">start your brand</Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="border-primary text-primary hover:bg-white hover:text-black hover:border-white transition-all duration-300"
+                >
+                  <Link to="/packaging">explore packaging</Link>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
