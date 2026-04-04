@@ -238,7 +238,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </div>
 
               {/* Headline */}
-              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-foreground lowercase">
+              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight text-foreground lowercase">
                 from idea to shelf,{" "}
                 <br className="hidden md:block" />
                 and <span className="text-primary">everything</span> in between.
