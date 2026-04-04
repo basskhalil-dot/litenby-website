@@ -230,7 +230,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
           <div className="container mx-auto px-6 md:px-12 lg:px-20 pointer-events-auto">
             <div className="max-w-xl md:max-w-lg lg:max-w-xl">
               {/* Badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-1.5">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
                 <Circle className="h-2 w-2 fill-primary text-primary" />
                 <span className="text-sm font-body font-semibold uppercase tracking-widest text-primary">
                   Creative Lab
