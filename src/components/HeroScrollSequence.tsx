@@ -169,10 +169,10 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       // Text reveal — fades in during the last 25% of scroll
       if (textRef.current) {
         gsap.set(textRef.current, { opacity: 0, y: 40 });
-        tl.to(
+          tl.to(
           textRef.current,
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.25 },
-          0.75 // starts at 75% of timeline progress
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.5 },
+          0.15 // starts early, in parallel with lateral movement
         );
       }
     } else {
