@@ -39,7 +39,7 @@ const Index = () => {
       )}
       <LitenbyNavbar />
       <HeroScrollSequence onEarlyLoad={onEarlyLoad} />
-      <HeroGeometric />
+      
       <ThreeLabsSection />
       <PackagingLabSection />
       <CollabsSection />
