@@ -182,7 +182,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         tl.to(
           textRef.current,
           { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 },
-          0.7
+          0.3
         );
       }
     }
