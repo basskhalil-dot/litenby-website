@@ -169,10 +169,10 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       // Text reveal — fades in during the last 25% of scroll
       if (textRef.current) {
         gsap.set(textRef.current, { opacity: 0, y: 40 });
-        tl.to(
+          tl.to(
           textRef.current,
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.25 },
-          0.75 // starts at 75% of timeline progress
+          { opacity: 1, y: 0, ease: "power2.out", duration: 0.5 },
+          0.15 // starts early, in parallel with lateral movement
         );
       }
     } else {
@@ -182,7 +182,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         tl.to(
           textRef.current,
           { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 },
-          0.7
+          0.3
         );
       }
     }
@@ -230,7 +230,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
           <div className="container mx-auto px-6 md:px-12 lg:px-20 pointer-events-auto">
             <div className="max-w-xl md:max-w-lg lg:max-w-xl">
               {/* Badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/50 px-4 py-1.5">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
                 <Circle className="h-2 w-2 fill-primary text-primary" />
                 <span className="text-sm font-body font-semibold uppercase tracking-widest text-primary">
                   Creative Lab
@@ -238,19 +238,19 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </div>
 
               {/* Headline */}
-              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-foreground lowercase">
+              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight text-foreground lowercase">
                 from idea to shelf,{" "}
                 <br className="hidden md:block" />
                 and <span className="text-primary">everything</span> in between.
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-5 max-w-md text-base sm:text-lg text-muted-foreground font-body">
+              <p className="mt-4 max-w-sm text-sm sm:text-base text-muted-foreground font-body">
                 branding, packaging, and storytelling built together, from a single source.
               </p>
 
               {/* CTAs */}
-              <div className="mt-8 flex flex-col sm:flex-row items-start gap-4">
+              <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
                 <Button size="lg" asChild>
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
