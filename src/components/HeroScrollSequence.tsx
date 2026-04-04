@@ -245,7 +245,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-5 max-w-md text-base sm:text-lg text-muted-foreground font-body">
+              <p className="mt-4 max-w-sm text-sm sm:text-base text-muted-foreground font-body">
                 branding, packaging, and storytelling built together, from a single source.
               </p>
 
