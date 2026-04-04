@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Preloader } from '@/components/Preloader';
 import { HeroScrollSequence } from '@/components/HeroScrollSequence';
-import { HeroGeometric } from '@/components/HeroGeometric';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
 import { CollabsSection } from '@/components/CollabsSection';
@@ -40,7 +39,7 @@ const Index = () => {
       )}
       <LitenbyNavbar />
       <HeroScrollSequence onEarlyLoad={onEarlyLoad} />
-      <HeroGeometric />
+      
       <ThreeLabsSection />
       <PackagingLabSection />
       <CollabsSection />
