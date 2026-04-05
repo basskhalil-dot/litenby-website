@@ -221,14 +221,14 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
           </div>
         </div>
 
-        {/* Hero text — overlaid on the left, animated via GSAP */}
+        {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-center pointer-events-none"
+          className="absolute inset-0 flex items-end justify-center md:items-center md:justify-start pointer-events-none"
           style={{ opacity: 0 }}
         >
-          <div className="container mx-auto px-6 md:px-12 lg:px-20 pointer-events-auto">
-            <div className="max-w-xl md:max-w-lg lg:max-w-xl">
+          <div className="pointer-events-auto pb-16 md:pb-0 md:ml-[12vw] lg:ml-[14vw]">
+            <div className="max-w-xl md:max-w-lg lg:max-w-xl text-center md:text-left">
               {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
                 <Circle className="h-2 w-2 fill-primary text-primary" />
@@ -245,12 +245,12 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-4 max-w-sm text-sm sm:text-base text-muted-foreground font-body">
+              <p className="mt-4 max-w-sm text-sm sm:text-base text-muted-foreground font-body mx-auto md:mx-0">
                 branding, packaging, and storytelling built together, from a single source.
               </p>
 
               {/* CTAs */}
-              <div className="mt-6 flex flex-col sm:flex-row items-start gap-3">
+              <div className="mt-6 flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
                 <Button size="lg" asChild>
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
