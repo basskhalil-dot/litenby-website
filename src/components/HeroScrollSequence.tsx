@@ -199,17 +199,15 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         className="w-full bg-background"
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
-        {/* Bottle canvas — centered, slides right on desktop */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-        >
+        {/* Bottle canvas — upper half on mobile, centered on desktop */}
+        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center">
           <div
             ref={innerRef}
+            className="max-h-[45vh] md:max-h-[70vh]"
             style={{
               width: "100%",
               maxWidth: "600px",
               aspectRatio: "1 / 1",
-              maxHeight: "70vh",
               willChange: "transform",
             }}
           >
@@ -224,10 +222,10 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center md:items-center md:justify-start pointer-events-none"
+          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none"
           style={{ opacity: 0 }}
         >
-          <div className="pointer-events-auto pb-16 md:pb-0 md:ml-[12vw] lg:ml-[14vw]">
+          <div className="pointer-events-auto md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-xl md:max-w-lg lg:max-w-xl text-center md:text-left">
               {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
