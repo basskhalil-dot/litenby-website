@@ -200,13 +200,12 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
         {/* Bottle canvas — upper half on mobile, centered on desktop */}
-        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center">
+        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
-            className="max-h-[45vh] md:max-h-[70vh]"
+            className="max-h-[45vh] md:max-h-[70vh] flex-shrink-0"
             style={{
-              width: "100%",
-              maxWidth: "600px",
+              width: "min(100%, 600px)",
               aspectRatio: "1 / 1",
               willChange: "transform",
             }}
