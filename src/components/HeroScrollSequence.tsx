@@ -200,13 +200,12 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
         {/* Bottle canvas — upper half on mobile, centered on desktop */}
-        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center">
+        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
-            className="max-h-[45vh] md:max-h-[70vh]"
+            className="max-h-[45vh] md:max-h-[70vh] flex-shrink-0"
             style={{
-              width: "100%",
-              maxWidth: "600px",
+              width: "min(100%, 600px)",
               aspectRatio: "1 / 1",
               willChange: "transform",
             }}
@@ -222,11 +221,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none"
+          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
           style={{ opacity: 0 }}
         >
-          <div className="pointer-events-auto px-5 md:px-0 md:ml-[20vw] lg:ml-[22vw]">
-            <div className="max-w-xl md:max-w-lg lg:max-w-xl text-center md:text-left">
+          <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
+            <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
               {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
                 <Circle className="h-2 w-2 fill-primary text-primary" />
@@ -248,7 +247,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </p>
 
               {/* CTAs */}
-              <div className="mt-6 flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
+              <div className="mt-6 flex flex-wrap items-center md:items-start justify-center md:justify-start gap-3">
                 <Button size="lg" asChild>
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
