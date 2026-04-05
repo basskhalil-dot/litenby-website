@@ -221,11 +221,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none"
+          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
           style={{ opacity: 0 }}
         >
-          <div className="pointer-events-auto px-5 md:px-0 md:ml-[20vw] lg:ml-[22vw]">
-            <div className="max-w-xl md:max-w-lg lg:max-w-xl text-center md:text-left">
+          <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
+            <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
               {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
                 <Circle className="h-2 w-2 fill-primary text-primary" />
