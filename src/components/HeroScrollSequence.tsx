@@ -247,7 +247,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
               </p>
 
               {/* CTAs */}
-              <div className="mt-6 flex flex-row items-center md:items-start justify-center md:justify-start gap-3">
+              <div className="mt-6 flex flex-wrap items-center md:items-start justify-center md:justify-start gap-3">
                 <Button size="lg" asChild>
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
