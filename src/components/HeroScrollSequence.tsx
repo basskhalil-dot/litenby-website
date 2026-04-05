@@ -225,7 +225,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
           className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none"
           style={{ opacity: 0 }}
         >
-          <div className="pointer-events-auto md:ml-[20vw] lg:ml-[22vw]">
+          <div className="pointer-events-auto px-5 md:px-0 md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-xl md:max-w-lg lg:max-w-xl text-center md:text-left">
               {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/50 px-3 py-1">
