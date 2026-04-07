@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Paintbrush, Package, Rocket } from "lucide-react";
 import labBrand from "@/assets/lab-brand.jpg";
 import labPackaging from "@/assets/lab-packaging.jpg";
@@ -29,44 +28,9 @@ const labs = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.97, y: 20 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
-
-function ParallaxImage({ src, alt }: { src: string; alt: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
-
-  return (
-    <div ref={ref} className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
-      <motion.img
-        src={src}
-        alt={alt}
-        className="h-[120%] w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
-        style={{ y }}
-      />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-    </div>
-  );
-}
-
 export function ThreeLabsSection() {
   return (
     <section className="relative w-full bg-background py-20 lg:py-28">
-      {/* Gradient bridge from hero */}
-      <div className="pointer-events-none absolute inset-x-0 -top-32 h-32 bg-gradient-to-b from-background to-transparent" />
-
       <div className="container">
         {/* Section header */}
         <motion.div
@@ -87,22 +51,29 @@ export function ThreeLabsSection() {
           </p>
         </motion.div>
 
-        {/* Cards grid — staggered reveal */}
+        {/* Cards grid — all appear at once */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ staggerChildren: 0.12 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="grid grid-cols-1 gap-6 md:grid-cols-3"
         >
           {labs.map((lab) => (
-            <motion.div
+            <div
               key={lab.title}
-              variants={cardVariants}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-300 hover:border-primary/20"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-300"
             >
-              {/* Parallax image */}
-              <ParallaxImage src={lab.image} alt={lab.title} />
+              {/* Image area */}
+              <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
+                <img
+                  src={lab.image}
+                  alt={lab.title}
+                  className="h-full w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+              </div>
 
               {/* Content */}
               <div className="relative flex flex-1 flex-col p-6 lg:p-8">
@@ -115,8 +86,9 @@ export function ThreeLabsSection() {
                 <p className="text-sm leading-relaxed text-muted-foreground lg:text-base">
                   {lab.description}
                 </p>
+
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>

@@ -34,7 +34,7 @@ export function LitenbyNavbar() {
             <a
               key={link.label}
               href={link.href}
-              className="story-link font-body text-sm font-semibold lowercase text-foreground transition-colors duration-300 hover:text-primary"
+              className="font-body text-sm font-semibold lowercase text-foreground transition-colors duration-300 hover:text-primary"
             >
               {link.label}
             </a>

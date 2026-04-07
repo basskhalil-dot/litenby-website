@@ -24,19 +24,9 @@ const mediaItems: MediaItemType[] = [
   { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6 },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.97, y: 16 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
-
 export function CollabsSection() {
   return (
-    <section className="relative w-full bg-black py-20 lg:py-28">
+    <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.p
           className="font-body font-semibold uppercase text-sm tracking-widest mb-3 text-highlight"
@@ -68,19 +58,18 @@ export function CollabsSection() {
       </div>
 
       <div className="container">
-        {/* Staggered grid */}
+        {/* Entire grid appears at once — no stagger */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 gap-4"
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ staggerChildren: 0.1 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           {mediaItems.map((item) => (
-            <motion.div
+            <div
               key={item.id}
-              variants={cardVariants}
-              className="group relative overflow-hidden rounded-[12px] cursor-pointer aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
+              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
               style={{ border: "1px solid #333333" }}
             >
               <img
@@ -100,7 +89,7 @@ export function CollabsSection() {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>
