@@ -26,7 +26,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight"
             >
               Story
@@ -37,7 +37,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="flex flex-col gap-2"
             >
               <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
@@ -50,7 +50,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
               litenby was built on one belief: a great product without a strong brand is a missed opportunity. We exist for the founders, the makers, and the creative teams who refuse to leave that to chance, bringing branding, packaging, and storytelling together from a single source.
@@ -61,11 +61,14 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
               From brief to brand, bottle to campaign. Everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
             </motion.p>
+
+            {/* Visual separator */}
+            <div className="mt-14 mb-2 w-12 border-t border-border/30" />
 
             {/* CTA — merged inline */}
             <motion.h3
@@ -73,8 +76,8 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
+              viewport={{ once: true, amount: 0.2 }}
+              className="font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
             >
               let's build what you've been imagining.
             </motion.h3>
@@ -84,7 +87,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg font-body"
             >
               Your brand starts with a conversation.
@@ -95,7 +98,7 @@ export function AboutSection() {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true, amount: 0.2 }}
               className="mt-4"
             >
               <Button size="lg" asChild>

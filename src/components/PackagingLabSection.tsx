@@ -4,18 +4,28 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
 
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.97, y: 16 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
+
 function PackagingCard({ product }: { product: PackagingProduct }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <div
+    <motion.div
+      variants={cardVariants}
       className="group relative flex cursor-pointer flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
-      {/* Image container — matches Collabs DNA */}
       <div
         className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]"
         style={{ border: "1px solid #333333" }}
@@ -35,10 +45,8 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
           loading="lazy"
         />
       </div>
-
-      {/* Product name */}
       <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">{product.name}</p>
-    </div>
+    </motion.div>
   );
 }
 
@@ -65,12 +73,12 @@ export function PackagingLabSection() {
           </p>
         </motion.div>
 
-        {/* 3×2 grid — all appear at once */}
+        {/* Grid — staggered reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ staggerChildren: 0.08 }}
           className="grid grid-cols-2 gap-4 md:grid-cols-4"
         >
           {packagingProducts.slice(0, 12).map((product) => (
