@@ -157,11 +157,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
     });
 
     if (isDesktop) {
-      // Lateral movement on the bottle container
+      // Lateral movement + scale on the bottle container
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { x: "18vw", scale: 1.3, ease: "power1.inOut" },
+          { x: "18vw", scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
@@ -180,18 +180,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { scale: 1.3, ease: "power1.inOut" },
+          { scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
-      if (textRef.current) {
-        gsap.set(textRef.current, { opacity: 0, y: 30 });
-        tl.to(
-          textRef.current,
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 },
-          0.3
-        );
-      }
+      // Mobile: text is visible from the start, no fade-in
     }
 
     return () => {
@@ -207,7 +200,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
         {/* Bottle canvas — upper half on mobile, centered on desktop */}
-        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 flex items-start pt-[12vh] md:pt-[4vh] md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
             className="max-h-[45vh] md:max-h-[70vh] flex-shrink-0"
@@ -228,8 +221,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
-          style={{ opacity: 0 }}
+          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden md:opacity-0"
         >
           <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
