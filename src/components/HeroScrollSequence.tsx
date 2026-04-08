@@ -161,7 +161,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { x: "18vw", ease: "power1.inOut" },
+          { x: "18vw", scale: 1.3, ease: "power1.inOut" },
           0
         );
       }
@@ -176,7 +176,14 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         );
       }
     } else {
-      // Mobile: text visible after scroll, no lateral movement
+      // Mobile: scale only, no lateral movement
+      if (innerRef.current) {
+        tl.to(
+          innerRef.current,
+          { scale: 1.3, ease: "power1.inOut" },
+          0
+        );
+      }
       if (textRef.current) {
         gsap.set(textRef.current, { opacity: 0, y: 30 });
         tl.to(
