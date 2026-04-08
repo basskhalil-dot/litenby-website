@@ -200,7 +200,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
       >
         {/* Bottle canvas — upper half on mobile, centered on desktop */}
-        <div className="absolute inset-0 flex items-start pt-[8vh] md:pt-0 md:items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 flex items-start pt-[12vh] md:pt-[4vh] md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
             className="max-h-[45vh] md:max-h-[70vh] flex-shrink-0"
@@ -222,7 +222,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         <div
           ref={textRef}
           className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
-          style={{ opacity: 0 }}
+          style={{ opacity: typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 0 }}
         >
           <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
