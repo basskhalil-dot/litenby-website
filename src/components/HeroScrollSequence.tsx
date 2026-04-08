@@ -221,7 +221,6 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
           className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden md:opacity-0"
         >
           <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
