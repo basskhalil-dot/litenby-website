@@ -161,7 +161,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { x: "18vw", scale: 1.2, ease: "power1.inOut", duration: 1 },
+          { x: "18vw", scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
@@ -180,7 +180,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { scale: 1.2, ease: "power1.inOut", duration: 1 },
+          { scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
