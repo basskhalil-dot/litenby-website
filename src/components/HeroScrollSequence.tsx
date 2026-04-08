@@ -157,11 +157,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
     });
 
     if (isDesktop) {
-      // Lateral movement on the bottle container
+      // Lateral movement + scale on the bottle container
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { x: "18vw", scale: 1.3, ease: "power1.inOut" },
+          { x: "18vw", scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
@@ -180,18 +180,11 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { scale: 1.3, ease: "power1.inOut" },
+          { scale: 1.2, ease: "power1.inOut" },
           0
         );
       }
-      if (textRef.current) {
-        gsap.set(textRef.current, { opacity: 0, y: 30 });
-        tl.to(
-          textRef.current,
-          { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 },
-          0.3
-        );
-      }
+      // Mobile: text is visible from the start, no fade-in
     }
 
     return () => {
