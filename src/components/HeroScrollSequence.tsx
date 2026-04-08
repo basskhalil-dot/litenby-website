@@ -203,7 +203,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         <div className="absolute inset-0 flex items-start pt-[12vh] md:pt-[4vh] md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
-            className="className="max-h-[40vh] md:max-h-[70vh] flex-shrink-0" flex-shrink-0"
+            className="max-h-[40vh] md:max-h-[70vh] flex-shrink-0"
             style={{
               width: "min(100%, 600px)",
               aspectRatio: "1 / 1",
