@@ -161,7 +161,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { x: "18vw", scale: 1.2, ease: "power1.inOut" },
+          { x: "18vw", scale: 1.2, ease: "power1.inOut", duration: 1 },
           0
         );
       }
@@ -180,7 +180,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
       if (innerRef.current) {
         tl.to(
           innerRef.current,
-          { scale: 1.2, ease: "power1.inOut" },
+          { scale: 1.2, ease: "power1.inOut", duration: 1 },
           0
         );
       }
@@ -203,7 +203,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         <div className="absolute inset-0 flex items-start pt-[12vh] md:pt-[4vh] md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
-            className="max-h-[45vh] md:max-h-[70vh] flex-shrink-0"
+            className="max-h-[40vh] md:max-h-[70vh] flex-shrink-0"
             style={{
               width: "min(100%, 600px)",
               aspectRatio: "1 / 1",
