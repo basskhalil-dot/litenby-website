@@ -222,7 +222,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         <div
           ref={textRef}
           className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden"
-          style={{ opacity: typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 0 }}
+          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden md:opacity-0"
         >
           <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
