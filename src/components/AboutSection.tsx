@@ -59,7 +59,7 @@ export function AboutSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
+              className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg lg:mt-8"
             >
               litenby was built on one belief: a great product without a strong brand is a missed
               opportunity. We exist for the founders, the makers, and the creative teams who refuse
@@ -87,7 +87,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="mt-12 font-heading text-3xl font-extrabold tracking-tight text-highlight md:text-4xl lg:text-5xl leading-[1.1]"
             >
-              let's build what you've been imagining.
+              let's build what<br className="hidden md:block" /> you've been imagining.
             </motion.h3>
 
             <motion.p

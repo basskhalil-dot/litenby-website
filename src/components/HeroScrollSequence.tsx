@@ -250,12 +250,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
                 <Button size="lg" asChild>
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  asChild
-                  className="border-primary text-primary hover:bg-white hover:text-black hover:border-white transition-all duration-300"
-                >
+                <Button size="lg" variant="outline-white" asChild>
                   <Link to="/packaging">explore packaging</Link>
                 </Button>
               </div>

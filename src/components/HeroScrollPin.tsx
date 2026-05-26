@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,6 +24,7 @@ export function HeroScrollPin() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef(0);
   const [isReady, setIsReady] = useState(false);
@@ -70,7 +72,10 @@ export function HeroScrollPin() {
     const canvas = canvasRef.current;
     if (!canvas || !wrapperRef.current) return;
 
-    const isMob = isMobileLayout;
+    // Use a direct window check — React state (isMobileLayout) can be stale
+    // during hydration or rapid re-renders and must not be trusted for the
+    // canvas translateX guard.
+    const isMob = window.innerWidth < 768;
 
     // getBoundingClientRect reflects the true rendered size after flex layout;
     // offsetWidth/Height can return 0 inside a flex column before paint.
@@ -129,9 +134,9 @@ export function HeroScrollPin() {
     const driftX = isMob ? 0 : Math.round(window.innerWidth * 0.098);
 
     const gsapCtx = gsap.context(() => {
-      // Mobile: text is always visible, no animation. Desktop: starts hidden, slides in.
+      // Container is always opacity 1; individual lines handle their own opacity on desktop.
       gsap.set(textRef.current, {
-        opacity: isMob ? 1 : 0,
+        opacity: 1,
         x: isMob ? 0 : -60,
         y: 0,
       });
@@ -162,13 +167,15 @@ export function HeroScrollPin() {
           duration: 1,
           onUpdate: () => {
             drawFrame(obj.frame);
-            if (isMob) canvas.style.transform = "none";
+            // Re-check window width directly so the closure value can't lie
+            // if the viewport changed since the effect ran.
+            if (window.innerWidth < 768) canvas.style.transform = "none";
           },
         },
         0
       );
 
-      // Desktop only: canvas drifts right, text slides in
+      // Desktop only: canvas drifts right, text container slides in, lines stagger in
       if (!isMob) {
         tl.fromTo(
           canvas,
@@ -176,11 +183,24 @@ export function HeroScrollPin() {
           { scale: 1, x: driftX, ease: "none", duration: 1 },
           0
         );
+
+        // Container slides laterally (no opacity change — lines handle that)
         tl.to(
           textRef.current,
-          { opacity: 1, x: "8vw", y: 0, ease: "power2.out", duration: 0.35 },
+          { x: "8vw", ease: "power2.out", duration: 1.2 },
           0.25
         );
+
+        // Each line fades up independently, staggered by 0.15 timeline units
+        const lines = lineRefs.current.filter(Boolean) as HTMLElement[];
+        gsap.set(lines, { opacity: 0, y: 30 });
+        lines.forEach((line, i) => {
+          tl.to(
+            line,
+            { opacity: 1, y: 0, ease: "power3.out", duration: 0.9 },
+            0.25 + i * 0.15
+          );
+        });
       }
     }, wrapperRef);
 
@@ -306,8 +326,9 @@ export function HeroScrollPin() {
                   : "w-full mx-auto md:mx-0 text-center md:text-left"
               }
             >
-              {/* Pretitle */}
+              {/* Pretitle — line 0 */}
               <p
+                ref={(el) => { lineRefs.current[0] = el; }}
                 style={{
                   color: GOLD,
                   fontSize: isMobileLayout ? "0.6rem" : "0.7rem",
@@ -322,7 +343,7 @@ export function HeroScrollPin() {
                 Creative Lab
               </p>
 
-              {/* Headline */}
+              {/* Headline — 3 animated lines (1, 2, 3) */}
               <h1
                 className="font-heading font-extrabold lowercase"
                 style={{
@@ -335,15 +356,30 @@ export function HeroScrollPin() {
                   marginBottom: isMobileLayout ? "10px" : "20px",
                 }}
               >
-                From idea to shelf,
-                <br className="hidden md:block" />
-                {" "}and{" "}
-                <span style={{ color: GOLD }}>everything</span>
-                {" "}in between.
+                <span
+                  ref={(el) => { lineRefs.current[1] = el; }}
+                  style={{ display: "block" }}
+                >
+                  From idea to shelf,
+                </span>
+                <span
+                  ref={(el) => { lineRefs.current[2] = el; }}
+                  style={{ display: "block" }}
+                >
+                  and{" "}
+                  <span style={{ color: GOLD }}>everything</span>
+                </span>
+                <span
+                  ref={(el) => { lineRefs.current[3] = el; }}
+                  style={{ display: "block" }}
+                >
+                  in between.
+                </span>
               </h1>
 
-              {/* Subtitle */}
+              {/* Subtitle — line 4 */}
               <p
+                ref={(el) => { lineRefs.current[4] = el; }}
                 className="font-body"
                 style={{
                   fontSize: isMobileLayout ? "0.8rem" : "clamp(0.875rem, 1.3vw, 1rem)",
@@ -356,56 +392,32 @@ export function HeroScrollPin() {
                 single source.
               </p>
 
-              {/* CTAs — stacked vertically on mobile, row on desktop */}
+              {/* CTAs — line 5 */}
               <div
+                ref={(el) => { lineRefs.current[5] = el; }}
                 style={{
                   display: "flex",
-                  gap: "10px",
                   ...(isMobileLayout
-                    ? { flexDirection: "column", alignItems: "stretch" }
-                    : { flexWrap: "wrap" }),
+                    ? { flexDirection: "column", alignItems: "center", gap: "12px" }
+                    : { flexWrap: "wrap", gap: "10px" }),
                 }}
                 className={isMobileLayout ? "" : "justify-center md:justify-start"}
               >
-                <Link
-                  to="/contact#form"
-                  className="font-body font-bold"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "12px 30px",
-                    borderRadius: "9999px",
-                    background: GOLD,
-                    color: "#000000",
-                    fontSize: "0.875rem",
-                    letterSpacing: "0.025em",
-                    textDecoration: "none",
-                    transition: "opacity 0.2s",
-                  }}
+                <Button
+                  size="lg"
+                  asChild
+                  className={`font-body font-bold${isMobileLayout ? " w-full" : ""}`}
                 >
-                  start your brand
-                </Link>
-                <Link
-                  to="/packaging"
-                  className="font-body font-bold"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "12px 30px",
-                    borderRadius: "9999px",
-                    background: "transparent",
-                    color: "#ffffff",
-                    border: "1.5px solid rgba(255,255,255,0.7)",
-                    fontSize: "0.875rem",
-                    letterSpacing: "0.025em",
-                    textDecoration: "none",
-                    transition: "border-color 0.2s",
-                  }}
+                  <Link to="/contact#form">start your brand</Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline-white"
+                  asChild
+                  className={`font-body font-bold${isMobileLayout ? " w-full" : ""}`}
                 >
-                  explore packaging
-                </Link>
+                  <Link to="/packaging">explore packaging</Link>
+                </Button>
               </div>
             </div>
           </div>
