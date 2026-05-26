@@ -26,7 +26,7 @@ function FilterBar({
         {/* Material filters */}
         <div
           className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
-          style={{ overflowX: "auto", scrollbarWidth: "none", width: "100%", whiteSpace: "nowrap" }}
+          style={{ overflowX: "auto", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
         >
           <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Material
@@ -35,6 +35,7 @@ function FilterBar({
             <button
               key={m}
               onClick={() => onMaterialChange(m)}
+              style={{ display: "inline-flex" }}
               className={cn(
                 "shrink-0 rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
                 activeMaterial === m
@@ -50,7 +51,7 @@ function FilterBar({
         {/* Shape filters */}
         <div
           className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
-          style={{ overflowX: "auto", scrollbarWidth: "none", width: "100%", whiteSpace: "nowrap" }}
+          style={{ overflowX: "auto", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
         >
           <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Shape
@@ -59,6 +60,7 @@ function FilterBar({
             <button
               key={s}
               onClick={() => onShapeChange(s)}
+              style={{ display: "inline-flex" }}
               className={cn(
                 "shrink-0 rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
                 activeShape === s

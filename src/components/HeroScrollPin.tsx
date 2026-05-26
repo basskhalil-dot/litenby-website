@@ -490,7 +490,7 @@ export function HeroScrollPin() {
                 >
                   <Link
                     to="/contact#form"
-                    style={isMobileLayout ? { width: "100%", maxWidth: "280px", background: "hsl(39,100%,50%)", color: "#000000", border: "2px solid transparent", borderRadius: "9999px", fontWeight: 700 } : undefined}
+                    style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                   >start your brand</Link>
                 </Button>
                 <Button
@@ -501,7 +501,7 @@ export function HeroScrollPin() {
                 >
                   <Link
                     to="/packaging"
-                    style={isMobileLayout ? { width: "100%", maxWidth: "280px", background: "transparent", color: "#ffffff", border: "2px solid #ffffff", borderRadius: "9999px", fontWeight: 700 } : undefined}
+                    style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                   >explore packaging</Link>
                 </Button>
               </div>
