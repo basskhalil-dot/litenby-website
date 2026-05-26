@@ -24,8 +24,11 @@ function FilterBar({
     <div className="sticky top-0 z-30 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
         {/* Material filters */}
-        <div className="flex items-center gap-2">
-          <span className="mr-2 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <div
+          className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
+          style={{ overflowX: "auto", scrollbarWidth: "none", flexShrink: 0, minWidth: 0 }}
+        >
+          <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Material
           </span>
           {materials.map((m) => (
@@ -33,7 +36,7 @@ function FilterBar({
               key={m}
               onClick={() => onMaterialChange(m)}
               className={cn(
-                "rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
+                "shrink-0 rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
                 activeMaterial === m
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -45,8 +48,11 @@ function FilterBar({
         </div>
 
         {/* Shape filters */}
-        <div className="flex items-center gap-2">
-          <span className="mr-2 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <div
+          className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
+          style={{ overflowX: "auto", scrollbarWidth: "none", flexShrink: 0, minWidth: 0 }}
+        >
+          <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Shape
           </span>
           {shapes.map((s) => (
@@ -54,7 +60,7 @@ function FilterBar({
               key={s}
               onClick={() => onShapeChange(s)}
               className={cn(
-                "rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
+                "shrink-0 rounded-full px-4 py-1.5 font-body text-sm font-medium capitalize transition-all duration-300",
                 activeShape === s
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -133,7 +139,7 @@ export default function Packaging() {
   }, [activeMaterial, activeShape]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={{ overflowX: "hidden" }}>
       <LitenbyNavbar />
 
       {/* Hero heading */}
@@ -143,7 +149,7 @@ export default function Packaging() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary"
+            className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-primary px-4 md:px-0"
           >
             LAB SHOWCASE
           </motion.span>
@@ -151,7 +157,7 @@ export default function Packaging() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-4xl font-bold lowercase text-foreground md:text-5xl lg:text-[68px]"
+            className="font-heading text-4xl font-bold lowercase text-foreground md:text-5xl lg:text-[68px] px-4 md:px-0"
           >
             the packaging lab
           </motion.h1>
@@ -159,7 +165,7 @@ export default function Packaging() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground"
+            className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground px-4 md:px-0"
           >
             high-end mockups ready for your brand. hover to see the magic.
           </motion.p>
