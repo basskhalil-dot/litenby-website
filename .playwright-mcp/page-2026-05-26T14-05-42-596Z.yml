@@ -1,0 +1,216 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - img "Litenby" [ref=e5]
+    - banner [ref=e9]:
+      - generic [ref=e10]:
+        - link "Litenby" [ref=e11] [cursor=pointer]:
+          - /url: /
+          - img "Litenby" [ref=e12]
+        - navigation [ref=e13]:
+          - link "branding" [ref=e14] [cursor=pointer]:
+            - /url: /brand
+          - link "packaging" [ref=e15] [cursor=pointer]:
+            - /url: /packaging
+          - link "storytelling" [ref=e16] [cursor=pointer]:
+            - /url: /storytelling
+          - link "blog" [ref=e17] [cursor=pointer]:
+            - /url: /blog
+          - link "contact" [ref=e18] [cursor=pointer]:
+            - /url: /contact
+          - link "start your brand" [ref=e19] [cursor=pointer]:
+            - /url: /contact#form
+    - generic [ref=e23]:
+      - paragraph [ref=e24]: Creative Lab
+      - heading "From idea to shelf, and everything in between." [level=1] [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]: From
+          - generic [ref=e30]: idea
+          - generic [ref=e32]: to
+          - generic [ref=e34]: shelf,
+        - generic [ref=e35]:
+          - generic [ref=e37]: and
+          - generic [ref=e39]: everything
+        - generic [ref=e40]:
+          - generic [ref=e42]: in
+          - generic [ref=e44]: between.
+      - paragraph [ref=e45]: Branding, packaging, and storytelling — built together, from a single source.
+      - generic [ref=e46]:
+        - link "start your brand" [ref=e47] [cursor=pointer]:
+          - /url: /contact#form
+        - link "explore packaging" [ref=e48] [cursor=pointer]:
+          - /url: /packaging
+    - generic [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]: Process
+        - heading "the three labs" [level=2] [ref=e53]
+        - paragraph [ref=e54]: Brand it. Pack it. Launch it.
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - img "Branding" [ref=e58]
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - img [ref=e62]
+              - heading "Branding" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.
+        - generic [ref=e68]:
+          - img "Packaging" [ref=e70]
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - img [ref=e74]
+              - heading "Packaging" [level=3] [ref=e78]
+            - paragraph [ref=e79]: Container, label, finish. Every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.
+        - generic [ref=e80]:
+          - img "Storytelling" [ref=e82]
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - img [ref=e86]
+              - heading "Storytelling" [level=3] [ref=e91]
+            - paragraph [ref=e92]: Strategy, content, and go-to-market built around your brand's story. So when you launch, you don't just show up. You make an entrance.
+    - generic [ref=e94]:
+      - generic [ref=e95]:
+        - generic [ref=e96]: Containers
+        - heading "the packaging lab" [level=2] [ref=e97]
+        - paragraph [ref=e98]: Choose the form. We'll build the rest.
+      - generic [ref=e99]:
+        - generic [ref=e101] [cursor=pointer]:
+          - generic [ref=e102]:
+            - img "Aura Mist Bottle" [ref=e103]
+            - img "Aura Mist Bottle alternate view" [ref=e104]
+          - paragraph [ref=e105]: Aura Mist Bottle
+        - generic [ref=e107] [cursor=pointer]:
+          - generic [ref=e108]:
+            - img "Elixir Dropper Serum" [ref=e109]
+            - img "Elixir Dropper Serum alternate view" [ref=e110]
+          - paragraph [ref=e111]: Elixir Dropper Serum
+        - generic [ref=e113] [cursor=pointer]:
+          - generic [ref=e114]:
+            - img "Velvet Cream Jar" [ref=e115]
+            - img "Velvet Cream Jar alternate view" [ref=e116]
+          - paragraph [ref=e117]: Velvet Cream Jar
+        - generic [ref=e119] [cursor=pointer]:
+          - generic [ref=e120]:
+            - img "Noir Pump Dispenser" [ref=e121]
+            - img "Noir Pump Dispenser alternate view" [ref=e122]
+          - paragraph [ref=e123]: Noir Pump Dispenser
+        - generic [ref=e125] [cursor=pointer]:
+          - generic [ref=e126]:
+            - img "Terra Squeeze Tube" [ref=e127]
+            - img "Terra Squeeze Tube alternate view" [ref=e128]
+          - paragraph [ref=e129]: Terra Squeeze Tube
+        - generic [ref=e131] [cursor=pointer]:
+          - generic [ref=e132]:
+            - img "Crystal Vial Flask" [ref=e133]
+            - img "Crystal Vial Flask alternate view" [ref=e134]
+          - paragraph [ref=e135]: Crystal Vial Flask
+        - generic [ref=e137] [cursor=pointer]:
+          - generic [ref=e138]:
+            - img "Onyx Spray Bottle" [ref=e139]
+            - img "Onyx Spray Bottle alternate view" [ref=e140]
+          - paragraph [ref=e141]: Onyx Spray Bottle
+        - generic [ref=e143] [cursor=pointer]:
+          - generic [ref=e144]:
+            - img "Bloom Roll-On" [ref=e145]
+            - img "Bloom Roll-On alternate view" [ref=e146]
+          - paragraph [ref=e147]: Bloom Roll-On
+        - generic [ref=e149] [cursor=pointer]:
+          - generic [ref=e150]:
+            - img "Silk Ampoule" [ref=e151]
+            - img "Silk Ampoule alternate view" [ref=e152]
+          - paragraph [ref=e153]: Silk Ampoule
+        - generic [ref=e155] [cursor=pointer]:
+          - generic [ref=e156]:
+            - img "Dune Flask Bottle" [ref=e157]
+            - img "Dune Flask Bottle alternate view" [ref=e158]
+          - paragraph [ref=e159]: Dune Flask Bottle
+        - generic [ref=e161] [cursor=pointer]:
+          - generic [ref=e162]:
+            - img "Prism Cream Pot" [ref=e163]
+            - img "Prism Cream Pot alternate view" [ref=e164]
+          - paragraph [ref=e165]: Prism Cream Pot
+        - generic [ref=e167] [cursor=pointer]:
+          - generic [ref=e168]:
+            - img "Zenith Dropper" [ref=e169]
+            - img "Zenith Dropper alternate view" [ref=e170]
+          - paragraph [ref=e171]: Zenith Dropper
+      - link "explore packaging" [ref=e173] [cursor=pointer]:
+        - /url: /packaging
+    - generic [ref=e174]:
+      - generic [ref=e175]:
+        - paragraph [ref=e176]: Project
+        - heading "collabs" [level=2] [ref=e177]
+        - paragraph [ref=e178]: Ideas that made it to the shelf.
+      - generic [ref=e180]:
+        - generic [ref=e181]:
+          - img "Brand Identity"
+          - generic:
+            - heading "Brand Identity" [level=3]
+            - paragraph: Visual system & logo design
+        - generic [ref=e182]:
+          - img "Packaging"
+          - generic:
+            - heading "Packaging" [level=3]
+            - paragraph: Product packaging design
+        - generic [ref=e183]:
+          - img "Product Launch"
+          - generic:
+            - heading "Product Launch" [level=3]
+            - paragraph: Campaign & art direction
+        - generic [ref=e184]:
+          - img "Visual System"
+          - generic:
+            - heading "Visual System" [level=3]
+            - paragraph: Brand guidelines & assets
+        - generic [ref=e185]:
+          - img "Campaign"
+          - generic:
+            - heading "Campaign" [level=3]
+            - paragraph: Marketing & creative direction
+        - generic [ref=e186]:
+          - img "Direction"
+          - generic:
+            - heading "Direction" [level=3]
+            - paragraph: Creative direction & strategy
+    - generic [ref=e190]:
+      - generic [ref=e191]: Story
+      - heading "the litenby way" [level=2] [ref=e192]
+      - paragraph [ref=e193]: "litenby was built on one belief: a great product without a strong brand is a missed opportunity. We exist for the founders, the makers, and the creative teams who refuse to leave that to chance, bringing branding, packaging, and storytelling together from a single source."
+      - paragraph [ref=e194]: From brief to brand, bottle to campaign. Everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
+      - heading "let's build what you've been imagining." [level=3] [ref=e195]:
+        - text: let's build what
+        - text: you've been imagining.
+      - paragraph [ref=e196]: Your brand starts with a conversation.
+      - link "start your brand" [ref=e198] [cursor=pointer]:
+        - /url: /contact#form
+    - contentinfo [ref=e199]:
+      - generic [ref=e200]:
+        - generic [ref=e201]:
+          - img "Litenby" [ref=e203]
+          - link "Instagram" [ref=e205] [cursor=pointer]:
+            - /url: "#"
+            - img
+        - generic [ref=e207]:
+          - generic [ref=e208]:
+            - paragraph [ref=e209]: © 2026 litenby creative lab
+            - paragraph [ref=e210]: all rights reserved
+          - generic [ref=e211]:
+            - navigation [ref=e212]:
+              - link "branding" [ref=e213] [cursor=pointer]:
+                - /url: /brand
+              - link "packaging" [ref=e214] [cursor=pointer]:
+                - /url: /packaging
+              - link "storytelling" [ref=e215] [cursor=pointer]:
+                - /url: /storytelling
+              - link "blog" [ref=e216] [cursor=pointer]:
+                - /url: /blog
+              - link "contact" [ref=e217] [cursor=pointer]:
+                - /url: /contact
+            - navigation [ref=e218]:
+              - link "privacy" [ref=e219] [cursor=pointer]:
+                - /url: "#"
+              - link "terms" [ref=e220] [cursor=pointer]:
+                - /url: "#"
+    - button "Back to top":
+      - img

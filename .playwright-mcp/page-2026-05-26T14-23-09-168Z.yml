@@ -1,0 +1,85 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Litenby" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Litenby" [ref=e7]
+        - img [ref=e10] [cursor=pointer]
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - paragraph [ref=e14]: brand lab
+        - heading "the brand lab" [level=1] [ref=e15]
+        - paragraph [ref=e16]: where strategy meets visual soul. crafting identities that resonate and endure.
+        - link "start your brand" [ref=e18] [cursor=pointer]:
+          - /url: /contact#form
+      - generic [ref=e20]:
+        - img "Brand work 1" [ref=e22]
+        - img "Brand work 2" [ref=e24]
+        - img "Brand work 3" [ref=e26]
+        - img "Brand work 1" [ref=e28]
+        - img "Brand work 2" [ref=e30]
+        - img "Brand work 3" [ref=e32]
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: strategy & dna
+        - heading "building the soul of the brand" [level=2] [ref=e37]
+        - paragraph [ref=e38]: a four-step methodology to distill your vision into a brand that resonates and endures.
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - img [ref=e42]
+            - heading "discovery" [level=3] [ref=e45]
+          - paragraph [ref=e46]: we dive deep into your market, competitors, and core values to find the 'un-fair advantage.'
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - img [ref=e49]
+            - heading "visual identity" [level=3] [ref=e54]
+          - paragraph [ref=e55]: crafting the logo, typography, and color systems that define your brand's physical presence.
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - img [ref=e58]
+            - heading "brand voice" [level=3] [ref=e60]
+          - paragraph [ref=e61]: developing the language and tone that makes your brand sound as good as it looks.
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - heading "brand guidelines" [level=3] [ref=e66]
+          - paragraph [ref=e67]: building the 'bible' for your brand to ensure consistency across every single touchpoint.
+    - generic [ref=e70]:
+      - img "Litenby brand craft process" [ref=e72]
+      - generic [ref=e73]:
+        - paragraph [ref=e74]: the craft
+        - heading "built to resonate, not just exist." [level=2] [ref=e75]
+        - paragraph [ref=e76]: With over 15 years in the trenches of advertising and motion design, Litenby doesn't just create logos—we build visual legacies. Our dedication to the craft is obsessive; from the weight of the paper to the physics of the motion, every detail is engineered to ensure your brand doesn't just join the market, but commands it. Authenticity isn't a goal here; it's our baseline.
+    - contentinfo [ref=e77]:
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - img "Litenby" [ref=e81]
+          - link "Instagram" [ref=e83] [cursor=pointer]:
+            - /url: "#"
+            - img
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - paragraph [ref=e87]: © 2026 litenby creative lab
+            - paragraph [ref=e88]: all rights reserved
+          - generic [ref=e89]:
+            - navigation [ref=e90]:
+              - link "branding" [ref=e91] [cursor=pointer]:
+                - /url: /brand
+              - link "packaging" [ref=e92] [cursor=pointer]:
+                - /url: /packaging
+              - link "storytelling" [ref=e93] [cursor=pointer]:
+                - /url: /storytelling
+              - link "blog" [ref=e94] [cursor=pointer]:
+                - /url: /blog
+              - link "contact" [ref=e95] [cursor=pointer]:
+                - /url: /contact
+            - navigation [ref=e96]:
+              - link "privacy" [ref=e97] [cursor=pointer]:
+                - /url: "#"
+              - link "terms" [ref=e98] [cursor=pointer]:
+                - /url: "#"
