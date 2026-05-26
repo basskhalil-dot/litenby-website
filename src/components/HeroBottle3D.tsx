@@ -88,17 +88,17 @@ export function HeroBottle3D() {
   );
 
   return (
-    <div ref={wrapperRef} style={{ height: "220vh", overflow: "clip" }}>
+    <div ref={wrapperRef} style={{ height: "220dvh", overflow: "clip" }}>
       <div
         className="w-full bg-background"
-        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
+        style={{ position: "sticky", top: 0, height: "100dvh", overflow: "hidden" }}
       >
         {/* 3D canvas */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
           style={{ x: bottleX, scale: bottleScale, willChange: "transform" }}
         >
-          <div style={{ width: "min(100vw, 600px)", height: "100vh" }}>
+          <div style={{ width: "min(100vw, 600px)", height: "100dvh" }}>
             <Canvas
               camera={{ position: [0, 0, 5.5], fov: 40 }}
               gl={{
@@ -130,7 +130,7 @@ export function HeroBottle3D() {
 
         {/* Text overlay */}
         <motion.div
-          className="absolute inset-0 flex items-end pb-[8vh] md:pb-0 md:items-center pointer-events-none overflow-hidden"
+          className="absolute inset-0 flex items-end pb-[8dvh] md:pb-0 md:items-center pointer-events-none overflow-hidden"
           style={{ opacity: textOpacity }}
         >
           <div className="pointer-events-auto w-full px-6 md:w-auto md:ml-[8vw] lg:ml-[10vw]">

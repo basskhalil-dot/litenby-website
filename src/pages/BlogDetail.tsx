@@ -15,7 +15,7 @@ export default function BlogDetail() {
     return (
       <div className="min-h-screen" style={{ background: "#000000" }}>
         <LitenbyNavbar />
-        <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
+        <div className="flex min-h-[60dvh] flex-col items-center justify-center gap-4">
           <h1 className="font-heading text-3xl font-extrabold lowercase text-foreground">
             article not found
           </h1>

@@ -74,7 +74,7 @@ const fadeUpVariants = {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[90vh] w-full overflow-hidden bg-background">
+    <section className="relative min-h-[90dvh] w-full overflow-hidden bg-background">
       {/* Geometric floating shapes */}
       <div className="absolute inset-0 overflow-hidden">
         <ElegantShape
@@ -120,7 +120,7 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 flex min-h-[90vh] items-center">
+      <div className="container relative z-10 flex min-h-[90dvh] items-center">
         <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Left: Text */}
           <div className="flex flex-col items-start order-2 lg:order-1 lg:pr-12">
@@ -173,7 +173,7 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center justify-center order-1 lg:order-2 min-h-[50vh] lg:min-h-[80vh]"
+            className="relative flex items-center justify-center order-1 lg:order-2 min-h-[50dvh] lg:min-h-[80dvh]"
           >
             {/* Floating bottle */}
             <motion.img
@@ -187,7 +187,7 @@ export function HeroSection() {
               }}
               className="relative z-10 w-[60vw] sm:w-[45vw] lg:w-auto"
               style={{
-                height: "75vh",
+                height: "75dvh",
                 objectFit: "contain",
               }}
               draggable={false}

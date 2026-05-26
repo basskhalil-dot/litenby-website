@@ -24,7 +24,7 @@ export function HeroGeometric() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[60vh] md:min-h-[70vh] lg:min-h-[80vh] w-full flex items-center overflow-hidden bg-background"
+      className="relative min-h-[60dvh] md:min-h-[70dvh] lg:min-h-[80dvh] w-full flex items-center overflow-hidden bg-background"
     >
       {/* Content — left-aligned on desktop, centered on mobile */}
       <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20">

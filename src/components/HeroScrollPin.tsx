@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
 const FRAME_COUNT = 72;
+const EAGER_FRAMES = 8; // frames loaded before animation unlocks
 // Matches --primary (hsl 39 100% 50%) — the exact orange-gold in the litenby logo
 const GOLD = "hsl(var(--primary))";
 
@@ -26,28 +27,38 @@ export function HeroScrollPin() {
   const textRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
+  const wordRefs = useRef<(HTMLElement | null)[]>([]);
   const currentFrameRef = useRef(0);
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(() => window.innerWidth < 768);
+  const prefersReducedMotion = useRef(
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 
-  // ── Phase 1: preload every frame before the animation is available ─────────
+  // ── Phase 1: eager-load first EAGER_FRAMES, stream the rest in background ──
   useEffect(() => {
     let mounted = true;
-    let loaded = 0;
+    let eagerLoaded = 0;
     const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
+    framesRef.current = frames; // expose array immediately so drawFrame can use partial results
 
-    function onEach() {
-      loaded++;
-      if (loaded >= FRAME_COUNT && mounted) {
-        framesRef.current = frames;
+    function onEager() {
+      eagerLoaded++;
+      if (eagerLoaded >= EAGER_FRAMES && mounted) {
         setIsReady(true);
+        // Kick off the remaining frames lazily
+        for (let i = EAGER_FRAMES; i < FRAME_COUNT; i++) {
+          const img = new Image();
+          img.src = frameUrl(i);
+          frames[i] = img;
+        }
       }
     }
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    for (let i = 0; i < EAGER_FRAMES; i++) {
       const img = new Image();
-      img.onload = onEach;
-      img.onerror = onEach; // count failures so we never block indefinitely
+      img.onload = onEager;
+      img.onerror = onEager; // count failures so we never block indefinitely
       img.src = frameUrl(i);
       frames[i] = img;
     }
@@ -126,10 +137,38 @@ export function HeroScrollPin() {
     sizeCanvas();
     drawFrame(0);
 
+    // ── Reduced-motion path: skip all animation, jump to final frame ──────────
+    if (prefersReducedMotion.current) {
+      const finalIdx = FRAME_COUNT - 1;
+      const tryDrawFinal = () => drawFrame(finalIdx);
+
+      const finalImg = framesRef.current[finalIdx];
+      if (finalImg?.complete && finalImg.naturalWidth) {
+        tryDrawFinal();
+      } else {
+        const img = new Image();
+        img.onload = tryDrawFinal;
+        img.src = frameUrl(finalIdx);
+        framesRef.current[finalIdx] = img;
+      }
+
+      if (!isMob) {
+        gsap.set(canvas, { scale: 1, x: Math.round(window.innerWidth * 0.098) });
+        gsap.set(textRef.current, { opacity: 1, x: "8vw" });
+        const lines = lineRefs.current.filter(Boolean) as HTMLElement[];
+        gsap.set(lines, { opacity: 1, y: 0 });
+        const words = wordRefs.current.filter(Boolean) as HTMLElement[];
+        gsap.set(words, { y: "0%" });
+      }
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+
     const obj = { frame: 0 };
 
-    // Mobile: 250vh section − 100vh sticky = 150vh effective scroll range.
-    // Desktop: 212vh section − 100vh sticky = 112vh effective scroll range.
+    // Mobile: 250dvh section − 100dvh sticky = 150dvh effective scroll range.
+    // Desktop: 212dvh section − 100dvh sticky = 112dvh effective scroll range.
     const animScrollPx = Math.round(window.innerHeight * (isMob ? 1.5 : 1.12));
     const driftX = isMob ? 0 : Math.round(window.innerWidth * 0.098);
 
@@ -153,6 +192,7 @@ export function HeroScrollPin() {
           start: "top top",
           end: `+=${animScrollPx}`,
           scrub: 0.3,
+          anticipatePin: 1,
         },
       });
 
@@ -175,7 +215,7 @@ export function HeroScrollPin() {
         0
       );
 
-      // Desktop only: canvas drifts right, text container slides in, lines stagger in
+      // Desktop only: canvas drifts right, text container slides in, lines/words stagger in
       if (!isMob) {
         tl.fromTo(
           canvas,
@@ -191,15 +231,18 @@ export function HeroScrollPin() {
           0.25
         );
 
-        // Each line fades up independently, staggered by 0.15 timeline units
+        // lineRefs[1,2,3] are null (headline handled per-word below); filter gives [pretitle, subtitle, CTAs]
         const lines = lineRefs.current.filter(Boolean) as HTMLElement[];
         gsap.set(lines, { opacity: 0, y: 30 });
-        lines.forEach((line, i) => {
-          tl.to(
-            line,
-            { opacity: 1, y: 0, ease: "power3.out", duration: 0.9 },
-            0.25 + i * 0.15
-          );
+        if (lines[0]) tl.to(lines[0], { opacity: 1, y: 0, ease: "power3.out", duration: 0.9 }, 0.15);
+        if (lines[1]) tl.to(lines[1], { opacity: 1, y: 0, ease: "power3.out", duration: 0.9 }, 0.75);
+        if (lines[2]) tl.to(lines[2], { opacity: 1, y: 0, ease: "power3.out", duration: 0.9 }, 0.92);
+
+        // Headline: each word slides up out of its overflow-hidden clip
+        const words = wordRefs.current.filter(Boolean) as HTMLElement[];
+        gsap.set(words, { y: "110%" });
+        words.forEach((word, i) => {
+          tl.to(word, { y: "0%", ease: "power3.out", duration: 0.6 }, 0.25 + i * 0.055);
         });
       }
     }, wrapperRef);
@@ -216,7 +259,12 @@ export function HeroScrollPin() {
   return (
     <section
       ref={wrapperRef}
-      style={{ height: isMobileLayout ? "250vh" : "212vh", overflow: "clip" }}
+      style={{
+        height: prefersReducedMotion.current
+          ? "100dvh"
+          : isMobileLayout ? "250dvh" : "212dvh",
+        overflow: "clip",
+      }}
     >
       {/*
        * Sticky panel — stays at top:0 for the full scroll range,
@@ -233,12 +281,12 @@ export function HeroScrollPin() {
                 display: "flex",
                 flexDirection: "column",
                 height: "auto",
-                minHeight: "100vh",
+                minHeight: "100dvh",
                 overflow: "visible",
-                paddingTop: "8vh",
+                paddingTop: "5dvh",
               }
             : {
-                height: "100vh",
+                height: "100dvh",
                 overflow: "hidden",
               }),
         }}
@@ -280,7 +328,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "62vh", flexShrink: 0 }
+              ? { width: "100%", height: "50dvh", flexShrink: 0 }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -300,8 +348,8 @@ export function HeroScrollPin() {
                   alignItems: "center",
                   justifyContent: "center",
                   opacity: 1,
-                  paddingBottom: "20px",
-                  paddingTop: "12px",
+                  paddingBottom: "max(20px, env(safe-area-inset-bottom, 20px))",
+                  paddingTop: "10px",
                 }
               : {
                   position: "absolute",
@@ -309,7 +357,7 @@ export function HeroScrollPin() {
                   display: "flex",
                   pointerEvents: "none",
                   opacity: 0,
-                  paddingTop: "5vh",
+                  paddingTop: "5dvh",
                 }
           }
           className={isMobileLayout ? "" : "items-end pb-10 md:pb-0 md:items-center"}
@@ -343,7 +391,7 @@ export function HeroScrollPin() {
                 Creative Lab
               </p>
 
-              {/* Headline — 3 animated lines (1, 2, 3) */}
+              {/* Headline — per-word slide-up reveal on desktop */}
               <h1
                 className="font-heading font-extrabold lowercase"
                 style={{
@@ -356,24 +404,56 @@ export function HeroScrollPin() {
                   marginBottom: isMobileLayout ? "10px" : "20px",
                 }}
               >
-                <span
-                  ref={(el) => { lineRefs.current[1] = el; }}
-                  style={{ display: "block" }}
-                >
-                  From idea to shelf,
+                {/* Line 1: "From idea to shelf," */}
+                <span style={{ display: "block" }}>
+                  {(["From", "idea", "to", "shelf,"] as const).map((word, i) => (
+                    <span
+                      key={word}
+                      style={{
+                        display: "inline-block",
+                        overflow: "hidden",
+                        verticalAlign: "bottom",
+                        marginRight: i < 3 ? "0.22em" : 0,
+                      }}
+                    >
+                      <span
+                        ref={(el) => { wordRefs.current[i] = el; }}
+                        style={{ display: "inline-block" }}
+                      >
+                        {word}
+                      </span>
+                    </span>
+                  ))}
                 </span>
-                <span
-                  ref={(el) => { lineRefs.current[2] = el; }}
-                  style={{ display: "block" }}
-                >
-                  and{" "}
-                  <span style={{ color: GOLD }}>everything</span>
+                {/* Line 2: "and everything" */}
+                <span style={{ display: "block" }}>
+                  <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginRight: "0.22em" }}>
+                    <span ref={(el) => { wordRefs.current[4] = el; }} style={{ display: "inline-block" }}>and</span>
+                  </span>
+                  <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", color: GOLD }}>
+                    <span ref={(el) => { wordRefs.current[5] = el; }} style={{ display: "inline-block" }}>everything</span>
+                  </span>
                 </span>
-                <span
-                  ref={(el) => { lineRefs.current[3] = el; }}
-                  style={{ display: "block" }}
-                >
-                  in between.
+                {/* Line 3: "in between." */}
+                <span style={{ display: "block" }}>
+                  {(["in", "between."] as const).map((word, i) => (
+                    <span
+                      key={word}
+                      style={{
+                        display: "inline-block",
+                        overflow: "hidden",
+                        verticalAlign: "bottom",
+                        marginRight: i === 0 ? "0.22em" : 0,
+                      }}
+                    >
+                      <span
+                        ref={(el) => { wordRefs.current[6 + i] = el; }}
+                        style={{ display: "inline-block" }}
+                      >
+                        {word}
+                      </span>
+                    </span>
+                  ))}
                 </span>
               </h1>
 
@@ -398,7 +478,7 @@ export function HeroScrollPin() {
                 style={{
                   display: "flex",
                   ...(isMobileLayout
-                    ? { flexDirection: "column", alignItems: "center", gap: "12px" }
+                    ? { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: "10px" }
                     : { flexWrap: "wrap", gap: "10px" }),
                 }}
                 className={isMobileLayout ? "" : "justify-center md:justify-start"}
@@ -406,7 +486,8 @@ export function HeroScrollPin() {
                 <Button
                   size="lg"
                   asChild
-                  className={`font-body font-bold${isMobileLayout ? " w-full" : ""}`}
+                  className="font-body font-bold"
+                  style={isMobileLayout ? { flex: "1 1 0", minWidth: 0 } : undefined}
                 >
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
@@ -414,7 +495,8 @@ export function HeroScrollPin() {
                   size="lg"
                   variant="outline-white"
                   asChild
-                  className={`font-body font-bold${isMobileLayout ? " w-full" : ""}`}
+                  className="font-body font-bold"
+                  style={isMobileLayout ? { flex: "1 1 0", minWidth: 0 } : undefined}
                 >
                   <Link to="/packaging">explore packaging</Link>
                 </Button>

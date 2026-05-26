@@ -13,6 +13,7 @@ import BlogDetail from "./pages/BlogDetail.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { PageTransition } from "./components/PageTransition";
 import { useLenis } from "./hooks/useLenis";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => {
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <PageTransition />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/brand" element={<Brand />} />

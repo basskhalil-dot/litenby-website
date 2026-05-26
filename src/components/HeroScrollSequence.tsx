@@ -194,16 +194,16 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
   }, [ready]);
 
   return (
-    <div ref={wrapperRef} className="h-[200vh] md:h-[220vh]" style={{ overflow: "clip" }}>
+    <div ref={wrapperRef} className="h-[200dvh] md:h-[220dvh]" style={{ overflow: "clip" }}>
       <div
         className="w-full bg-background"
-        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
+        style={{ position: "sticky", top: 0, height: "100dvh", overflow: "hidden" }}
       >
         {/* Bottle canvas — upper half on mobile, centered on desktop */}
-        <div className="absolute inset-0 flex items-start pt-[12vh] md:pt-[4vh] md:items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 flex items-start pt-[12dvh] md:pt-[4dvh] md:items-center justify-center overflow-hidden">
           <div
             ref={innerRef}
-            className="max-h-[40vh] md:max-h-[70vh] flex-shrink-0"
+            className="max-h-[40dvh] md:max-h-[70dvh] flex-shrink-0"
             style={{
               width: "min(100%, 600px)",
               aspectRatio: "1 / 1",
@@ -221,7 +221,7 @@ export function HeroScrollSequence({ onEarlyLoad }: HeroScrollSequenceProps) {
         {/* Hero text — overlaid, animated via GSAP */}
         <div
           ref={textRef}
-          className="absolute inset-0 flex items-end justify-center pb-[6vh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden md:opacity-0"
+          className="absolute inset-0 flex items-end justify-center pb-[6dvh] md:pb-0 md:items-center md:justify-start pointer-events-none overflow-hidden md:opacity-0"
         >
           <div className="pointer-events-auto w-full px-6 md:px-0 md:w-auto md:ml-[20vw] lg:ml-[22vw]">
             <div className="max-w-full md:max-w-lg lg:max-w-xl text-center md:text-left">
