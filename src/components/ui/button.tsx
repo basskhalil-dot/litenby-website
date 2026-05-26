@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground border-2 border-transparent transition-all duration-300 [@media(hover:hover)]:hover:bg-transparent [@media(hover:hover)]:hover:border-primary [@media(hover:hover)]:hover:text-primary",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        "outline-white": "bg-transparent text-white border-2 border-white hover:bg-white hover:text-black hover:border-transparent transition-all duration-300",
+        "outline-white": "bg-transparent text-white border-2 border-white transition-all duration-300 [@media(hover:hover)]:hover:bg-white [@media(hover:hover)]:hover:text-black [@media(hover:hover)]:hover:border-transparent",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",

@@ -26,7 +26,7 @@ function FilterBar({
         {/* Material filters */}
         <div
           className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
-          style={{ overflowX: "auto", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
+          style={{ overflowX: "auto", touchAction: "pan-x", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
         >
           <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Material
@@ -51,7 +51,7 @@ function FilterBar({
         {/* Shape filters */}
         <div
           className="flex items-center gap-2 [&::-webkit-scrollbar]:hidden"
-          style={{ overflowX: "auto", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
+          style={{ overflowX: "auto", touchAction: "pan-x", scrollbarWidth: "none", WebkitOverflowScrolling: "touch", width: "100%", whiteSpace: "nowrap" }}
         >
           <span className="mr-2 shrink-0 font-body text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Shape
