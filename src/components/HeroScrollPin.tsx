@@ -478,7 +478,7 @@ export function HeroScrollPin() {
                 style={{
                   display: "flex",
                   ...(isMobileLayout
-                    ? { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: "10px" }
+                    ? { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: "10px", paddingLeft: "16px", paddingRight: "16px", width: "100%", boxSizing: "border-box" }
                     : { flexWrap: "wrap", gap: "10px" }),
                 }}
                 className={isMobileLayout ? "" : "justify-center md:justify-start"}
