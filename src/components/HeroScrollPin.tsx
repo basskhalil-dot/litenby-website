@@ -487,7 +487,7 @@ export function HeroScrollPin() {
                   size="lg"
                   asChild
                   className="font-body font-bold"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "280px", background: "hsl(39,100%,50%)", color: "#000000", border: "2px solid transparent" } : undefined}
                 >
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
@@ -496,7 +496,7 @@ export function HeroScrollPin() {
                   variant="outline-white"
                   asChild
                   className="font-body font-bold"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "280px", background: "transparent", color: "#ffffff", border: "2px solid #ffffff" } : undefined}
                 >
                   <Link to="/packaging">explore packaging</Link>
                 </Button>
