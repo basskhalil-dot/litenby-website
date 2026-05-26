@@ -191,7 +191,7 @@ export function HeroScrollPin() {
           trigger: wrapperRef.current,
           start: "top top",
           end: `+=${animScrollPx}`,
-          scrub: 1,
+          scrub: 0.3,
           anticipatePin: 1,
         },
       });
