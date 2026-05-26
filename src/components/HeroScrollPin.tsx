@@ -191,16 +191,8 @@ export function HeroScrollPin() {
           trigger: wrapperRef.current,
           start: "top top",
           end: `+=${animScrollPx}`,
-          scrub: 0.3,
+          scrub: 1,
           anticipatePin: 1,
-          onLeave: () => {
-            // Ease any lagging scrub animation to completion so the unpin feels smooth
-            gsap.to(tl, { progress: 1, duration: 0.5, ease: "power2.out", overwrite: "auto" });
-          },
-          onEnterBack: () => {
-            // Hand control back to the scrub when scrolling back into the section
-            gsap.killTweensOf(tl);
-          },
         },
       });
 
