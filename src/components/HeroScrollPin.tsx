@@ -478,7 +478,7 @@ export function HeroScrollPin() {
                 style={{
                   display: "flex",
                   ...(isMobileLayout
-                    ? { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: "10px", paddingLeft: "16px", paddingRight: "16px", width: "100%", boxSizing: "border-box" }
+                    ? { flexDirection: "column", alignItems: "center", gap: "12px", width: "100%" }
                     : { flexWrap: "wrap", gap: "10px" }),
                 }}
                 className={isMobileLayout ? "" : "justify-center md:justify-start"}
@@ -487,7 +487,7 @@ export function HeroScrollPin() {
                   size="lg"
                   asChild
                   className="font-body font-bold"
-                  style={isMobileLayout ? { flex: "1 1 0", minWidth: 0 } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                 >
                   <Link to="/contact#form">start your brand</Link>
                 </Button>
@@ -496,7 +496,7 @@ export function HeroScrollPin() {
                   variant="outline-white"
                   asChild
                   className="font-body font-bold"
-                  style={isMobileLayout ? { flex: "1 1 0", minWidth: 0 } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                 >
                   <Link to="/packaging">explore packaging</Link>
                 </Button>
