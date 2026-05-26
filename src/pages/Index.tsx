@@ -1,7 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Preloader } from '@/components/Preloader';
-import { HeroScrollSequence } from '@/components/HeroScrollSequence';
+import { HeroScrollPin } from '@/components/HeroScrollPin';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
 import { CollabsSection } from '@/components/CollabsSection';
@@ -12,25 +12,12 @@ import { BackToTop } from '@/components/BackToTop';
 const Index = () => {
   const [progress, setProgress] = useState(0);
   const [preloaderDone, setPreloaderDone] = useState(false);
-  const [framesReady, setFramesReady] = useState(false);
-  const [fontsReady, setFontsReady] = useState(false);
 
-  const onEarlyLoad = useCallback(() => {
-    setFramesReady(true);
-  }, []);
-
-  // Font loading
   useEffect(() => {
-    document.fonts.ready.then(() => setFontsReady(true));
+    document.fonts.ready.then(() => setProgress(100));
+    const fallback = setTimeout(() => setProgress(100), 2000);
+    return () => clearTimeout(fallback);
   }, []);
-
-  // Combine signals into progress
-  useEffect(() => {
-    let p = 0;
-    if (fontsReady) p += 40;
-    if (framesReady) p += 60;
-    setProgress(p);
-  }, [fontsReady, framesReady]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,8 +25,7 @@ const Index = () => {
         <Preloader progress={progress} onComplete={() => setPreloaderDone(true)} />
       )}
       <LitenbyNavbar />
-      <HeroScrollSequence onEarlyLoad={onEarlyLoad} />
-      
+      <HeroScrollPin />
       <ThreeLabsSection />
       <PackagingLabSection />
       <CollabsSection />

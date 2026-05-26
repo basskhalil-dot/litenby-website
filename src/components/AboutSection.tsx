@@ -3,16 +3,26 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 28 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.4,
-      delay: 0.05 * i,
+      duration: 0.75,
+      delay: 0.07 * i,
       ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   }),
+};
+
+const ctaReveal = {
+  hidden: { opacity: 0, y: 36, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
 };
 
 export function AboutSection() {
@@ -32,18 +42,16 @@ export function AboutSection() {
               Story
             </motion.span>
 
-            <motion.div
+            <motion.h2
               custom={2}
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="flex flex-col gap-2"
+              className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]"
             >
-              <h2 className="font-heading text-4xl font-extrabold tracking-tight text-foreground md:text-5xl lg:text-[68px]">
-                the litenby way
-              </h2>
-            </motion.div>
+              the litenby way
+            </motion.h2>
 
             <motion.p
               custom={3}
@@ -53,7 +61,10 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              litenby was built on one belief: a great product without a strong brand is a missed opportunity. We exist for the founders, the makers, and the creative teams who refuse to leave that to chance, bringing branding, packaging, and storytelling together from a single source.
+              litenby was built on one belief: a great product without a strong brand is a missed
+              opportunity. We exist for the founders, the makers, and the creative teams who refuse
+              to leave that to chance, bringing branding, packaging, and storytelling together from
+              a single source.
             </motion.p>
 
             <motion.p
@@ -64,13 +75,13 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              From brief to brand, bottle to campaign. Everything under one roof, one vision, one source. Because coherence isn't something you hope for. It's something you build in from the start.
+              From brief to brand, bottle to campaign. Everything under one roof, one vision, one
+              source. Because coherence isn't something you hope for. It's something you build in
+              from the start.
             </motion.p>
 
-            {/* CTA — merged inline */}
             <motion.h3
-              custom={5}
-              variants={fadeUp}
+              variants={ctaReveal}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}

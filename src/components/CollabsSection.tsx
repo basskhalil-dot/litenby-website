@@ -24,51 +24,71 @@ const mediaItems: MediaItemType[] = [
   { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6 },
 ];
 
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
+
 export function CollabsSection() {
   return (
     <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.p
           className="font-body font-semibold uppercase text-sm tracking-widest mb-3 text-highlight"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           Project
         </motion.p>
         <motion.h2
           className="font-heading text-4xl font-extrabold lowercase text-white md:text-5xl lg:text-[68px]"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         >
           collabs
         </motion.h2>
         <motion.p
           className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-muted-foreground font-body"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           Ideas that made it to the shelf.
         </motion.p>
       </div>
 
       <div className="container">
-        {/* Entire grid appears at once — no stagger */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-3 gap-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
         >
           {mediaItems.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              variants={itemVariants}
               className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
               style={{ border: "1px solid #333333" }}
             >
@@ -79,7 +99,6 @@ export function CollabsSection() {
                 loading="lazy"
                 decoding="async"
               />
-              {/* Hover overlay with title & description */}
               <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <h3 className="relative text-white text-xs sm:text-sm font-body font-semibold lowercase line-clamp-1">
@@ -89,7 +108,7 @@ export function CollabsSection() {
                   {item.desc}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>

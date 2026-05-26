@@ -28,16 +28,29 @@ const labs = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 36, scale: 0.96 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.75,
+      delay: i * 0.14,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  }),
+};
+
 export function ThreeLabsSection() {
   return (
-    <section className="relative w-full bg-background py-20 lg:py-28">
+    <section className="relative w-full bg-background pt-10 pb-20 lg:pb-28">
       <div className="container">
-        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
@@ -51,31 +64,25 @@ export function ThreeLabsSection() {
           </p>
         </motion.div>
 
-        {/* Cards grid — all appear at once */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-3"
-        >
-          {labs.map((lab) => (
-            <div
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {labs.map((lab, i) => (
+            <motion.div
               key={lab.title}
+              custom={i}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-300"
             >
-              {/* Image area */}
               <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
                 <img
                   src={lab.image}
                   alt={lab.title}
                   className="h-full w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
               </div>
-
-              {/* Content */}
               <div className="relative flex flex-1 flex-col p-6 lg:p-8">
                 <div className="mb-4 flex items-center gap-3">
                   <lab.icon className="h-5 w-5 text-primary" />
@@ -86,11 +93,10 @@ export function ThreeLabsSection() {
                 <p className="text-sm leading-relaxed text-muted-foreground lg:text-base">
                   {lab.description}
                 </p>
-
               </div>
-            </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

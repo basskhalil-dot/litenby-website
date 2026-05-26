@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Sheet, SheetContent, SheetFooter, SheetTitle } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { MenuToggle } from '@/components/ui/menu-toggle';
@@ -17,18 +18,17 @@ export function LitenbyNavbar() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
+    <motion.header
+      initial={{ y: -72, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm"
+    >
       <div className="container flex items-center justify-between py-4">
-        {/* Logo */}
         <a href="/" className="flex-shrink-0">
-          <img
-            src={litenbyLogo}
-            alt="Litenby"
-            className="h-8 w-auto md:h-9"
-          />
+          <img src={litenbyLogo} alt="Litenby" className="h-8 w-auto md:h-9" />
         </a>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <a
@@ -39,16 +39,13 @@ export function LitenbyNavbar() {
               {link.label}
             </a>
           ))}
-          <Button size="default" asChild><Link to="/contact#form">start your brand</Link></Button>
+          <Button size="default" asChild>
+            <Link to="/contact#form">start your brand</Link>
+          </Button>
         </nav>
 
-        {/* Mobile Toggle */}
         <div className="md:hidden">
-          <MenuToggle
-            open={open}
-            onOpenChange={setOpen}
-            className="size-6 text-foreground"
-          />
+          <MenuToggle open={open} onOpenChange={setOpen} className="size-6 text-foreground" />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetContent side="top" className="bg-background">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
@@ -64,12 +61,14 @@ export function LitenbyNavbar() {
                 ))}
               </nav>
               <SheetFooter className="mt-8 flex flex-col items-center gap-3 sm:flex-col">
-                <Button className="w-full max-w-xs" asChild><Link to="/contact#form">start your brand</Link></Button>
+                <Button className="w-full max-w-xs" asChild>
+                  <Link to="/contact#form">start your brand</Link>
+                </Button>
               </SheetFooter>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

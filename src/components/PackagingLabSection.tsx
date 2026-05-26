@@ -4,6 +4,26 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
 
+const gridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.055,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 22, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+  },
+};
+
 function PackagingCard({ product }: { product: PackagingProduct }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
@@ -15,7 +35,6 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
-      {/* Image container — matches Collabs DNA */}
       <div
         className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]"
         style={{ border: "1px solid #333333" }}
@@ -35,9 +54,9 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
           loading="lazy"
         />
       </div>
-
-      {/* Product name */}
-      <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">{product.name}</p>
+      <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">
+        {product.name}
+      </p>
     </div>
   );
 }
@@ -46,12 +65,11 @@ export function PackagingLabSection() {
   return (
     <section className="relative w-full bg-background py-20 lg:py-28">
       <div className="container">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 text-center"
         >
           <span className="mb-3 inline-block font-body text-sm font-semibold uppercase tracking-widest text-highlight">
@@ -65,25 +83,25 @@ export function PackagingLabSection() {
           </p>
         </motion.div>
 
-        {/* 3×2 grid — all appear at once */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
           className="grid grid-cols-2 gap-4 md:grid-cols-4"
         >
           {packagingProducts.slice(0, 12).map((product) => (
-            <PackagingCard key={product.id} product={product} />
+            <motion.div key={product.id} variants={itemVariants}>
+              <PackagingCard product={product} />
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 flex justify-center"
         >
           <Button size="lg" asChild>
