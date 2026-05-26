@@ -1,0 +1,140 @@
+- generic [ref=e2]:
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications alt+T"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Litenby" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Litenby" [ref=e7]
+        - img [ref=e10] [cursor=pointer]
+    - generic [ref=e13]:
+      - generic [ref=e14]: LAB SHOWCASE
+      - heading "the packaging lab" [level=1] [ref=e15]
+      - paragraph [ref=e16]: high-end mockups ready for your brand. hover to see the magic.
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]: Material
+        - button "all" [ref=e21] [cursor=pointer]
+        - button "glass" [ref=e22] [cursor=pointer]
+        - button "carton" [ref=e23] [cursor=pointer]
+        - button "bags" [ref=e24] [cursor=pointer]
+        - button "plastic" [ref=e25] [cursor=pointer]
+      - generic [ref=e26]:
+        - generic [ref=e27]: Shape
+        - button "all" [ref=e28] [cursor=pointer]
+        - button "bottles" [ref=e29] [cursor=pointer]
+        - button "jars" [ref=e30] [cursor=pointer]
+        - button "boxes" [ref=e31] [cursor=pointer]
+        - button "tubes" [ref=e32] [cursor=pointer]
+    - generic [ref=e35]:
+      - link "Amber Glass Dropper Amber Glass Dropper labeled Amber Glass Dropper glass" [ref=e36] [cursor=pointer]:
+        - /url: /packaging-lab/glass-bottle-01
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - img "Amber Glass Dropper" [ref=e39]
+            - img "Amber Glass Dropper labeled" [ref=e40]
+          - generic [ref=e41]:
+            - paragraph [ref=e42]: Amber Glass Dropper
+            - generic [ref=e43]: glass
+      - link "Frosted Serum Vial Frosted Serum Vial labeled Frosted Serum Vial glass" [ref=e44] [cursor=pointer]:
+        - /url: /packaging-lab/glass-bottle-02
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - img "Frosted Serum Vial" [ref=e47]
+            - img "Frosted Serum Vial labeled" [ref=e48]
+          - generic [ref=e49]:
+            - paragraph [ref=e50]: Frosted Serum Vial
+            - generic [ref=e51]: glass
+      - link "Clear Cream Jar Clear Cream Jar labeled Clear Cream Jar glass" [ref=e52] [cursor=pointer]:
+        - /url: /packaging-lab/glass-jar-01
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - img "Clear Cream Jar" [ref=e55]
+            - img "Clear Cream Jar labeled" [ref=e56]
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: Clear Cream Jar
+            - generic [ref=e59]: glass
+      - link "Matte Black Box Matte Black Box labeled Matte Black Box carton" [ref=e60] [cursor=pointer]:
+        - /url: /packaging-lab/carton-box-01
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - img "Matte Black Box" [ref=e63]
+            - img "Matte Black Box labeled" [ref=e64]
+          - generic [ref=e65]:
+            - paragraph [ref=e66]: Matte Black Box
+            - generic [ref=e67]: carton
+      - link "Kraft Tuck-End Box Kraft Tuck-End Box labeled Kraft Tuck-End Box carton" [ref=e68] [cursor=pointer]:
+        - /url: /packaging-lab/carton-box-02
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - img "Kraft Tuck-End Box" [ref=e71]
+            - img "Kraft Tuck-End Box labeled" [ref=e72]
+          - generic [ref=e73]:
+            - paragraph [ref=e74]: Kraft Tuck-End Box
+            - generic [ref=e75]: carton
+      - link "Squeeze Tube 100ml Squeeze Tube 100ml labeled Squeeze Tube 100ml plastic" [ref=e76] [cursor=pointer]:
+        - /url: /packaging-lab/plastic-tube-01
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - img "Squeeze Tube 100ml" [ref=e79]
+            - img "Squeeze Tube 100ml labeled" [ref=e80]
+          - generic [ref=e81]:
+            - paragraph [ref=e82]: Squeeze Tube 100ml
+            - generic [ref=e83]: plastic
+      - link "Stand-Up Pouch Stand-Up Pouch labeled Stand-Up Pouch bags" [ref=e84] [cursor=pointer]:
+        - /url: /packaging-lab/bag-pouch-01
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - img "Stand-Up Pouch" [ref=e87]
+            - img "Stand-Up Pouch labeled" [ref=e88]
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: Stand-Up Pouch
+            - generic [ref=e91]: bags
+      - link "Perfume Flacon Perfume Flacon labeled Perfume Flacon glass" [ref=e92] [cursor=pointer]:
+        - /url: /packaging-lab/glass-bottle-03
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - img "Perfume Flacon" [ref=e95]
+            - img "Perfume Flacon labeled" [ref=e96]
+          - generic [ref=e97]:
+            - paragraph [ref=e98]: Perfume Flacon
+            - generic [ref=e99]: glass
+      - link "Wide-Mouth Jar Wide-Mouth Jar labeled Wide-Mouth Jar plastic" [ref=e100] [cursor=pointer]:
+        - /url: /packaging-lab/plastic-jar-01
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - img "Wide-Mouth Jar" [ref=e103]
+            - img "Wide-Mouth Jar labeled" [ref=e104]
+          - generic [ref=e105]:
+            - paragraph [ref=e106]: Wide-Mouth Jar
+            - generic [ref=e107]: plastic
+    - contentinfo [ref=e108]:
+      - generic [ref=e109]:
+        - generic [ref=e110]:
+          - img "Litenby" [ref=e112]
+          - link "Instagram" [ref=e114] [cursor=pointer]:
+            - /url: "#"
+            - img
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - paragraph [ref=e118]: © 2026 litenby creative lab
+            - paragraph [ref=e119]: all rights reserved
+          - generic [ref=e120]:
+            - navigation [ref=e121]:
+              - link "branding" [ref=e122] [cursor=pointer]:
+                - /url: /brand
+              - link "packaging" [ref=e123] [cursor=pointer]:
+                - /url: /packaging
+              - link "storytelling" [ref=e124] [cursor=pointer]:
+                - /url: /storytelling
+              - link "blog" [ref=e125] [cursor=pointer]:
+                - /url: /blog
+              - link "contact" [ref=e126] [cursor=pointer]:
+                - /url: /contact
+            - navigation [ref=e127]:
+              - link "privacy" [ref=e128] [cursor=pointer]:
+                - /url: "#"
+              - link "terms" [ref=e129] [cursor=pointer]:
+                - /url: "#"

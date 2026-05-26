@@ -141,7 +141,7 @@ export default function Packaging() {
   }, [activeMaterial, activeShape]);
 
   return (
-    <div className="min-h-screen bg-background" style={{ overflowX: "hidden" }}>
+    <div className="min-h-screen bg-background" style={{ overflowX: "clip" }}>
       <LitenbyNavbar />
 
       {/* Hero heading */}
