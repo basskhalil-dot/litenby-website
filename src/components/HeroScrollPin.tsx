@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
+const MOBILE_COVER_SCALE = 0.74;
 
 function frameUrl(i: number): string {
   return `/hero-sequence/frame_${String(i).padStart(3, "0")}.webp`;
@@ -78,7 +79,9 @@ export function HeroScrollPin() {
       const ch = canvas.height;
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
-      const scale = Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+      const scale = isMob
+        ? Math.max(cw / iw, ch / ih) * MOBILE_COVER_SCALE
+        : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
 
@@ -194,7 +197,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "78dvh", flexShrink: 0, objectFit: "contain" }
+              ? { width: "100%", height: "48dvh", flexShrink: 0, objectFit: "cover", objectPosition: "center" }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -233,7 +236,7 @@ export function HeroScrollPin() {
               width: "100%",
               ...(isMobileLayout
                 ? { textAlign: "center" }
-                : { marginLeft: "8vw", textAlign: "left" }),
+                : { marginLeft: "2vw", textAlign: "left" }),
             }}
           >
             <p
