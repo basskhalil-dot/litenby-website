@@ -22,8 +22,8 @@ export function HeroScrollPin() {
   const framesRef = useRef<HTMLImageElement[]>([]);
 
   // RAF coalescing state — all imperative, zero React re-renders in the draw loop
-  const pendingFrameRef = useRef(0); // decimal frame queued for next RAF
-  const lastDrawnRef = useRef(-1);   // last decimal frame actually painted
+  const pendingIndexRef = useRef(0); // integer frame index queued for next RAF
+  const lastDrawnRef = useRef(-1);   // last integer index actually painted
   const rafIdRef = useRef<number | null>(null);
 
   const [isReady, setIsReady] = useState(false);
@@ -75,24 +75,20 @@ export function HeroScrollPin() {
       canvas.height = Math.round(rect.height * dpr);
     }
 
-    // Draws decimal frames by cross-fading between adjacent images.
-    function render(frame: number) {
+    // Draws a single integer frame at 100% opacity — no blending, no ghosting.
+    function render(index: number) {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const clampedFrame = Math.max(0, Math.min(FRAME_COUNT - 1, frame));
-      const lowerIndex = Math.floor(clampedFrame);
-      const upperIndex = Math.min(FRAME_COUNT - 1, lowerIndex + 1);
-      const blend = clampedFrame - lowerIndex;
-      const lowerImg = framesRef.current[lowerIndex];
-      const upperImg = framesRef.current[upperIndex];
-      if (!lowerImg || !lowerImg.complete || !lowerImg.naturalWidth) return;
+      const clampedIndex = Math.max(0, Math.min(FRAME_COUNT - 1, index));
+      const img = framesRef.current[clampedIndex];
+      if (!img || !img.complete || !img.naturalWidth) return;
 
       const cw = canvas.width;
       const ch = canvas.height;
-      const iw = lowerImg.naturalWidth;
-      const ih = lowerImg.naturalHeight;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
 
       const scale = Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
@@ -101,42 +97,37 @@ export function HeroScrollPin() {
       const dy = (ch - dh) / 2;
 
       ctx.clearRect(0, 0, cw, ch);
-      ctx.globalAlpha = 1 - blend;
-      ctx.drawImage(lowerImg, dx, dy, dw, dh);
-      if (upperIndex !== lowerIndex && upperImg?.complete && upperImg.naturalWidth) {
-        ctx.globalAlpha = blend;
-        ctx.drawImage(upperImg, dx, dy, dw, dh);
-      }
       ctx.globalAlpha = 1;
+      ctx.drawImage(img, dx, dy, dw, dh);
 
-      lastDrawnRef.current = clampedFrame;
+      lastDrawnRef.current = clampedIndex;
     }
 
     // Called from ScrollTrigger onUpdate.
-    // Stores the latest exact decimal frame and schedules at most one RAF per
-    // display frame. No lerp: when scroll stops, the requested frame stops too.
+    // Rounds to the nearest integer frame and schedules at most one RAF per
+    // display frame. No lerp, no blending — 1:1 sharp swaps only.
     function queueRender(frame: number) {
-      pendingFrameRef.current = Math.max(0, Math.min(FRAME_COUNT - 1, frame));
+      const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(frame)));
+      pendingIndexRef.current = index;
       if (rafIdRef.current !== null) return; // RAF already queued
       rafIdRef.current = requestAnimationFrame(() => {
         rafIdRef.current = null;
-        const frameToDraw = pendingFrameRef.current;
-        if (Math.abs(frameToDraw - lastDrawnRef.current) > 0.001) {
-          render(frameToDraw);
+        const idx = pendingIndexRef.current;
+        if (idx !== lastDrawnRef.current) {
+          render(idx);
         }
       });
     }
 
     function handleResize() {
       sizeCanvas();
-      // Force a repaint at current frame regardless of lastDrawnRef
       lastDrawnRef.current = -1;
-      render(pendingFrameRef.current);
+      render(pendingIndexRef.current);
     }
 
     sizeCanvas();
     render(0);
-    pendingFrameRef.current = 0;
+    pendingIndexRef.current = 0;
 
     // Desktop 212dvh − 100dvh = 112dvh scroll range (~3dvh/frame).
     // Mobile  250dvh − 100dvh = 150dvh scroll range.
