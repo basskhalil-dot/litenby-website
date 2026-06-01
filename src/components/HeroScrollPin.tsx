@@ -194,7 +194,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "50dvh", flexShrink: 0 }
+              ? { width: "100%", height: "78dvh", flexShrink: 0, objectFit: "contain" }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -207,11 +207,11 @@ export function HeroScrollPin() {
               ? {
                   flex: 1,
                   display: "flex",
-                  alignItems: "center",
+                  alignItems: "flex-start",
                   justifyContent: "center",
                   pointerEvents: "none",
                   opacity: 1,
-                  padding: "0 24px max(20px, env(safe-area-inset-bottom, 20px))",
+                  padding: "1rem 24px max(20px, env(safe-area-inset-bottom, 20px))",
                 }
               : {
                   position: "absolute",
@@ -223,13 +223,17 @@ export function HeroScrollPin() {
           }
         >
           <div
+            className={!isMobileLayout ? "container" : undefined}
+            style={isMobileLayout ? { width: "100%" } : undefined}
+          >
+          <div
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
               width: "100%",
               ...(isMobileLayout
                 ? { textAlign: "center" }
-                : { marginLeft: "16vw", textAlign: "left" }),
+                : { marginLeft: "8vw", textAlign: "left" }),
             }}
           >
             <p
@@ -303,6 +307,7 @@ export function HeroScrollPin() {
                 </Link>
               </Button>
             </div>
+          </div>
           </div>
         </div>
 
