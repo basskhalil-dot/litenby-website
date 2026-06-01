@@ -144,7 +144,7 @@ export function HeroScrollPin() {
           trigger: wrapperRef.current,
           start: "top top",
           end: `+=${scrollPx}`,
-          scrub: 0.3,
+          scrub: true,
           anticipatePin: 1,
         },
       });
@@ -157,6 +157,7 @@ export function HeroScrollPin() {
         {
           frame: FRAME_COUNT - 1,
           ease: "none",
+          snap: { frame: 1 },
           duration: 1,
           onUpdate() {
             const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(obj.frame)));
