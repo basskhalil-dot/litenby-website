@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
-const CONTAIN_SCALE = 0.90;
+const CONTAIN_SCALE = 0.9;
 
 function frameUrl(i: number): string {
   return `/hero-sequence/frame_${String(i).padStart(3, "0")}.webp`;
@@ -20,19 +16,15 @@ export function HeroScrollPin() {
   const textRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
-
-  // RAF coalescing state — all imperative, zero React re-renders in the draw loop
-  const pendingIndexRef = useRef(-1); // frame index queued for next RAF
-  const lastDrawnRef = useRef(-1);   // last index actually painted
-  const rafIdRef = useRef<number | null>(null);
+  const lastFrameRef = useRef(-1);
+  const tickingRef = useRef(false);
 
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
   );
 
-  // Preload + decode all 35 frames before the animation is interactive.
-  // decode() ensures bitmaps are in GPU memory — no first-paint hitch per frame.
+  // Preload + decode all frames before making the animation interactive.
   useEffect(() => {
     let mounted = true;
     const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
@@ -51,7 +43,7 @@ export function HeroScrollPin() {
     return () => { mounted = false; };
   }, []);
 
-  // Respond to orientation / breakpoint changes
+  // Respond to breakpoint changes.
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 767px)");
     const handler = (e: MediaQueryListEvent) => setIsMobileLayout(e.matches);
@@ -59,13 +51,13 @@ export function HeroScrollPin() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Canvas sizing + GSAP scroll animation
+  // Native scroll + canvas rendering.
   useEffect(() => {
     if (!isReady) return;
     const canvas = canvasRef.current;
     if (!canvas || !wrapperRef.current) return;
 
-    const isMob = window.innerWidth < 768;
+    const isMob = isMobileLayout;
 
     function sizeCanvas() {
       if (!canvas) return;
@@ -75,12 +67,10 @@ export function HeroScrollPin() {
       canvas.height = Math.round(rect.height * dpr);
     }
 
-    // Draws a single frame — one image, fully opaque, no blending.
     function render(index: number) {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-
       const img = framesRef.current[index];
       if (!img || !img.complete || !img.naturalWidth) return;
 
@@ -88,103 +78,74 @@ export function HeroScrollPin() {
       const ch = canvas.height;
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
-
       const scale = Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
 
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
-
-      lastDrawnRef.current = index;
     }
 
-    // Called from ScrollTrigger onUpdate.
-    // Stores the latest desired index and schedules at most one RAF per display
-    // frame. If a RAF is already pending it will pick up the latest value when
-    // it fires — no cancel, no skipped intermediate frames.
-    function queueRender(index: number) {
-      pendingIndexRef.current = index;
-      if (rafIdRef.current !== null) return; // RAF already queued
-      rafIdRef.current = requestAnimationFrame(() => {
-        rafIdRef.current = null;
-        const idx = pendingIndexRef.current;
-        if (idx !== lastDrawnRef.current) {
-          render(idx);
-        }
+    // Hide desktop text lines until scroll reveals them.
+    if (!isMob) {
+      lineRefs.current.forEach((el) => {
+        if (!el) return;
+        el.style.opacity = "0";
+        el.style.transform = "translateY(25px)";
+        el.style.transition = "opacity 0.4s ease, transform 0.4s ease";
       });
-    }
-
-    function handleResize() {
-      sizeCanvas();
-      // Force a repaint at current frame regardless of lastDrawnRef
-      lastDrawnRef.current = -1;
-      render(Math.max(0, pendingIndexRef.current));
     }
 
     sizeCanvas();
     render(0);
-    pendingIndexRef.current = 0;
+    lastFrameRef.current = 0;
 
-    // Desktop 212dvh − 100dvh = 112dvh scroll range (~3dvh/frame).
-    // Mobile  250dvh − 100dvh = 150dvh scroll range.
-    const scrollPx = Math.round(window.innerHeight * (isMob ? 1.5 : 1.12));
+    function onScroll() {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
 
-    const obj = { frame: 0 };
+      const rect = wrapper.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
 
-    const gsapCtx = gsap.context(() => {
-      if (!isMob) {
-        gsap.set(textRef.current, { opacity: 1 });
-        const els = lineRefs.current.filter(Boolean) as HTMLElement[];
-        gsap.set(els, { opacity: 0, y: 25 });
+      if (frame !== lastFrameRef.current) {
+        lastFrameRef.current = frame;
+        if (!tickingRef.current) {
+          tickingRef.current = true;
+          requestAnimationFrame(() => {
+            render(lastFrameRef.current);
+            tickingRef.current = false;
+          });
+        }
       }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top top",
-          end: `+=${scrollPx}`,
-          scrub: 0.3,
-          anticipatePin: 1,
-        },
-      });
-
-      // Frame tween: obj.frame goes 0 → 34 linearly.
-      // onUpdate computes the integer index and queues a RAF draw.
-      // One frame rendered per display frame max; no React state touched.
-      tl.to(
-        obj,
-        {
-          frame: FRAME_COUNT - 1,
-          ease: "none",
-          duration: 1,
-          onUpdate() {
-            const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(obj.frame)));
-            queueRender(index);
-          },
-        },
-        0
-      );
-
+      // Desktop text reveal: each line fades in once progress passes its threshold.
       if (!isMob) {
-        const els = lineRefs.current.filter(Boolean) as HTMLElement[];
-        els.forEach((el, i) => {
-          tl.to(
-            el,
-            { opacity: 1, y: 0, ease: "power3.out", duration: 0.4 },
-            0.25 + i * 0.12
-          );
+        lineRefs.current.forEach((el, i) => {
+          if (!el) return;
+          const threshold = 0.25 + i * 0.12;
+          if (progress >= threshold) {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          } else {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(25px)";
+          }
         });
       }
-    }, wrapperRef);
+    }
 
+    function handleResize() {
+      sizeCanvas();
+      render(Math.max(0, lastFrameRef.current));
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", handleResize);
+
     return () => {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
-      }
-      gsapCtx.revert();
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", handleResize);
     };
   }, [isReady, isMobileLayout]);
