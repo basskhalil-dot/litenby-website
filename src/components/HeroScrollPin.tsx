@@ -7,10 +7,7 @@ import { Button } from "@/components/ui/button";
 gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 35;
-// 320dvh section − 100dvh sticky = 220dvh effective scroll range
-const SCROLL_MULTIPLIER = 2.2;
 const GOLD = "hsl(var(--primary))";
-// Contain frames at 90% of viewport — keeps the full bottle in frame
 const CONTAIN_SCALE = 0.90;
 
 function frameUrl(i: number): string {
@@ -21,34 +18,35 @@ export function HeroScrollPin() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  // lineRefs: [0] pretitle, [1] h1, [2] subtitle, [3] CTAs
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
-  const currentFrameRef = useRef(0);
+
+  // RAF coalescing state — all imperative, zero React re-renders in the draw loop
+  const pendingIndexRef = useRef(-1); // frame index queued for next RAF
+  const lastDrawnRef = useRef(-1);   // last index actually painted
+  const rafIdRef = useRef<number | null>(null);
 
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
   );
 
-  // Preload all 35 frames; animation unlocks only when every one is ready
+  // Preload + decode all 35 frames before the animation is interactive.
+  // decode() ensures bitmaps are in GPU memory — no first-paint hitch per frame.
   useEffect(() => {
     let mounted = true;
-    let loaded = 0;
     const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
     framesRef.current = frames;
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      const done = () => {
-        loaded++;
-        if (loaded >= FRAME_COUNT && mounted) setIsReady(true);
-      };
-      img.onload = done;
-      img.onerror = done;
       img.src = frameUrl(i);
       frames[i] = img;
     }
+
+    Promise.all(frames.map((img) => img.decode().catch(() => {}))).then(() => {
+      if (mounted) setIsReady(true);
+    });
 
     return () => { mounted = false; };
   }, []);
@@ -77,14 +75,11 @@ export function HeroScrollPin() {
       canvas.height = Math.round(rect.height * dpr);
     }
 
-    // Called directly from GSAP's onUpdate — already inside RAF, do not re-wrap.
-    function drawFrame(rawIndex: number) {
+    // Draws a single frame — one image, fully opaque, no blending.
+    function render(index: number) {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-
-      const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(rawIndex)));
-      currentFrameRef.current = index;
 
       const img = framesRef.current[index];
       if (!img || !img.complete || !img.naturalWidth) return;
@@ -97,23 +92,47 @@ export function HeroScrollPin() {
       const scale = Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
+
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+
+      lastDrawnRef.current = index;
+    }
+
+    // Called from ScrollTrigger onUpdate.
+    // Stores the latest desired index and schedules at most one RAF per display
+    // frame. If a RAF is already pending it will pick up the latest value when
+    // it fires — no cancel, no skipped intermediate frames.
+    function queueRender(index: number) {
+      pendingIndexRef.current = index;
+      if (rafIdRef.current !== null) return; // RAF already queued
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null;
+        const idx = pendingIndexRef.current;
+        if (idx !== lastDrawnRef.current) {
+          render(idx);
+        }
+      });
     }
 
     function handleResize() {
       sizeCanvas();
-      drawFrame(currentFrameRef.current);
+      // Force a repaint at current frame regardless of lastDrawnRef
+      lastDrawnRef.current = -1;
+      render(Math.max(0, pendingIndexRef.current));
     }
 
     sizeCanvas();
-    drawFrame(0);
+    render(0);
+    pendingIndexRef.current = 0;
 
-    const scrollPx = Math.round(window.innerHeight * SCROLL_MULTIPLIER);
+    // Desktop 212dvh − 100dvh = 112dvh scroll range (~3dvh/frame).
+    // Mobile  250dvh − 100dvh = 150dvh scroll range.
+    const scrollPx = Math.round(window.innerHeight * (isMob ? 1.5 : 1.12));
+
     const obj = { frame: 0 };
 
     const gsapCtx = gsap.context(() => {
-      // Desktop: all text elements start hidden, fade+slide up on scroll
       if (!isMob) {
         gsap.set(textRef.current, { opacity: 1 });
         const els = lineRefs.current.filter(Boolean) as HTMLElement[];
@@ -125,12 +144,14 @@ export function HeroScrollPin() {
           trigger: wrapperRef.current,
           start: "top top",
           end: `+=${scrollPx}`,
-          scrub: 1.2,
+          scrub: true,
           anticipatePin: 1,
         },
       });
 
-      // Frame scrub
+      // Frame tween: obj.frame goes 0 → 34 linearly.
+      // onUpdate computes the integer index and queues a RAF draw.
+      // One frame rendered per display frame max; no React state touched.
       tl.to(
         obj,
         {
@@ -138,14 +159,13 @@ export function HeroScrollPin() {
           ease: "none",
           duration: 1,
           onUpdate() {
-            drawFrame(obj.frame);
+            const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(obj.frame)));
+            queueRender(index);
           },
         },
         0
       );
 
-      // Desktop: staggered fade-up reveal starting at ~25% scroll.
-      // No masks or clip boxes — opacity + translateY only, so no letter clipping.
       if (!isMob) {
         const els = lineRefs.current.filter(Boolean) as HTMLElement[];
         els.forEach((el, i) => {
@@ -160,6 +180,10 @@ export function HeroScrollPin() {
 
     window.addEventListener("resize", handleResize);
     return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
       gsapCtx.revert();
       window.removeEventListener("resize", handleResize);
     };
@@ -168,9 +192,11 @@ export function HeroScrollPin() {
   return (
     <section
       ref={wrapperRef}
-      style={{ height: "320dvh", overflow: "clip" }}
+      style={{
+        height: isMobileLayout ? "250dvh" : "212dvh",
+        overflow: "clip",
+      }}
     >
-      {/* Sticky viewport panel */}
       <div
         style={{
           position: "sticky",
@@ -178,9 +204,10 @@ export function HeroScrollPin() {
           background: "#000000",
           height: "100dvh",
           overflow: "hidden",
+          ...(isMobileLayout ? { display: "flex", flexDirection: "column" } : {}),
         }}
       >
-        {/* Preloader — shown until all 35 frames are decoded */}
+        {/* Preloader */}
         {!isReady && (
           <div
             style={{
@@ -194,42 +221,45 @@ export function HeroScrollPin() {
           >
             <span
               className="animate-pulse block"
-              style={{
-                width: "56px",
-                height: "2px",
-                borderRadius: "2px",
-                background: GOLD,
-              }}
+              style={{ width: "56px", height: "2px", borderRadius: "2px", background: GOLD }}
             />
           </div>
         )}
 
-        {/*
-         * Canvas covers the full sticky panel.
-         * mix-blend-mode:screen makes the pure-black surrounding area invisible.
-         */}
+        {/* Canvas — mix-blend-mode:screen makes black areas invisible */}
         <canvas
           ref={canvasRef}
           style={{
             display: "block",
-            width: "100%",
-            height: "100%",
             mixBlendMode: "screen",
+            ...(isMobileLayout
+              ? { width: "100%", height: "50dvh", flexShrink: 0 }
+              : { width: "100%", height: "100%" }),
           }}
         />
 
-        {/* Hero copy — statically placed, fade-up reveal only */}
+        {/* Hero copy */}
         <div
           ref={textRef}
-          style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            pointerEvents: "none",
-            ...(isMobileLayout ? { justifyContent: "center" } : {}),
-            opacity: isMobileLayout ? 1 : undefined,
-          }}
+          style={
+            isMobileLayout
+              ? {
+                  flex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  pointerEvents: "none",
+                  opacity: 1,
+                  padding: "0 24px max(20px, env(safe-area-inset-bottom, 20px))",
+                }
+              : {
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  pointerEvents: "none",
+                }
+          }
         >
           <div
             style={{
@@ -237,11 +267,10 @@ export function HeroScrollPin() {
               maxWidth: "520px",
               width: "100%",
               ...(isMobileLayout
-                ? { textAlign: "center", padding: "0 20px" }
+                ? { textAlign: "center" }
                 : { marginLeft: "16vw", textAlign: "left" }),
             }}
           >
-            {/* Pretitle — lineRefs[0] */}
             <p
               ref={(el) => { lineRefs.current[0] = el; }}
               style={{
@@ -251,26 +280,21 @@ export function HeroScrollPin() {
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.24em",
-                marginBottom: isMobileLayout ? "10px" : "10px",
+                marginBottom: "10px",
               }}
             >
               Creative Lab
             </p>
 
-            {/* Headline — lineRefs[1].
-              Plain display:block lines, no overflow:hidden or clip boxes.
-              lineHeight can now be fully tight since no mask is clipping letters. */}
             <h1
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout
-                  ? "1.8rem"
-                  : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.8rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: isMobileLayout ? "10px" : "10px",
+                marginBottom: "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -280,24 +304,19 @@ export function HeroScrollPin() {
               <span style={{ display: "block" }}>in between.</span>
             </h1>
 
-            {/* Subtitle — lineRefs[2] */}
             <p
               ref={(el) => { lineRefs.current[2] = el; }}
               className="font-body"
               style={{
-                fontSize: isMobileLayout
-                  ? "0.8rem"
-                  : "clamp(0.875rem, 1.3vw, 1rem)",
+                fontSize: isMobileLayout ? "0.8rem" : "clamp(0.875rem, 1.3vw, 1rem)",
                 lineHeight: 1.7,
                 color: "rgba(255,255,255,0.46)",
                 marginBottom: isMobileLayout ? "18px" : "16px",
               }}
             >
-              Branding, packaging, and storytelling — built together, from a
-              single source.
+              Branding, packaging, and storytelling — built together, from a single source.
             </p>
 
-            {/* CTAs — lineRefs[3] */}
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
               style={
