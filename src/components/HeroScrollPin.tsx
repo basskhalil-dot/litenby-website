@@ -22,8 +22,8 @@ export function HeroScrollPin() {
   const framesRef = useRef<HTMLImageElement[]>([]);
 
   // RAF coalescing state — all imperative, zero React re-renders in the draw loop
-  const pendingIndexRef = useRef(-1); // frame index queued for next RAF
-  const lastDrawnRef = useRef(-1);   // last index actually painted
+  const pendingFrameRef = useRef(0); // decimal frame queued for next RAF
+  const lastDrawnRef = useRef(-1);   // last decimal frame actually painted
   const rafIdRef = useRef<number | null>(null);
 
   const [isReady, setIsReady] = useState(false);
@@ -75,42 +75,54 @@ export function HeroScrollPin() {
       canvas.height = Math.round(rect.height * dpr);
     }
 
-    // Draws a single frame — one image, fully opaque, no blending.
-    function render(index: number) {
+    // Draws decimal frames by cross-fading between adjacent images.
+    function render(frame: number) {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const img = framesRef.current[index];
-      if (!img || !img.complete || !img.naturalWidth) return;
+      const clampedFrame = Math.max(0, Math.min(FRAME_COUNT - 1, frame));
+      const lowerIndex = Math.floor(clampedFrame);
+      const upperIndex = Math.min(FRAME_COUNT - 1, lowerIndex + 1);
+      const blend = clampedFrame - lowerIndex;
+      const lowerImg = framesRef.current[lowerIndex];
+      const upperImg = framesRef.current[upperIndex];
+      if (!lowerImg || !lowerImg.complete || !lowerImg.naturalWidth) return;
 
       const cw = canvas.width;
       const ch = canvas.height;
-      const iw = img.naturalWidth;
-      const ih = img.naturalHeight;
+      const iw = lowerImg.naturalWidth;
+      const ih = lowerImg.naturalHeight;
 
       const scale = Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
+      const dx = (cw - dw) / 2;
+      const dy = (ch - dh) / 2;
 
       ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+      ctx.globalAlpha = 1 - blend;
+      ctx.drawImage(lowerImg, dx, dy, dw, dh);
+      if (upperIndex !== lowerIndex && upperImg?.complete && upperImg.naturalWidth) {
+        ctx.globalAlpha = blend;
+        ctx.drawImage(upperImg, dx, dy, dw, dh);
+      }
+      ctx.globalAlpha = 1;
 
-      lastDrawnRef.current = index;
+      lastDrawnRef.current = clampedFrame;
     }
 
     // Called from ScrollTrigger onUpdate.
-    // Stores the latest desired index and schedules at most one RAF per display
-    // frame. If a RAF is already pending it will pick up the latest value when
-    // it fires — no cancel, no skipped intermediate frames.
-    function queueRender(index: number) {
-      pendingIndexRef.current = index;
+    // Stores the latest exact decimal frame and schedules at most one RAF per
+    // display frame. No lerp: when scroll stops, the requested frame stops too.
+    function queueRender(frame: number) {
+      pendingFrameRef.current = Math.max(0, Math.min(FRAME_COUNT - 1, frame));
       if (rafIdRef.current !== null) return; // RAF already queued
       rafIdRef.current = requestAnimationFrame(() => {
         rafIdRef.current = null;
-        const idx = pendingIndexRef.current;
-        if (idx !== lastDrawnRef.current) {
-          render(idx);
+        const frameToDraw = pendingFrameRef.current;
+        if (Math.abs(frameToDraw - lastDrawnRef.current) > 0.001) {
+          render(frameToDraw);
         }
       });
     }
@@ -119,12 +131,12 @@ export function HeroScrollPin() {
       sizeCanvas();
       // Force a repaint at current frame regardless of lastDrawnRef
       lastDrawnRef.current = -1;
-      render(Math.max(0, pendingIndexRef.current));
+      render(pendingFrameRef.current);
     }
 
     sizeCanvas();
     render(0);
-    pendingIndexRef.current = 0;
+    pendingFrameRef.current = 0;
 
     // Desktop 212dvh − 100dvh = 112dvh scroll range (~3dvh/frame).
     // Mobile  250dvh − 100dvh = 150dvh scroll range.
@@ -144,13 +156,13 @@ export function HeroScrollPin() {
           trigger: wrapperRef.current,
           start: "top top",
           end: `+=${scrollPx}`,
-          scrub: 1.2,
+          scrub: true,
           anticipatePin: 1,
         },
       });
 
       // Frame tween: obj.frame goes 0 → 34 linearly.
-      // onUpdate computes the integer index and queues a RAF draw.
+      // onUpdate queues the exact decimal frame for RAF-synced cross-fade drawing.
       // One frame rendered per display frame max; no React state touched.
       tl.to(
         obj,
@@ -159,8 +171,7 @@ export function HeroScrollPin() {
           ease: "none",
           duration: 1,
           onUpdate() {
-            const index = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(obj.frame)));
-            queueRender(index);
+            queueRender(obj.frame);
           },
         },
         0
