@@ -83,7 +83,7 @@ export function ThreeLabsSection() {
                   muted
                   playsInline
                   preload="auto"
-                  className="h-full w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full rounded-xl object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
               </div>
