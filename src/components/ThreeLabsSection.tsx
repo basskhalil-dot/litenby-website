@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Paintbrush, Package, Rocket } from "lucide-react";
-import labBrand from "@/assets/lab-brand.jpg";
-import labPackaging from "@/assets/lab-packaging.jpg";
-import labLaunch from "@/assets/lab-launch.jpg";
+import labBrand from "@/assets/lab-brand.webm.asset.json";
+import labPackaging from "@/assets/lab-packaging.webm.asset.json";
+import labLaunch from "@/assets/lab-launch.webm.asset.json";
 
 const labs = [
   {
@@ -10,21 +10,21 @@ const labs = [
     description:
       "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
     icon: Paintbrush,
-    image: labBrand,
+    video: labBrand.url,
   },
   {
     title: "Packaging",
     description:
       "Container, label, finish. Every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
     icon: Package,
-    image: labPackaging,
+    video: labPackaging.url,
   },
   {
     title: "Storytelling",
     description:
       "Strategy, content, and go-to-market built around your brand's story. So when you launch, you don't just show up. You make an entrance.",
     icon: Rocket,
-    image: labLaunch,
+    video: labLaunch.url,
   },
 ];
 
@@ -76,9 +76,13 @@ export function ThreeLabsSection() {
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-300"
             >
               <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
-                <img
-                  src={lab.image}
-                  alt={lab.title}
+                <video
+                  src={lab.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
                   className="h-full w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
