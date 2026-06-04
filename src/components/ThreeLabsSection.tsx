@@ -29,11 +29,10 @@ const labs = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 36, scale: 0.96 },
+  hidden: { opacity: 0, y: 36 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
       duration: 0.75,
       delay: i * 0.14,
