@@ -28,19 +28,6 @@ const labs = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 36 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.75,
-      delay: i * 0.14,
-      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-    },
-  }),
-};
-
 export function ThreeLabsSection() {
   return (
     <section className="relative w-full bg-background pt-10 pb-20 lg:pb-28">
@@ -63,15 +50,10 @@ export function ThreeLabsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           {labs.map((lab, i) => (
-            <motion.div
+            <div
               key={lab.title}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-transparent bg-card transition-all duration-300"
             >
               <div className="relative h-64 w-full overflow-hidden rounded-xl md:h-72 lg:h-80">
@@ -97,7 +79,7 @@ export function ThreeLabsSection() {
                   {lab.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
