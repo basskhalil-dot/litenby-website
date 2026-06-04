@@ -50,7 +50,7 @@ export function ThreeLabsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {labs.map((lab, i) => (
             <div
               key={lab.title}
