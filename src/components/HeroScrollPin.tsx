@@ -263,7 +263,7 @@ export function HeroScrollPin() {
             ...(isMobileLayout
               ? {
                   width: "100%",
-                    height: "clamp(220px, 44svh, 390px)",
+                    height: "clamp(190px, 38svh, 360px)",
                   marginTop: `${MOBILE_NAV_OFFSET}px`,
                   flexShrink: 0,
                 }
@@ -283,7 +283,7 @@ export function HeroScrollPin() {
                   alignItems: "center",
                   justifyContent: "flex-start",
                   opacity: 1,
-                  padding: "8px 24px max(10px, env(safe-area-inset-bottom, 10px))",
+                  padding: "2px 24px max(8px, env(safe-area-inset-bottom, 8px))",
                   overflow: "visible",
                 }
               : {
