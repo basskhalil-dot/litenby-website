@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
-const MOBILE_COVER_SCALE = 0.74;
+const MOBILE_CONTAIN_SCALE = 1.2;
 
-function frameUrl(i: number): string {
-  return `/hero-sequence/frame_${String(i).padStart(3, "0")}.webp`;
+function frameUrl(i: number, mobile = false): string {
+  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence";
+  return `/${dir}/frame_${String(i).padStart(3, "0")}.webp`;
 }
 
 export function HeroScrollPin() {
@@ -17,6 +18,7 @@ export function HeroScrollPin() {
   const textRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
+  const mobileFramesRef = useRef<HTMLImageElement[]>([]);
   const lastFrameRef = useRef(-1);
   const tickingRef = useRef(false);
 
@@ -25,20 +27,53 @@ export function HeroScrollPin() {
     () => typeof window !== "undefined" && window.innerWidth < 768
   );
 
-  // Preload + decode all frames before making the animation interactive.
+  // Preload + decode both desktop and mobile frame sets before making the animation interactive.
   useEffect(() => {
     let mounted = true;
     const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
+    const mobileFrames: HTMLImageElement[] = new Array(FRAME_COUNT);
     framesRef.current = frames;
+    mobileFramesRef.current = mobileFrames;
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      img.src = frameUrl(i);
+      img.src = frameUrl(i, false);
       frames[i] = img;
+
+      const mImg = new Image();
+      mImg.src = frameUrl(i, true);
+      mobileFrames[i] = mImg;
     }
 
-    Promise.all(frames.map((img) => img.decode().catch(() => {}))).then(() => {
-      if (mounted) setIsReady(true);
+    Promise.all([
+      ...frames.map((img) => img.decode().catch(() => {})),
+      ...mobileFrames.map((img) => img.decode().catch(() => {})),
+    ]).then(() => {
+      if (!mounted) return;
+      // Draw frame 0 immediately so the canvas has content before the preloader overlay
+      // disappears — prevents the blank-canvas flash on first paint.
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const isMob = window.matchMedia("(max-width: 767px)").matches;
+        const src = (isMob ? mobileFrames : frames)[0];
+        if (src?.naturalWidth) {
+          const rect = canvas.getBoundingClientRect();
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.round(rect.width * dpr);
+          canvas.height = Math.round(rect.height * dpr);
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            const cw = canvas.width, ch = canvas.height;
+            const iw = src.naturalWidth, ih = src.naturalHeight;
+            const scale = isMob
+              ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
+              : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+            ctx.clearRect(0, 0, cw, ch);
+            ctx.drawImage(src, (cw - iw * scale) / 2, (ch - ih * scale) / 2, iw * scale, ih * scale);
+          }
+        }
+      }
+      setIsReady(true);
     });
 
     return () => { mounted = false; };
@@ -72,7 +107,7 @@ export function HeroScrollPin() {
       if (!canvas) return;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
-      const img = framesRef.current[index];
+      const img = (isMob ? mobileFramesRef.current : framesRef.current)[index];
       if (!img || !img.complete || !img.naturalWidth) return;
 
       const cw = canvas.width;
@@ -80,7 +115,7 @@ export function HeroScrollPin() {
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
       const scale = isMob
-        ? Math.max(cw / iw, ch / ih) * MOBILE_COVER_SCALE
+        ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
         : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
@@ -89,13 +124,21 @@ export function HeroScrollPin() {
       ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
     }
 
-    // Hide desktop text lines until scroll reveals them.
     if (!isMob) {
+      // Desktop: hide lines initially, scroll reveals them.
       lineRefs.current.forEach((el) => {
         if (!el) return;
         el.style.opacity = "0";
-        el.style.transform = "translateY(25px)";
-        el.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+        el.style.transform = "translateX(-55px)";
+        el.style.transition = "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      });
+    } else {
+      // Mobile: always visible — reset any stale desktop styles.
+      lineRefs.current.forEach((el) => {
+        if (!el) return;
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.transition = "none";
       });
     }
 
@@ -123,17 +166,17 @@ export function HeroScrollPin() {
         }
       }
 
-      // Desktop text reveal: each line fades in once progress passes its threshold.
+      // Desktop text reveal: each line slides in from left once progress passes its threshold.
       if (!isMob) {
         lineRefs.current.forEach((el, i) => {
           if (!el) return;
           const threshold = 0.25 + i * 0.12;
           if (progress >= threshold) {
             el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
+            el.style.transform = "translateX(0)";
           } else {
             el.style.opacity = "0";
-            el.style.transform = "translateY(25px)";
+            el.style.transform = "translateX(-55px)";
           }
         });
       }
@@ -197,7 +240,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "48dvh", flexShrink: 0, objectFit: "cover", objectPosition: "center" }
+              ? { width: "100%", height: "55dvh", flexShrink: 0 }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -210,11 +253,12 @@ export function HeroScrollPin() {
               ? {
                   flex: 1,
                   display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "center",
-                  pointerEvents: "none",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
                   opacity: 1,
-                  padding: "1rem 24px max(20px, env(safe-area-inset-bottom, 20px))",
+                  padding: "1.25rem 24px max(24px, env(safe-area-inset-bottom, 24px))",
+                  overflow: "hidden",
                 }
               : {
                   position: "absolute",
@@ -222,6 +266,7 @@ export function HeroScrollPin() {
                   display: "flex",
                   alignItems: "center",
                   pointerEvents: "none",
+                  overflowX: "hidden",
                 }
           }
         >
@@ -230,13 +275,14 @@ export function HeroScrollPin() {
             style={isMobileLayout ? { width: "100%" } : undefined}
           >
           <div
+            className={!isMobileLayout ? "ml-[7vw]" : undefined}
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
               width: "100%",
               ...(isMobileLayout
                 ? { textAlign: "center" }
-                : { marginLeft: "2vw", textAlign: "left" }),
+                : { textAlign: "left" }),
             }}
           >
             <p
@@ -282,7 +328,7 @@ export function HeroScrollPin() {
                 marginBottom: isMobileLayout ? "18px" : "16px",
               }}
             >
-              Branding, packaging, and storytelling — built together, from a single source.
+              Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
             </p>
 
             <div
