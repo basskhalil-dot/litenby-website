@@ -263,7 +263,7 @@ export function HeroScrollPin() {
             ...(isMobileLayout
               ? {
                   width: "100%",
-                  height: `${Math.round(lockedVhRef.current * 0.55)}px`,
+                  height: `${Math.round(lockedVhRef.current * 0.48)}px`,
                   marginTop: `${MOBILE_NAV_OFFSET}px`,
                   flexShrink: 0,
                 }
