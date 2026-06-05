@@ -263,7 +263,7 @@ export function HeroScrollPin() {
             ...(isMobileLayout
               ? {
                   width: "100%",
-                    height: "clamp(190px, 38svh, 360px)",
+                    height: "clamp(160px, 33svh, 340px)",
                   marginTop: `${MOBILE_NAV_OFFSET}px`,
                   flexShrink: 0,
                 }
@@ -283,7 +283,7 @@ export function HeroScrollPin() {
                   alignItems: "center",
                   justifyContent: "flex-start",
                   opacity: 1,
-                  padding: "2px 24px max(8px, env(safe-area-inset-bottom, 8px))",
+                  padding: "0 24px max(6px, env(safe-area-inset-bottom, 6px))",
                   overflow: "visible",
                 }
               : {
@@ -315,12 +315,12 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[0] = el; }}
               style={{
                 color: GOLD,
-                fontSize: isMobileLayout ? "0.55rem" : "0.7rem",
+                fontSize: isMobileLayout ? "0.5rem" : "0.7rem",
                 fontFamily: "Urbanist, sans-serif",
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.24em",
-                marginBottom: isMobileLayout ? "6px" : "10px",
+                marginBottom: isMobileLayout ? "5px" : "10px",
               }}
             >
               Creative Lab
@@ -330,11 +330,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.48rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.32rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: isMobileLayout ? 1.02 : 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: isMobileLayout ? "8px" : "10px",
+                marginBottom: isMobileLayout ? "6px" : "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -348,10 +348,10 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[2] = el; }}
               className="font-body"
               style={{
-                fontSize: isMobileLayout ? "0.72rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                lineHeight: isMobileLayout ? 1.45 : 1.7,
+                fontSize: isMobileLayout ? "0.66rem" : "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: isMobileLayout ? 1.35 : 1.7,
                 color: "rgba(255,255,255,0.46)",
-                marginBottom: isMobileLayout ? "12px" : "16px",
+                marginBottom: isMobileLayout ? "9px" : "16px",
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -361,11 +361,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[3] = el; }}
               style={
                 isMobileLayout
-                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }
+                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "7px" }
                   : { display: "flex", flexWrap: "wrap", gap: "10px" }
               }
             >
-              <Button size="lg" asChild className={isMobileLayout ? "h-[42px] px-6 text-[0.875rem] font-body font-bold" : "font-body font-bold"}>
+              <Button size="lg" asChild className={isMobileLayout ? "h-[38px] px-6 text-[0.8125rem] font-body font-bold" : "font-body font-bold"}>
                 <Link
                   to="/contact#form"
                   style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
@@ -373,7 +373,7 @@ export function HeroScrollPin() {
                   start your brand
                 </Link>
               </Button>
-              <Button size="lg" variant="outline-white" asChild className={isMobileLayout ? "h-[42px] px-6 text-[0.875rem] font-body font-bold" : "font-body font-bold"}>
+              <Button size="lg" variant="outline-white" asChild className={isMobileLayout ? "h-[38px] px-6 text-[0.8125rem] font-body font-bold" : "font-body font-bold"}>
                 <Link
                   to="/packaging"
                   style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
