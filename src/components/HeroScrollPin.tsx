@@ -275,7 +275,7 @@ export function HeroScrollPin() {
             style={isMobileLayout ? { width: "100%" } : undefined}
           >
           <div
-            className={!isMobileLayout ? "ml-[7vw]" : undefined}
+            className={!isMobileLayout ? "ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]" : undefined}
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
@@ -304,7 +304,7 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.8rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.5rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
@@ -333,6 +333,7 @@ export function HeroScrollPin() {
 
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
+              className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
               style={
                 isMobileLayout
                   ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }
