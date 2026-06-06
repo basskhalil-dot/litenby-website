@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
+const TABLET_CONTAIN_SCALE = 1.05;
 const MOBILE_CONTAIN_SCALE = 1.14;
 const MOBILE_NAV_OFFSET = 64; // px — push canvas below the fixed navbar
 
@@ -26,6 +27,12 @@ export function HeroScrollPin() {
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+  const [isTabletLayout, setIsTabletLayout] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.innerWidth >= 768 &&
+      window.innerWidth < 1024
   );
   // Cache the viewport height once on mount so iOS/Android URL-bar collapse
   // doesn't change our scrollable distance mid-scroll (which causes jumps).
@@ -64,6 +71,7 @@ export function HeroScrollPin() {
       const canvas = canvasRef.current;
       if (canvas) {
         const isMob = window.matchMedia("(max-width: 767px)").matches;
+        const isTab = window.matchMedia("(min-width: 768px) and (max-width: 1023px)").matches;
         const src = (isMob ? mobileFrames : frames)[0];
         if (src?.naturalWidth) {
           const rect = canvas.getBoundingClientRect();
@@ -76,7 +84,7 @@ export function HeroScrollPin() {
             const iw = src.naturalWidth, ih = src.naturalHeight;
             const scale = isMob
               ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
-              : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+              : Math.min(cw / iw, ch / ih) * (isTab ? TABLET_CONTAIN_SCALE : CONTAIN_SCALE);
             ctx.clearRect(0, 0, cw, ch);
             ctx.drawImage(src, (cw - iw * scale) / 2, (ch - ih * scale) / 2, iw * scale, ih * scale);
           }
@@ -90,10 +98,16 @@ export function HeroScrollPin() {
 
   // Respond to breakpoint changes.
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent) => setIsMobileLayout(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mqMob = window.matchMedia("(max-width: 767px)");
+    const mqTab = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    const onMob = (e: MediaQueryListEvent) => setIsMobileLayout(e.matches);
+    const onTab = (e: MediaQueryListEvent) => setIsTabletLayout(e.matches);
+    mqMob.addEventListener("change", onMob);
+    mqTab.addEventListener("change", onTab);
+    return () => {
+      mqMob.removeEventListener("change", onMob);
+      mqTab.removeEventListener("change", onTab);
+    };
   }, []);
 
   // Native scroll + canvas rendering.
@@ -103,6 +117,7 @@ export function HeroScrollPin() {
     if (!canvas || !wrapperRef.current) return;
 
     const isMob = isMobileLayout;
+    const isTab = isTabletLayout;
 
     function sizeCanvas() {
       if (!canvas) return;
@@ -125,7 +140,7 @@ export function HeroScrollPin() {
       const ih = img.naturalHeight;
       const scale = isMob
         ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
-        : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+        : Math.min(cw / iw, ch / ih) * (isTab ? TABLET_CONTAIN_SCALE : CONTAIN_SCALE);
       const dw = iw * scale;
       const dh = ih * scale;
 
@@ -213,7 +228,7 @@ export function HeroScrollPin() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [isReady, isMobileLayout]);
+  }, [isReady, isMobileLayout, isTabletLayout]);
 
   return (
     <section
@@ -263,7 +278,7 @@ export function HeroScrollPin() {
             ...(isMobileLayout
               ? {
                   width: "100%",
-                  height: `${Math.round(lockedVhRef.current * 0.55)}px`,
+                  height: `${Math.round(lockedVhRef.current * 0.48)}px`,
                   marginTop: `${MOBILE_NAV_OFFSET}px`,
                   flexShrink: 0,
                 }
@@ -304,7 +319,7 @@ export function HeroScrollPin() {
             className={!isMobileLayout ? "ml-[7vw]" : undefined}
             style={{
               pointerEvents: "auto",
-              maxWidth: "520px",
+              maxWidth: isTabletLayout ? "380px" : "520px",
               width: "100%",
               ...(isMobileLayout
                 ? { textAlign: "center" }
@@ -320,7 +335,7 @@ export function HeroScrollPin() {
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.24em",
-                marginBottom: "10px",
+                marginBottom: isMobileLayout ? "6px" : "10px",
               }}
             >
               Creative Lab
@@ -330,11 +345,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.8rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.5rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: "10px",
+                marginBottom: isMobileLayout ? "8px" : "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -346,12 +361,12 @@ export function HeroScrollPin() {
 
             <p
               ref={(el) => { lineRefs.current[2] = el; }}
-              className="font-body"
+              className="font-body hyphens-none"
               style={{
-                fontSize: isMobileLayout ? "0.8rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                lineHeight: 1.7,
+                fontSize: isMobileLayout ? "0.75rem" : "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: isMobileLayout ? 1.55 : 1.7,
                 color: "rgba(255,255,255,0.46)",
-                marginBottom: isMobileLayout ? "18px" : "16px",
+                marginBottom: isMobileLayout ? "14px" : "16px",
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -361,22 +376,22 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[3] = el; }}
               style={
                 isMobileLayout
-                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }
+                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }
                   : { display: "flex", flexWrap: "wrap", gap: "10px" }
               }
             >
-              <Button size="lg" asChild className="font-body font-bold">
+              <Button size={isMobileLayout ? "default" : "lg"} asChild className="font-body font-bold">
                 <Link
                   to="/contact#form"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "260px" } : undefined}
                 >
                   start your brand
                 </Link>
               </Button>
-              <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
+              <Button size={isMobileLayout ? "default" : "lg"} variant="outline-white" asChild className="font-body font-bold">
                 <Link
                   to="/packaging"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "260px" } : undefined}
                 >
                   explore packaging
                 </Link>

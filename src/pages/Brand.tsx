@@ -12,7 +12,7 @@ const marqueeImages = [labBrand, labPackaging, labLaunch];
 
 const Brand = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-[100dvh] bg-background overflow-x-hidden">
       <LitenbyNavbar />
       <BrandHero images={marqueeImages} />
       <BrandMethodology />

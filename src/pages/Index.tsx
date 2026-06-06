@@ -20,7 +20,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-[100dvh] bg-background overflow-x-hidden">
       {!preloaderDone && (
         <Preloader progress={progress} onComplete={() => setPreloaderDone(true)} />
       )}
