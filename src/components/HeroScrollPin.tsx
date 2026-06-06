@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
+const TABLET_CONTAIN_SCALE = 1.05;
 const MOBILE_CONTAIN_SCALE = 1.14;
 const MOBILE_NAV_OFFSET = 64; // px — push canvas below the fixed navbar
 
@@ -26,6 +27,12 @@ export function HeroScrollPin() {
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+  const [isTabletLayout, setIsTabletLayout] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.innerWidth >= 768 &&
+      window.innerWidth < 1024
   );
   // Cache the viewport height once on mount so iOS/Android URL-bar collapse
   // doesn't change our scrollable distance mid-scroll (which causes jumps).
@@ -64,6 +71,7 @@ export function HeroScrollPin() {
       const canvas = canvasRef.current;
       if (canvas) {
         const isMob = window.matchMedia("(max-width: 767px)").matches;
+        const isTab = window.matchMedia("(min-width: 768px) and (max-width: 1023px)").matches;
         const src = (isMob ? mobileFrames : frames)[0];
         if (src?.naturalWidth) {
           const rect = canvas.getBoundingClientRect();
@@ -76,7 +84,7 @@ export function HeroScrollPin() {
             const iw = src.naturalWidth, ih = src.naturalHeight;
             const scale = isMob
               ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
-              : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+              : Math.min(cw / iw, ch / ih) * (isTab ? TABLET_CONTAIN_SCALE : CONTAIN_SCALE);
             ctx.clearRect(0, 0, cw, ch);
             ctx.drawImage(src, (cw - iw * scale) / 2, (ch - ih * scale) / 2, iw * scale, ih * scale);
           }
@@ -90,10 +98,16 @@ export function HeroScrollPin() {
 
   // Respond to breakpoint changes.
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent) => setIsMobileLayout(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mqMob = window.matchMedia("(max-width: 767px)");
+    const mqTab = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    const onMob = (e: MediaQueryListEvent) => setIsMobileLayout(e.matches);
+    const onTab = (e: MediaQueryListEvent) => setIsTabletLayout(e.matches);
+    mqMob.addEventListener("change", onMob);
+    mqTab.addEventListener("change", onTab);
+    return () => {
+      mqMob.removeEventListener("change", onMob);
+      mqTab.removeEventListener("change", onTab);
+    };
   }, []);
 
   // Native scroll + canvas rendering.
@@ -103,6 +117,7 @@ export function HeroScrollPin() {
     if (!canvas || !wrapperRef.current) return;
 
     const isMob = isMobileLayout;
+    const isTab = isTabletLayout;
 
     function sizeCanvas() {
       if (!canvas) return;
@@ -125,7 +140,7 @@ export function HeroScrollPin() {
       const ih = img.naturalHeight;
       const scale = isMob
         ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
-        : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
+        : Math.min(cw / iw, ch / ih) * (isTab ? TABLET_CONTAIN_SCALE : CONTAIN_SCALE);
       const dw = iw * scale;
       const dh = ih * scale;
 
@@ -213,7 +228,7 @@ export function HeroScrollPin() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [isReady, isMobileLayout]);
+  }, [isReady, isMobileLayout, isTabletLayout]);
 
   return (
     <section
