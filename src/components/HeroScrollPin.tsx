@@ -278,7 +278,7 @@ export function HeroScrollPin() {
             ...(isMobileLayout
               ? {
                   width: "100%",
-                  height: `${Math.round(lockedVhRef.current * 0.55)}px`,
+                  height: `${Math.round(lockedVhRef.current * 0.48)}px`,
                   marginTop: `${MOBILE_NAV_OFFSET}px`,
                   flexShrink: 0,
                 }
@@ -319,7 +319,7 @@ export function HeroScrollPin() {
             className={!isMobileLayout ? "ml-[7vw]" : undefined}
             style={{
               pointerEvents: "auto",
-              maxWidth: "520px",
+              maxWidth: isTabletLayout ? "380px" : "520px",
               width: "100%",
               ...(isMobileLayout
                 ? { textAlign: "center" }
@@ -335,7 +335,7 @@ export function HeroScrollPin() {
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.24em",
-                marginBottom: "10px",
+                marginBottom: isMobileLayout ? "6px" : "10px",
               }}
             >
               Creative Lab
@@ -345,11 +345,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.8rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.5rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: "10px",
+                marginBottom: isMobileLayout ? "8px" : "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -361,12 +361,12 @@ export function HeroScrollPin() {
 
             <p
               ref={(el) => { lineRefs.current[2] = el; }}
-              className="font-body"
+              className="font-body hyphens-none"
               style={{
-                fontSize: isMobileLayout ? "0.8rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                lineHeight: 1.7,
+                fontSize: isMobileLayout ? "0.75rem" : "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: isMobileLayout ? 1.55 : 1.7,
                 color: "rgba(255,255,255,0.46)",
-                marginBottom: isMobileLayout ? "18px" : "16px",
+                marginBottom: isMobileLayout ? "14px" : "16px",
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -376,22 +376,22 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[3] = el; }}
               style={
                 isMobileLayout
-                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }
+                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }
                   : { display: "flex", flexWrap: "wrap", gap: "10px" }
               }
             >
-              <Button size="lg" asChild className="font-body font-bold">
+              <Button size={isMobileLayout ? "default" : "lg"} asChild className="font-body font-bold">
                 <Link
                   to="/contact#form"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "260px" } : undefined}
                 >
                   start your brand
                 </Link>
               </Button>
-              <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
+              <Button size={isMobileLayout ? "default" : "lg"} variant="outline-white" asChild className="font-body font-bold">
                 <Link
                   to="/packaging"
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  style={isMobileLayout ? { width: "100%", maxWidth: "260px" } : undefined}
                 >
                   explore packaging
                 </Link>
