@@ -27,7 +27,7 @@ const ctaReveal = {
 
 export function AboutSection() {
   return (
-    <section className="w-full bg-background" style={{ paddingTop: 100, paddingBottom: 100 }}>
+    <section className="w-full bg-background py-24 md:py-32 lg:py-40">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           <div className="flex flex-col items-center gap-6">
