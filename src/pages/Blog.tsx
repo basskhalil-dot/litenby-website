@@ -65,7 +65,7 @@ export { articles };
 
 export default function Blog() {
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-[100dvh] overflow-x-hidden" style={{ background: "#000000" }}>
       <LitenbyNavbar />
 
       {/* Hero */}

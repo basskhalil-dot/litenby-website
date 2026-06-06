@@ -13,7 +13,7 @@ export default function BlogDetail() {
 
   if (!article) {
     return (
-      <div className="min-h-screen" style={{ background: "#000000" }}>
+      <div className="min-h-[100dvh] overflow-x-hidden" style={{ background: "#000000" }}>
         <LitenbyNavbar />
         <div className="flex min-h-[60dvh] flex-col items-center justify-center gap-4">
           <h1 className="font-heading text-3xl font-extrabold lowercase text-foreground">
@@ -32,7 +32,7 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-[100dvh] overflow-x-hidden" style={{ background: "#000000" }}>
       <LitenbyNavbar />
 
       {/* Back button */}
