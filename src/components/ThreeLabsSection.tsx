@@ -30,7 +30,7 @@ const labs = [
 
 export function ThreeLabsSection() {
   return (
-    <section className="relative w-full bg-background py-24 md:py-32 lg:py-40">
+    <section className="relative w-full bg-background pt-10 pb-20 lg:pb-28">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 28 }}

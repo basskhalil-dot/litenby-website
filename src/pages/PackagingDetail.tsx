@@ -24,7 +24,7 @@ const PackagingDetail = () => {
 
   if (!product) {
     return (
-      <div className="flex min-h-[100dvh] flex-col bg-background overflow-x-hidden">
+      <div className="flex min-h-screen flex-col bg-background">
         <LitenbyNavbar />
         <div className="flex flex-1 items-center justify-center">
           <div className="text-center">
@@ -40,7 +40,7 @@ const PackagingDetail = () => {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-background">
       <LitenbyNavbar />
       <section className="mx-auto max-w-6xl px-4 pb-24 pt-32 sm:px-6 lg:px-8">
         <motion.button

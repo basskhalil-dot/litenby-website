@@ -46,7 +46,7 @@ const itemVariants = {
 
 export function CollabsSection() {
   return (
-    <section className="relative w-full bg-black py-24 md:py-32 lg:py-40">
+    <section className="relative w-full bg-black" style={{ padding: "100px 0" }}>
       <div className="mb-12 text-center">
         <motion.p
           className="font-body font-semibold uppercase text-sm tracking-widest mb-3 text-highlight"
