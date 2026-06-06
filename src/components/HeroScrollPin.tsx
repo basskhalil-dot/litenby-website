@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 const FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
-const MOBILE_CONTAIN_SCALE = 1.14;
-const MOBILE_NAV_OFFSET = 64; // px — push canvas below the fixed navbar
+const MOBILE_CONTAIN_SCALE = 1.2;
 
 function frameUrl(i: number, mobile = false): string {
   const dir = mobile ? "hero-sequence-mobile" : "hero-sequence";
@@ -26,14 +25,6 @@ export function HeroScrollPin() {
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768
-  );
-  // Cache the viewport height once on mount so iOS/Android URL-bar collapse
-  // doesn't change our scrollable distance mid-scroll (which causes jumps).
-  const lockedVhRef = useRef<number>(
-    typeof window !== "undefined" ? window.innerHeight : 0
-  );
-  const lockedWidthRef = useRef<number>(
-    typeof window !== "undefined" ? window.innerWidth : 0
   );
 
   // Preload + decode both desktop and mobile frame sets before making the animation interactive.
@@ -160,10 +151,7 @@ export function HeroScrollPin() {
       if (!wrapper) return;
 
       const rect = wrapper.getBoundingClientRect();
-      // Use the locked viewport height on mobile so URL-bar collapse doesn't
-      // change the denominator and snap the progress to a different frame.
-      const vh = isMob ? lockedVhRef.current : window.innerHeight;
-      const scrollable = rect.height - vh;
+      const scrollable = rect.height - window.innerHeight;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
       const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
 
@@ -195,13 +183,6 @@ export function HeroScrollPin() {
     }
 
     function handleResize() {
-      // On mobile, ignore resize events triggered only by URL-bar show/hide
-      // (width unchanged, height changed). Only react to real width changes.
-      if (isMob) {
-        if (window.innerWidth === lockedWidthRef.current) return;
-        lockedWidthRef.current = window.innerWidth;
-        lockedVhRef.current = window.innerHeight;
-      }
       sizeCanvas();
       render(Math.max(0, lastFrameRef.current));
     }
@@ -219,9 +200,7 @@ export function HeroScrollPin() {
     <section
       ref={wrapperRef}
       style={{
-        height: isMobileLayout
-          ? `${lockedVhRef.current * 2.5}px`
-          : "212dvh",
+        height: isMobileLayout ? "250dvh" : "212dvh",
         overflow: "clip",
       }}
     >
@@ -230,7 +209,7 @@ export function HeroScrollPin() {
           position: "sticky",
           top: 0,
           background: "#000000",
-          height: isMobileLayout ? `${lockedVhRef.current}px` : "100dvh",
+          height: "100dvh",
           overflow: "hidden",
           ...(isMobileLayout ? { display: "flex", flexDirection: "column" } : {}),
         }}
@@ -261,12 +240,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? {
-                  width: "100%",
-                  height: `${Math.round(lockedVhRef.current * 0.55)}px`,
-                  marginTop: `${MOBILE_NAV_OFFSET}px`,
-                  flexShrink: 0,
-                }
+              ? { width: "100%", height: "55dvh", flexShrink: 0 }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -301,7 +275,7 @@ export function HeroScrollPin() {
             style={isMobileLayout ? { width: "100%" } : undefined}
           >
           <div
-            className={!isMobileLayout ? "ml-[7vw]" : undefined}
+            className={!isMobileLayout ? "ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]" : undefined}
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
@@ -330,7 +304,7 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.8rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.5rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
@@ -359,6 +333,7 @@ export function HeroScrollPin() {
 
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
+              className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
               style={
                 isMobileLayout
                   ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }
