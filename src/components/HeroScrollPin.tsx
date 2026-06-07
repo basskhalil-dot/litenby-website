@@ -23,16 +23,12 @@ export function HeroScrollPin() {
   const tickingRef = useRef(false);
 
   const [isReady, setIsReady] = useState(false);
-  const [isMobileLayout, setIsMobileLayout] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
+  const [isMobileLayout, setIsMobileLayout] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
 
   // Preload + decode both desktop and mobile frame sets before making the animation interactive.
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      // @ts-ignore
-      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-        ScrollTrigger.config({ ignoreMobileResize: true });
-      });
-    }
     let mounted = true;
     const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
     const mobileFrames: HTMLImageElement[] = new Array(FRAME_COUNT);
@@ -67,10 +63,8 @@ export function HeroScrollPin() {
           canvas.height = Math.round(rect.height * dpr);
           const ctx = canvas.getContext("2d");
           if (ctx) {
-            const cw = canvas.width,
-              ch = canvas.height;
-            const iw = src.naturalWidth,
-              ih = src.naturalHeight;
+            const cw = canvas.width, ch = canvas.height;
+            const iw = src.naturalWidth, ih = src.naturalHeight;
             const scale = isMob
               ? Math.min(cw / iw, ch / ih) * MOBILE_CONTAIN_SCALE
               : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
@@ -82,9 +76,7 @@ export function HeroScrollPin() {
       setIsReady(true);
     });
 
-    return () => {
-      mounted = false;
-    };
+    return () => { mounted = false; };
   }, []);
 
   // Respond to breakpoint changes.
@@ -138,8 +130,7 @@ export function HeroScrollPin() {
         if (!el) return;
         el.style.opacity = "0";
         el.style.transform = "translateX(-55px)";
-        el.style.transition =
-          "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        el.style.transition = "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       });
     } else {
       // Mobile: always visible — reset any stale desktop styles.
@@ -206,6 +197,7 @@ export function HeroScrollPin() {
   }, [isReady, isMobileLayout]);
 
   return (
+    <>
     <section
       ref={wrapperRef}
       style={{
@@ -220,7 +212,9 @@ export function HeroScrollPin() {
           background: "#000000",
           height: "100dvh",
           overflow: "hidden",
-          ...(isMobileLayout ? { display: "flex", flexDirection: "column" } : {}),
+          ...(isMobileLayout
+            ? { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }
+            : {}),
         }}
       >
         {/* Preloader */}
@@ -249,135 +243,106 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "48dvh", flexShrink: 0, marginTop: "64px" }
+              ? { width: "100%", height: "calc(100dvh - 64px)", flexShrink: 0, marginTop: "64px" }
               : { width: "100%", height: "100%" }),
           }}
         />
 
-        {/* Hero copy */}
+        {/* Hero copy — desktop/tablet only */}
+        {!isMobileLayout && (
         <div
           ref={textRef}
-          style={
-            isMobileLayout
-              ? {
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  opacity: 1,
-                  padding: "0.75rem 20px max(20px, env(safe-area-inset-bottom, 16px))",
-                  overflow: "visible",
-                }
-              : {
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  pointerEvents: "none",
-                  overflowX: "hidden",
-                }
-          }
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            pointerEvents: "none",
+            overflowX: "hidden",
+          }}
         >
+          <div className="container">
           <div
-            className={!isMobileLayout ? "container" : undefined}
-            style={isMobileLayout ? { width: "100%" } : undefined}
+            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]"
+            style={{
+              pointerEvents: "auto",
+              maxWidth: "520px",
+              width: "100%",
+              textAlign: "left",
+            }}
           >
-            <div
-              className={!isMobileLayout ? "ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]" : undefined}
+            <p
+              ref={(el) => { lineRefs.current[0] = el; }}
               style={{
-                pointerEvents: "auto",
-                maxWidth: "520px",
-                width: "100%",
-                ...(isMobileLayout ? { textAlign: "center" } : { textAlign: "left" }),
+                color: GOLD,
+                fontSize: "0.7rem",
+                fontFamily: "Urbanist, sans-serif",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.24em",
+                marginBottom: "10px",
               }}
             >
-              <p
-                ref={(el) => {
-                  lineRefs.current[0] = el;
-                }}
-                style={{
-                  color: GOLD,
-                  fontSize: isMobileLayout ? "0.6rem" : "0.7rem",
-                  fontFamily: "Urbanist, sans-serif",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.24em",
-                  marginBottom: "10px",
-                }}
-              >
-                Creative Lab
-              </p>
+              Creative Lab
+            </p>
 
-              <h1
-                ref={(el) => {
-                  lineRefs.current[1] = el;
-                }}
-                className="font-heading font-extrabold lowercase"
-                style={{
-                  fontSize: isMobileLayout ? "1.3rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
-                  lineHeight: 1.03,
-                  letterSpacing: "-0.02em",
-                  color: "#ffffff",
-                  marginBottom: isMobileLayout ? "8px" : "10px",
-                }}
-              >
-                <span style={{ display: "block" }}>from idea to shelf,</span>
-                <span style={{ display: "block" }}>
-                  and <span style={{ color: GOLD }}>everything</span>
-                </span>
-                <span style={{ display: "block" }}>in between.</span>
-              </h1>
+            <h1
+              ref={(el) => { lineRefs.current[1] = el; }}
+              className="font-heading font-extrabold lowercase"
+              style={{
+                fontSize: "clamp(2.1rem, 4.2vw, 3.5rem)",
+                lineHeight: 1.03,
+                letterSpacing: "-0.02em",
+                color: "#ffffff",
+                marginBottom: "10px",
+              }}
+            >
+              <span style={{ display: "block" }}>from idea to shelf,</span>
+              <span style={{ display: "block" }}>
+                and <span style={{ color: GOLD }}>everything</span>
+              </span>
+              <span style={{ display: "block" }}>in between.</span>
+            </h1>
 
-              <p
-                ref={(el) => {
-                  lineRefs.current[2] = el;
-                }}
-                className="font-body md:max-w-md"
-                style={{
-                  fontSize: isMobileLayout ? "0.72rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                  lineHeight: isMobileLayout ? 1.5 : 1.7,
-                  color: "rgba(255,255,255,0.46)",
-                  marginBottom: isMobileLayout ? "12px" : "16px",
-                }}
-              >
-                Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single
-                source.
-              </p>
+            <p
+              ref={(el) => { lineRefs.current[2] = el; }}
+              className="font-body md:max-w-md"
+              style={{
+                fontSize: "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: 1.7,
+                color: "rgba(255,255,255,0.46)",
+                marginBottom: "16px",
+              }}
+            >
+              Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
+            </p>
 
-              <div
-                ref={(el) => {
-                  lineRefs.current[3] = el;
-                }}
-                className="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
-                style={
-                  isMobileLayout
-                    ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }
-                    : { display: "flex", flexWrap: "wrap", gap: "10px" }
-                }
-              >
-                <Button size="lg" asChild className="font-body font-bold">
-                  <Link
-                    to="/contact#form"
-                    className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
-                    style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
-                  >
-                    start your brand
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
-                  <Link
-                    to="/packaging"
-                    className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
-                    style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
-                  >
-                    explore packaging
-                  </Link>
-                </Button>
-              </div>
+            <div
+              ref={(el) => { lineRefs.current[3] = el; }}
+              className="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
+              style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+            >
+              <Button size="lg" asChild className="font-body font-bold">
+                <Link
+                  to="/contact#form"
+                  className="md:w-[220px] md:justify-center md:text-center"
+                >
+                  start your brand
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
+                <Link
+                  to="/packaging"
+                  className="md:w-[220px] md:justify-center md:text-center"
+                >
+                  explore packaging
+                </Link>
+              </Button>
             </div>
           </div>
+          </div>
         </div>
+        )}
 
         {/* Bottom vignette */}
         <div
@@ -393,5 +358,55 @@ export function HeroScrollPin() {
         />
       </div>
     </section>
+
+    {/* Mobile-only standalone text section (below the pinned hero) */}
+    <section className="flex flex-col items-center text-center md:hidden bg-background px-6 py-12">
+      <div className="w-full text-center">
+        <p
+          className="font-body"
+          style={{
+            color: GOLD,
+            fontSize: "0.75rem",
+            fontFamily: "Urbanist, sans-serif",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.24em",
+            marginBottom: "14px",
+          }}
+        >
+          Creative Lab
+        </p>
+        <h2
+          className="font-heading text-4xl font-extrabold lowercase text-foreground"
+          style={{ lineHeight: 1.03, letterSpacing: "-0.02em", marginBottom: "18px" }}
+        >
+          <span className="block">from idea to shelf,</span>
+          <span className="block">
+            and <span style={{ color: GOLD }}>everything</span>
+          </span>
+          <span className="block">in between.</span>
+        </h2>
+        <p
+          className="font-body"
+          style={{
+            fontSize: "0.95rem",
+            lineHeight: 1.7,
+            color: "rgba(255,255,255,0.55)",
+            marginBottom: "28px",
+          }}
+        >
+          Branding, packaging, and storytelling — built together, from a single source.
+        </p>
+        <div className="flex flex-col gap-4 w-full">
+          <Button size="lg" asChild className="font-body font-bold w-full">
+            <Link to="/contact#form">start your brand</Link>
+          </Button>
+          <Button size="lg" variant="outline-white" asChild className="font-body font-bold w-full">
+            <Link to="/packaging">explore packaging</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+    </>
   );
 }
