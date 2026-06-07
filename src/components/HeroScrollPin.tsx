@@ -197,6 +197,7 @@ export function HeroScrollPin() {
   }, [isReady, isMobileLayout]);
 
   return (
+    <>
     <section
       ref={wrapperRef}
       style={{
@@ -211,7 +212,9 @@ export function HeroScrollPin() {
           background: "#000000",
           height: "100dvh",
           overflow: "hidden",
-          ...(isMobileLayout ? { display: "flex", flexDirection: "column" } : {}),
+          ...(isMobileLayout
+            ? { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }
+            : {}),
         }}
       >
         {/* Preloader */}
@@ -240,56 +243,39 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "48dvh", flexShrink: 0, marginTop: "64px" }
+              ? { width: "100%", height: "calc(100dvh - 64px)", flexShrink: 0, marginTop: "64px" }
               : { width: "100%", height: "100%" }),
           }}
         />
 
-        {/* Hero copy */}
+        {/* Hero copy — desktop/tablet only */}
+        {!isMobileLayout && (
         <div
           ref={textRef}
-          style={
-            isMobileLayout
-              ? {
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  opacity: 1,
-                  padding: "0.75rem 20px max(20px, env(safe-area-inset-bottom, 16px))",
-                  overflow: "visible",
-                }
-              : {
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  pointerEvents: "none",
-                  overflowX: "hidden",
-                }
-          }
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            pointerEvents: "none",
+            overflowX: "hidden",
+          }}
         >
+          <div className="container">
           <div
-            className={!isMobileLayout ? "container" : undefined}
-            style={isMobileLayout ? { width: "100%" } : undefined}
-          >
-          <div
-            className={!isMobileLayout ? "ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]" : undefined}
+            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]"
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
               width: "100%",
-              ...(isMobileLayout
-                ? { textAlign: "center" }
-                : { textAlign: "left" }),
+              textAlign: "left",
             }}
           >
             <p
               ref={(el) => { lineRefs.current[0] = el; }}
               style={{
                 color: GOLD,
-                fontSize: isMobileLayout ? "0.6rem" : "0.7rem",
+                fontSize: "0.7rem",
                 fontFamily: "Urbanist, sans-serif",
                 fontWeight: 700,
                 textTransform: "uppercase",
@@ -304,11 +290,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.3rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: isMobileLayout ? "8px" : "10px",
+                marginBottom: "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -322,10 +308,10 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[2] = el; }}
               className="font-body md:max-w-md"
               style={{
-                fontSize: isMobileLayout ? "0.72rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                lineHeight: isMobileLayout ? 1.5 : 1.7,
+                fontSize: "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: 1.7,
                 color: "rgba(255,255,255,0.46)",
-                marginBottom: isMobileLayout ? "12px" : "16px",
+                marginBottom: "16px",
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -334,17 +320,12 @@ export function HeroScrollPin() {
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
               className="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
-              style={
-                isMobileLayout
-                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }
-                  : { display: "flex", flexWrap: "wrap", gap: "10px" }
-              }
+              style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
             >
               <Button size="lg" asChild className="font-body font-bold">
                 <Link
                   to="/contact#form"
-                  className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  className="md:w-[220px] md:justify-center md:text-center"
                 >
                   start your brand
                 </Link>
@@ -352,8 +333,7 @@ export function HeroScrollPin() {
               <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
                 <Link
                   to="/packaging"
-                  className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
-                  style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
+                  className="md:w-[220px] md:justify-center md:text-center"
                 >
                   explore packaging
                 </Link>
@@ -362,6 +342,7 @@ export function HeroScrollPin() {
           </div>
           </div>
         </div>
+        )}
 
         {/* Bottom vignette */}
         <div
@@ -377,5 +358,55 @@ export function HeroScrollPin() {
         />
       </div>
     </section>
+
+    {/* Mobile-only standalone text section (below the pinned hero) */}
+    <section className="flex flex-col md:hidden bg-background px-6 py-12">
+      <div className="w-full text-left">
+        <p
+          className="font-body"
+          style={{
+            color: GOLD,
+            fontSize: "0.75rem",
+            fontFamily: "Urbanist, sans-serif",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: "0.24em",
+            marginBottom: "14px",
+          }}
+        >
+          Creative Lab
+        </p>
+        <h2
+          className="font-heading text-4xl font-extrabold lowercase text-foreground"
+          style={{ lineHeight: 1.03, letterSpacing: "-0.02em", marginBottom: "18px" }}
+        >
+          <span className="block">from idea to shelf,</span>
+          <span className="block">
+            and <span style={{ color: GOLD }}>everything</span>
+          </span>
+          <span className="block">in between.</span>
+        </h2>
+        <p
+          className="font-body"
+          style={{
+            fontSize: "0.95rem",
+            lineHeight: 1.7,
+            color: "rgba(255,255,255,0.55)",
+            marginBottom: "28px",
+          }}
+        >
+          Branding, packaging, and storytelling — built together, from a single source.
+        </p>
+        <div className="flex flex-col gap-4 w-full">
+          <Button size="lg" asChild className="font-body font-bold w-full">
+            <Link to="/contact#form">start your brand</Link>
+          </Button>
+          <Button size="lg" variant="outline-white" asChild className="font-body font-bold w-full">
+            <Link to="/packaging">explore packaging</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+    </>
   );
 }
