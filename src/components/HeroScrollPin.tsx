@@ -361,7 +361,7 @@ export function HeroScrollPin() {
 
     {/* Mobile-only standalone text section (below the pinned hero) */}
     <section className="flex flex-col items-center text-center md:hidden bg-background px-6 py-12">
-      <div className="w-full text-left">
+      <div className="w-full text-center">
         <p
           className="font-body"
           style={{
