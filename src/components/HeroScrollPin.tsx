@@ -240,7 +240,7 @@ export function HeroScrollPin() {
             display: "block",
             mixBlendMode: "screen",
             ...(isMobileLayout
-              ? { width: "100%", height: "55dvh", flexShrink: 0 }
+              ? { width: "100%", height: "48dvh", flexShrink: 0, marginTop: "64px" }
               : { width: "100%", height: "100%" }),
           }}
         />
@@ -255,10 +255,10 @@ export function HeroScrollPin() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   opacity: 1,
-                  padding: "1.25rem 24px max(24px, env(safe-area-inset-bottom, 24px))",
-                  overflow: "hidden",
+                  padding: "0.75rem 20px max(20px, env(safe-area-inset-bottom, 16px))",
+                  overflow: "visible",
                 }
               : {
                   position: "absolute",
@@ -304,11 +304,11 @@ export function HeroScrollPin() {
               ref={(el) => { lineRefs.current[1] = el; }}
               className="font-heading font-extrabold lowercase"
               style={{
-                fontSize: isMobileLayout ? "1.5rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
+                fontSize: isMobileLayout ? "1.3rem" : "clamp(2.1rem, 4.2vw, 3.5rem)",
                 lineHeight: 1.03,
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
-                marginBottom: "10px",
+                marginBottom: isMobileLayout ? "8px" : "10px",
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -320,12 +320,12 @@ export function HeroScrollPin() {
 
             <p
               ref={(el) => { lineRefs.current[2] = el; }}
-              className="font-body"
+              className="font-body md:max-w-md"
               style={{
-                fontSize: isMobileLayout ? "0.8rem" : "clamp(0.875rem, 1.3vw, 1rem)",
-                lineHeight: 1.7,
+                fontSize: isMobileLayout ? "0.72rem" : "clamp(0.875rem, 1.3vw, 1rem)",
+                lineHeight: isMobileLayout ? 1.5 : 1.7,
                 color: "rgba(255,255,255,0.46)",
-                marginBottom: isMobileLayout ? "18px" : "16px",
+                marginBottom: isMobileLayout ? "12px" : "16px",
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -333,16 +333,17 @@ export function HeroScrollPin() {
 
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
-              className="flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
+              className="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
               style={
                 isMobileLayout
-                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }
+                  ? { display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }
                   : { display: "flex", flexWrap: "wrap", gap: "10px" }
               }
             >
               <Button size="lg" asChild className="font-body font-bold">
                 <Link
                   to="/contact#form"
+                  className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
                   style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                 >
                   start your brand
@@ -351,6 +352,7 @@ export function HeroScrollPin() {
               <Button size="lg" variant="outline-white" asChild className="font-body font-bold">
                 <Link
                   to="/packaging"
+                  className={!isMobileLayout ? "md:w-[220px] md:justify-center md:text-center" : undefined}
                   style={isMobileLayout ? { width: "100%", maxWidth: "280px" } : undefined}
                 >
                   explore packaging
