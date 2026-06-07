@@ -360,7 +360,7 @@ export function HeroScrollPin() {
     </section>
 
     {/* Mobile-only standalone text section (below the pinned hero) */}
-    <section className="flex flex-col md:hidden bg-background px-6 py-12">
+    <section className="flex flex-col items-center text-center md:hidden bg-background px-6 py-12">
       <div className="w-full text-left">
         <p
           className="font-body"
