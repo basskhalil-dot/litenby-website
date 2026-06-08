@@ -15,12 +15,16 @@ function frameUrl(i: number, mobile = false): string {
 export function HeroScrollPin() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mobileWrapperRef = useRef<HTMLDivElement>(null);
+  const mobileCanvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const lineRefs = useRef<(HTMLElement | null)[]>([]);
   const framesRef = useRef<HTMLImageElement[]>([]);
   const mobileFramesRef = useRef<HTMLImageElement[]>([]);
   const lastFrameRef = useRef(-1);
   const tickingRef = useRef(false);
+  const lastMobileFrameRef = useRef(-1);
+  const mobileTickingRef = useRef(false);
 
   const [isReady, setIsReady] = useState(false);
   const [isMobileLayout, setIsMobileLayout] = useState(
@@ -207,18 +211,105 @@ export function HeroScrollPin() {
     };
   }, [isReady, isMobileLayout]);
 
+  // Mobile-only scroll-driven frame sequence. Canvas is locked to a square
+  // aspect ratio (no vh/dvh) so collapsing browser chrome cannot distort it.
+  useEffect(() => {
+    if (!isReady) return;
+    if (!isMobileLayout) return;
+    const wrapper = mobileWrapperRef.current;
+    const canvas = mobileCanvasRef.current;
+    if (!wrapper || !canvas) return;
+
+    let cachedViewportH = window.innerHeight;
+    let cachedViewportW = window.innerWidth;
+
+    function sizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+    }
+
+    function render(index: number) {
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const img = mobileFramesRef.current[index];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+      // object-fit: contain
+      const scale = Math.min(cw / iw, ch / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
+
+    sizeCanvas();
+    render(0);
+    lastMobileFrameRef.current = 0;
+
+    function onScroll() {
+      if (!wrapper) return;
+      const rect = wrapper.getBoundingClientRect();
+      const scrollable = rect.height - cachedViewportH;
+      if (scrollable <= 0) return;
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      if (frame !== lastMobileFrameRef.current) {
+        lastMobileFrameRef.current = frame;
+        if (!mobileTickingRef.current) {
+          mobileTickingRef.current = true;
+          requestAnimationFrame(() => {
+            render(lastMobileFrameRef.current);
+            mobileTickingRef.current = false;
+          });
+        }
+      }
+    }
+
+    function handleResize() {
+      // Ignore height-only changes (mobile URL bar). Width changes trigger a resize.
+      if (window.innerWidth === cachedViewportW) return;
+      cachedViewportW = window.innerWidth;
+      cachedViewportH = window.innerHeight;
+      sizeCanvas();
+      render(Math.max(0, lastMobileFrameRef.current));
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isReady, isMobileLayout]);
+
   return (
     <>
-    {/* Mobile-only static bottle section — native scrolling, no canvas, no scroll animation */}
-    <section className="block md:hidden bg-background px-6 pt-24 pb-8">
-      <div className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center overflow-hidden">
-        <img
-          src={frameUrl(0, true)}
-          alt="Litenby bottle"
-          className="h-full w-full object-contain"
-          loading="eager"
-          decoding="async"
-        />
+    {/* Mobile-only scroll-driven bottle section — square canvas, scroll animates frames */}
+    <section
+      ref={mobileWrapperRef}
+      className="block md:hidden bg-background px-6 pt-24 pb-8"
+      style={{ height: "200vh" }}
+    >
+      <div
+        style={{
+          position: "sticky",
+          top: "64px",
+        }}
+      >
+        <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden">
+          <canvas
+            ref={mobileCanvasRef}
+            className="block h-full w-full"
+            style={{ objectFit: "contain" }}
+          />
+        </div>
       </div>
     </section>
 
