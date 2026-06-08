@@ -90,6 +90,7 @@ export function HeroScrollPin() {
   // Native scroll + canvas rendering.
   useEffect(() => {
     if (!isReady) return;
+    if (isMobileLayout) return;
     const canvas = canvasRef.current;
     if (!canvas || !wrapperRef.current) return;
 
@@ -208,8 +209,22 @@ export function HeroScrollPin() {
 
   return (
     <>
+    {/* Mobile-only static bottle section — native scrolling, no canvas, no scroll animation */}
+    <section className="block md:hidden bg-background px-6 pt-24 pb-8">
+      <div className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center overflow-hidden">
+        <img
+          src={frameUrl(0, true)}
+          alt="Litenby bottle"
+          className="h-full w-full object-contain"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </section>
+
     <section
       ref={wrapperRef}
+      className="hidden md:block"
       style={{
         height: isMobileLayout ? "250dvh" : "212dvh",
         overflow: "clip",
