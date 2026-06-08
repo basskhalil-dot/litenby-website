@@ -520,54 +520,6 @@ export function HeroScrollPin() {
       </div>
     </section>
 
-    {/* Mobile-only standalone text section (below the pinned hero) */}
-    <section className="flex flex-col items-center text-center md:hidden bg-background px-6 py-12">
-      <div className="w-full text-center">
-        <p
-          className="font-body"
-          style={{
-            color: GOLD,
-            fontSize: "0.75rem",
-            fontFamily: "Urbanist, sans-serif",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.24em",
-            marginBottom: "14px",
-          }}
-        >
-          Creative Lab
-        </p>
-        <h2
-          className="font-heading text-4xl font-extrabold lowercase text-foreground"
-          style={{ lineHeight: 1.03, letterSpacing: "-0.02em", marginBottom: "18px" }}
-        >
-          <span className="block">from idea to shelf,</span>
-          <span className="block">
-            and <span style={{ color: GOLD }}>everything</span>
-          </span>
-          <span className="block">in between.</span>
-        </h2>
-        <p
-          className="font-body"
-          style={{
-            fontSize: "0.95rem",
-            lineHeight: 1.7,
-            color: "rgba(255,255,255,0.55)",
-            marginBottom: "28px",
-          }}
-        >
-          Branding, packaging, and storytelling — built together, from a single source.
-        </p>
-        <div className="flex flex-col gap-4 w-full">
-          <Button size="lg" asChild className="font-body font-bold w-full">
-            <Link to="/contact#form">start your brand</Link>
-          </Button>
-          <Button size="lg" variant="outline-white" asChild className="font-body font-bold w-full">
-            <Link to="/packaging">explore packaging</Link>
-          </Button>
-        </div>
-      </div>
-    </section>
     </>
   );
 }
