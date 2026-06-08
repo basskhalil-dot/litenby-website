@@ -254,11 +254,13 @@ export function HeroScrollPin() {
     lastMobileFrameRef.current = 0;
 
     function onScroll() {
-      if (!wrapper) return;
-      const rect = wrapper.getBoundingClientRect();
-      const scrollable = rect.height - cachedViewportH;
-      if (scrollable <= 0) return;
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      if (!canvas) return;
+      // Drive animation from the canvas's own position in the viewport so the
+      // bottle scrolls naturally with the page (no sticky, no sliding text).
+      const rect = canvas.getBoundingClientRect();
+      const travel = cachedViewportH + rect.height;
+      if (travel <= 0) return;
+      const progress = Math.min(1, Math.max(0, (cachedViewportH - rect.top) / travel));
       const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
       if (frame !== lastMobileFrameRef.current) {
         lastMobileFrameRef.current = frame;
@@ -295,21 +297,13 @@ export function HeroScrollPin() {
     <section
       ref={mobileWrapperRef}
       className="block md:hidden bg-background px-6 pt-24 pb-8"
-      style={{ height: "200vh" }}
     >
-      <div
-        style={{
-          position: "sticky",
-          top: "64px",
-        }}
-      >
-        <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden">
-          <canvas
-            ref={mobileCanvasRef}
-            className="block h-full w-full"
-            style={{ objectFit: "contain" }}
-          />
-        </div>
+      <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden">
+        <canvas
+          ref={mobileCanvasRef}
+          className="block h-full w-full"
+          style={{ objectFit: "contain" }}
+        />
       </div>
     </section>
 
