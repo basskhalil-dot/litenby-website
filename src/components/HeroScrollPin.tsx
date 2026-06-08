@@ -95,6 +95,11 @@ export function HeroScrollPin() {
 
     const isMob = isMobileLayout;
 
+    // Cache viewport height so mobile browser chrome (URL bar) showing/hiding
+    // doesn't change our scroll math mid-scroll. Only width changes matter.
+    let cachedViewportH = window.innerHeight;
+    let cachedViewportW = window.innerWidth;
+
     function sizeCanvas() {
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
@@ -151,7 +156,7 @@ export function HeroScrollPin() {
       if (!wrapper) return;
 
       const rect = wrapper.getBoundingClientRect();
-      const scrollable = rect.height - window.innerHeight;
+      const scrollable = rect.height - cachedViewportH;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
       const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
 
@@ -183,6 +188,11 @@ export function HeroScrollPin() {
     }
 
     function handleResize() {
+      // Ignore height-only changes on mobile (URL bar collapse/expand) which
+      // would otherwise cause the canvas to re-size and the bottle to snap.
+      if (window.innerWidth === cachedViewportW) return;
+      cachedViewportW = window.innerWidth;
+      cachedViewportH = window.innerHeight;
       sizeCanvas();
       render(Math.max(0, lastFrameRef.current));
     }
