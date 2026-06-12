@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-import collab1 from "@/assets/collab-1.jpg";
+import collab1 from "@/assets/collab-1.webp.asset.json";
 import collab2 from "@/assets/collab-2.webp.asset.json";
 import collab3 from "@/assets/collab-3.webp.asset.json";
 import collab4 from "@/assets/collab-4.webp.asset.json";
@@ -16,7 +16,7 @@ interface MediaItemType {
 }
 
 const mediaItems: MediaItemType[] = [
-  { id: 1, title: "Brand Identity", desc: "Visual system & logo design", url: collab1 },
+  { id: 1, title: "Brand Identity", desc: "Visual system & logo design", url: collab1.url },
   { id: 2, title: "Packaging", desc: "Product packaging design", url: collab2.url },
   { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3.url },
   { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4.url },
