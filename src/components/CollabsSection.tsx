@@ -2,11 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import collab1 from "@/assets/collab-1.jpg";
-import collab2 from "@/assets/collab-2.jpg";
-import collab3 from "@/assets/collab-3.jpg";
-import collab4 from "@/assets/collab-4.jpg";
-import collab5 from "@/assets/collab-5.jpg";
-import collab6 from "@/assets/collab-6.jpg";
+import collab2 from "@/assets/collab-2.webp.asset.json";
+import collab3 from "@/assets/collab-3.webp.asset.json";
+import collab4 from "@/assets/collab-4.webp.asset.json";
+import collab5 from "@/assets/collab-5.webp.asset.json";
+import collab6 from "@/assets/collab-6.webp.asset.json";
 
 interface MediaItemType {
   id: number;
@@ -17,32 +17,12 @@ interface MediaItemType {
 
 const mediaItems: MediaItemType[] = [
   { id: 1, title: "Brand Identity", desc: "Visual system & logo design", url: collab1 },
-  { id: 2, title: "Packaging", desc: "Product packaging design", url: collab2 },
-  { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3 },
-  { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4 },
-  { id: 5, title: "Campaign", desc: "Marketing & creative direction", url: collab5 },
-  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6 },
+  { id: 2, title: "Packaging", desc: "Product packaging design", url: collab2.url },
+  { id: 3, title: "Product Launch", desc: "Campaign & art direction", url: collab3.url },
+  { id: 4, title: "Visual System", desc: "Brand guidelines & assets", url: collab4.url },
+  { id: 5, title: "Campaign", desc: "Marketing & creative direction", url: collab5.url },
+  { id: 6, title: "Direction", desc: "Creative direction & strategy", url: collab6.url },
 ];
-
-const gridVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.09,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 28, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
 
 export function CollabsSection() {
   return (
@@ -78,17 +58,10 @@ export function CollabsSection() {
       </div>
 
       <div className="container">
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 gap-4"
-          variants={gridVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-        >
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {mediaItems.map((item) => (
-            <motion.div
+            <div
               key={item.id}
-              variants={itemVariants}
               className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
               style={{ border: "1px solid #333333" }}
             >
@@ -108,9 +81,9 @@ export function CollabsSection() {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
