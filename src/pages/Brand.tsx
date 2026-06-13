@@ -15,8 +15,8 @@ const Brand = () => {
     <div className="min-h-screen bg-background">
       <LitenbyNavbar />
       <BrandHero images={marqueeImages} />
-      <BrandMethodology />
       <BrandCraft />
+      <BrandMethodology />
       <Footer />
     </div>
   );
