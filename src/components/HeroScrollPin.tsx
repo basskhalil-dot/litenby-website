@@ -346,7 +346,7 @@ export function HeroScrollPin() {
           >
             Branding, packaging, and storytelling — built together, from a single source.
           </p>
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-4 w-[70%] mx-auto">
             <Button size="lg" asChild className="font-body font-bold w-full">
               <Link to="/contact#form">start your brand</Link>
             </Button>
@@ -442,6 +442,7 @@ export function HeroScrollPin() {
                 textTransform: "uppercase",
                 letterSpacing: "0.24em",
                 marginBottom: "10px",
+                opacity: 0,
               }}
             >
               Creative Lab
@@ -456,6 +457,7 @@ export function HeroScrollPin() {
                 letterSpacing: "-0.02em",
                 color: "#ffffff",
                 marginBottom: "10px",
+                opacity: 0,
               }}
             >
               <span style={{ display: "block" }}>from idea to shelf,</span>
@@ -473,6 +475,7 @@ export function HeroScrollPin() {
                 lineHeight: 1.7,
                 color: "rgba(255,255,255,0.46)",
                 marginBottom: "16px",
+                opacity: 0,
               }}
             >
               Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
@@ -481,7 +484,7 @@ export function HeroScrollPin() {
             <div
               ref={(el) => { lineRefs.current[3] = el; }}
               className="flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:items-start md:gap-2.5"
-              style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+              style={{ display: "flex", flexWrap: "wrap", gap: "10px", opacity: 0 }}
             >
               <Button size="lg" asChild className="font-body font-bold">
                 <Link
