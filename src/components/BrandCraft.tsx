@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import labBrand from "@/assets/lab-brand.jpg";
+import brandingVideo from "@/assets/branding-craft.webm.asset.json";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -28,9 +28,12 @@ export function BrandCraft() {
             viewport={{ once: true, margin: "-100px" }}
             className="overflow-hidden rounded-2xl"
           >
-            <img
-              src={labBrand}
-              alt="Litenby brand craft process"
+            <video
+              src={brandingVideo.url}
+              autoPlay
+              muted
+              loop
+              playsInline
               className="h-auto w-full object-cover"
             />
           </motion.div>
