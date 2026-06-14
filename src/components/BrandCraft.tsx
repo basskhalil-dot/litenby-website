@@ -16,7 +16,7 @@ const fadeUp = {
 
 export function BrandCraft() {
   return (
-    <section className="w-full bg-background py-[120px]">
+    <section className="w-full bg-background pt-12 pb-[120px] lg:pt-16">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Image */}
@@ -39,7 +39,7 @@ export function BrandCraft() {
           </motion.div>
 
           {/* Text content */}
-          <div className="flex flex-col">
+          <div className="flex flex-col text-center lg:text-left items-center lg:items-start">
             <motion.p
               custom={0}
               variants={fadeUp}
