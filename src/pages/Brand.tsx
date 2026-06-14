@@ -3,7 +3,6 @@ import { Footer } from '@/components/Footer';
 import { BrandHero } from '@/components/BrandHero';
 import { BrandMethodology } from '@/components/BrandMethodology';
 import { BrandCraft } from '@/components/BrandCraft';
-import { BrandShuffleGrid } from '@/components/BrandShuffleGrid';
 
 import labBrand from '@/assets/lab-brand.jpg';
 import labPackaging from '@/assets/lab-packaging.jpg';
@@ -16,7 +15,6 @@ const Brand = () => {
     <div className="min-h-screen bg-background">
       <LitenbyNavbar />
       <BrandHero images={marqueeImages} />
-      <BrandShuffleGrid />
       <BrandCraft />
       <BrandMethodology />
       <Footer />
