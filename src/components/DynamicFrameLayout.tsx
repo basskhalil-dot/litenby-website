@@ -54,7 +54,7 @@ function FrameCell({
         muted
         playsInline
         style={{
-          opacity: isHovered ? 1 : 0.4,
+          opacity: 1,
           transition: "opacity 0.3s ease-in-out",
         }}
       />
@@ -64,8 +64,8 @@ function FrameCell({
         className="absolute inset-0"
         style={{
           background: isHovered
-            ? "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%)"
-            : "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%)",
+            ? "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.05) 60%)"
+            : "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 100%)",
           transition: "background 0.3s ease-in-out",
         }}
       />
