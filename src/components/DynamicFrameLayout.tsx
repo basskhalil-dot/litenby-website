@@ -7,6 +7,7 @@ interface ServiceFrame {
   id: number;
   title: string;
   video: string;
+  poster?: string;
   row: number;
   col: number;
 }
@@ -47,6 +48,8 @@ function FrameCell({
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
         src={frame.video}
+        poster={frame.poster}
+        preload="none"
         loop
         muted
         playsInline
@@ -157,6 +160,8 @@ export function DynamicFrameLayout({
             <video
               className="absolute inset-0 h-full w-full object-cover opacity-40"
               src={frame.video}
+              poster={frame.poster}
+              preload="none"
               loop
               muted
               playsInline

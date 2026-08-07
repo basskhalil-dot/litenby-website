@@ -3,40 +3,55 @@ import { Clapperboard, Layers3, Film, Sparkles, Lightbulb, Monitor } from "lucid
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { DynamicFrameLayout } from "@/components/DynamicFrameLayout";
+import artDirectionVideo from "@/assets/story-art-direction.webm.asset.json";
+import artDirectionPoster from "@/assets/story-art-direction-poster.webp.asset.json";
+import motionGraphicsVideo from "@/assets/story-motion-graphics.webm.asset.json";
+import motionGraphicsPoster from "@/assets/story-motion-graphics-poster.webp.asset.json";
+import tvCommercialsVideo from "@/assets/story-tv-commercials.webm.asset.json";
+import tvCommercialsPoster from "@/assets/story-tv-commercials-poster.webp.asset.json";
+import productCinematographyVideo from "@/assets/story-product-cinematography.webm.asset.json";
+import productCinematographyPoster from "@/assets/story-product-cinematography-poster.webp.asset.json";
+import brandIdentityVideo from "@/assets/story-brand-identity-animation.webm.asset.json";
+import brandIdentityPoster from "@/assets/story-brand-identity-animation-poster.webp.asset.json";
 
 const serviceFrames = [
   {
     id: 1,
     title: "Art Direction",
-    video: "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4",
+    video: artDirectionVideo.url,
+    poster: artDirectionPoster.url,
     row: 0,
     col: 0,
   },
   {
     id: 2,
     title: "Motion Graphics",
-    video: "https://videos.pexels.com/video-files/6981411/6981411-uhd_2560_1440_25fps.mp4",
+    video: motionGraphicsVideo.url,
+    poster: motionGraphicsPoster.url,
     row: 0,
     col: 1,
   },
   {
     id: 3,
     title: "TV Commercials",
-    video: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+    video: tvCommercialsVideo.url,
+    poster: tvCommercialsPoster.url,
     row: 0,
     col: 2,
   },
   {
     id: 4,
     title: "Product Cinematography",
-    video: "https://videos.pexels.com/video-files/4065924/4065924-uhd_2560_1440_24fps.mp4",
+    video: productCinematographyVideo.url,
+    poster: productCinematographyPoster.url,
     row: 1,
     col: 0,
   },
   {
     id: 5,
     title: "Brand Identity Animation",
-    video: "https://videos.pexels.com/video-files/6252835/6252835-uhd_2560_1440_25fps.mp4",
+    video: brandIdentityVideo.url,
+    poster: brandIdentityPoster.url,
     row: 1,
     col: 1,
   },
