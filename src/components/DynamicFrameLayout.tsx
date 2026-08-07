@@ -96,6 +96,59 @@ function FrameCell({
   );
 }
 
+function MobileFrameCell({ frame }: { frame: ServiceFrame }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="relative aspect-[16/9] overflow-hidden">
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        src={frame.video}
+        poster={frame.poster}
+        preload="metadata"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 55%)",
+        }}
+      />
+      <div className="absolute inset-0 border border-border/10" />
+      <div className="absolute inset-0 flex items-end p-5">
+        <span className="font-heading text-base font-bold text-foreground">
+          {frame.title}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 interface DynamicFrameLayoutProps {
   frames: ServiceFrame[];
   className?: string;
@@ -156,31 +209,7 @@ export function DynamicFrameLayout({
         style={{ gap: `${gapSize}px` }}
       >
         {frames.map((frame) => (
-          <div key={frame.id} className="relative aspect-[16/9] overflow-hidden">
-            <video
-              className="absolute inset-0 h-full w-full object-cover opacity-40"
-              src={frame.video}
-              poster={frame.poster}
-              preload="none"
-              loop
-              muted
-              playsInline
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 border border-border/10"
-            />
-            <div className="absolute inset-0 flex items-end p-5">
-              <span className="font-heading text-base font-bold text-foreground">
-                {frame.title}
-              </span>
-            </div>
-          </div>
+          <MobileFrameCell key={frame.id} frame={frame} />
         ))}
       </div>
     </>
