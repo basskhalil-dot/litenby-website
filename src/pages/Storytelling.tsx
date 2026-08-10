@@ -13,11 +13,13 @@ import productCinematographyVideo from "@/assets/story-product-cinematography.we
 import productCinematographyPoster from "@/assets/story-product-cinematography-poster.webp.asset.json";
 import brandIdentityVideo from "@/assets/story-brand-identity-animation.webm.asset.json";
 import brandIdentityPoster from "@/assets/story-brand-identity-animation-poster.webp.asset.json";
+import storytellingVideo from "@/assets/story-storytelling.webm.asset.json";
+import storytellingPoster from "@/assets/story-storytelling-poster.webp.asset.json";
 
 const serviceFrames = [
   {
     id: 1,
-    title: "Art Direction",
+    title: "Motion Graphics",
     video: artDirectionVideo.url,
     poster: artDirectionPoster.url,
     row: 0,
@@ -25,7 +27,7 @@ const serviceFrames = [
   },
   {
     id: 2,
-    title: "Motion Graphics",
+    title: "Art Direction",
     video: motionGraphicsVideo.url,
     poster: motionGraphicsPoster.url,
     row: 0,
@@ -57,8 +59,9 @@ const serviceFrames = [
   },
   {
     id: 6,
-    title: "Post-Production",
-    video: "https://videos.pexels.com/video-files/5377684/5377684-uhd_2560_1440_25fps.mp4",
+    title: "Storytelling",
+    video: storytellingVideo.url,
+    poster: storytellingPoster.url,
     row: 1,
     col: 2,
   },
