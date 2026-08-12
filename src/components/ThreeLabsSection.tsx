@@ -8,21 +8,21 @@ const labs = [
   {
     title: "Branding",
     description:
-      "Your identity, built from scratch. Logo, color, type, and voice, designed to be recognised before a single word is read.",
+      "Logo, color, type, voice — your identity, built from scratch. Recognised before anyone reads a word.",
     icon: Paintbrush,
     video: labBrand.url,
   },
   {
     title: "Packaging",
     description:
-      "Container, label, finish. Every detail considered. Packaging designed to make the right first impression, on the shelf and everywhere else your product is seen.",
+      "Container, label, finish — every detail considered. First impressions happen on the shelf, not in the pitch.",
     icon: Package,
     video: labPackaging.url,
   },
   {
     title: "Storytelling",
     description:
-      "Strategy, content, and go-to-market built around your brand's story. So when you launch, you don't just show up. You make an entrance.",
+      "Strategy, content, go-to-market — built around your story. So when you launch, you don't just show up. You make an entrance.",
     icon: Rocket,
     video: labLaunch.url,
   },
