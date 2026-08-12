@@ -50,7 +50,7 @@ export const BrandHero: React.FC<BrandHeroProps> = ({ images, className }) => {
           animate="show"
           className="mx-auto mt-6 max-w-xl font-body text-base text-muted-foreground sm:text-lg"
         >
-          where strategy meets visual soul. crafting identities that resonate and endure.
+          Where strategy meets visual identity. Built to launch, not just to look good.
         </motion.p>
 
         <motion.div
