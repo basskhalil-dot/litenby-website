@@ -92,24 +92,9 @@ export default function BlogDetail() {
           {/* Article body */}
           <div className="space-y-6 font-body text-base leading-relaxed text-muted-foreground">
             <p>{article.excerpt}</p>
-            <p>
-              Every brand carries a story beneath the surface — an origin, a tension, a purpose that
-              goes beyond the product. Our role is to uncover that narrative thread and weave it into
-              every visual and verbal touchpoint. From the first sketch to the final deliverable, the
-              process is obsessive, intentional, and deeply collaborative.
-            </p>
-            <p>
-              The challenge with heritage brands is balancing reverence with reinvention. You can't
-              strip away decades of equity, but you also can't let nostalgia become a cage. The sweet
-              spot is in the details — a modernized serif, a refined color shift, a packaging texture
-              that whispers luxury without screaming change.
-            </p>
-            <p>
-              What separates a rebrand from a revolution is restraint. Knowing what to keep is just
-              as important as knowing what to discard. At Litenby, we approach every identity project
-              with a strategist's mind and a designer's hand — because a brand that looks beautiful
-              but says nothing is just decoration.
-            </p>
+            {article.body?.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
           </div>
         </motion.div>
       </article>
