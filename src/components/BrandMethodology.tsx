@@ -5,25 +5,25 @@ const steps = [
   {
     title: "discovery",
     description:
-      "we dive deep into your market, competitors, and core values to find the 'un-fair advantage.'",
+      "Before anything gets designed, we find what makes you different — and what's worth building around.",
     icon: Search,
   },
   {
     title: "visual identity",
     description:
-      "crafting the logo, typography, and color systems that define your brand's physical presence.",
+      "Logo, typography, color — the system that gives your brand a physical presence, on packaging and off.",
     icon: PenTool,
   },
   {
     title: "brand voice",
     description:
-      "developing the language and tone that makes your brand sound as good as it looks.",
+      "The language and tone that make your brand sound like it looks — consistent, recognizable, yours.",
     icon: MessageSquare,
   },
   {
     title: "brand guidelines",
     description:
-      "building the 'bible' for your brand to ensure consistency across every single touchpoint.",
+      "A clear reference for every touchpoint, so the brand holds together whether it's on a bottle, a page, or a storefront.",
     icon: BookOpen,
   },
 ];
@@ -61,7 +61,7 @@ export function BrandMethodology() {
             transition={{ duration: 0.4, delay: 0.15 }}
             className="font-body text-base text-muted-foreground"
           >
-            a four-step methodology to distill your vision into a brand that resonates and endures.
+            a four-step process to build a brand that resonates and holds up in the real world.
           </motion.p>
         </div>
 

@@ -70,12 +70,14 @@ export function BrandCraft() {
               viewport={{ once: true, margin: "-100px" }}
               className="mt-6 max-w-lg font-body text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              With over 15 years in the trenches of advertising and motion
-              design, Litenby doesn't just create logos—we build visual
-              legacies. Our dedication to the craft is obsessive; from the
-              weight of the paper to the physics of the motion, every detail is
-              engineered to ensure your brand doesn't just join the market, but
-              commands it. Authenticity isn't a goal here; it's our baseline.
+              A brand isn't a logo. It's every decision a product makes before it ever reaches a
+              shelf. A great identity does the convincing before anyone reads a single word, before
+              anyone tastes, tries, or opens anything. That's why branding sits at the center of what
+              we do: identity, voice, and system, built to carry a product from concept through
+              packaging and into the moment where it actually gets picked up. We notice the things
+              most people don't — the weight of a label, the timing of a motion, the exact shade that
+              reads premium instead of cheap. That's the difference between a brand that looks fine
+              and one that gets remembered.
             </motion.p>
           </div>
         </div>

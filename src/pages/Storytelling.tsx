@@ -97,7 +97,7 @@ export default function Storytelling() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto mt-4 max-w-xl font-body text-base text-muted-foreground"
           >
-            from concept to screen — cinematic storytelling for brands that refuse to blend in.
+            The work that gets seen, remembered, and talked about.
           </motion.p>
         </div>
       </section>
@@ -123,41 +123,41 @@ export default function Storytelling() {
               where strategy meets motion.
             </h2>
             <p className="font-body text-base text-muted-foreground">
-              We provide the full spectrum of production services to turn brand concepts into cinematic reality.
+              The part where the brand stops being an idea and starts being something people talk about.
             </p>
           </div>
 
           <div className="relative mx-auto grid max-w-4xl divide-x divide-y divide-border/20 border border-border/20 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                icon: Clapperboard,
-                title: "cinematic direction",
-                desc: "15 years of experience directing high-end TV commercials and advertising campaigns across the GCC.",
-              },
-              {
                 icon: Layers3,
-                title: "advanced motion design",
-                desc: "High-fidelity 2D and 3D animations that bring brand identities to life with realistic physics.",
+                title: "motion graphics",
+                desc: "Stillness gets scrolled past. Movement is what makes people stop.",
               },
               {
-                icon: Film,
-                title: "post-production",
-                desc: "Expert editing, color grading, and sound design to ensure every frame meets international broadcast standards.",
-              },
-              {
-                icon: Sparkles,
-                title: "visual effects",
-                desc: "Integrating CGI and motion tracking to create impossible visuals that command attention.",
-              },
-              {
-                icon: Lightbulb,
-                title: "creative strategy",
-                desc: "We don't just execute; we conceptualize the narrative arc to ensure maximum audience resonance.",
+                icon: Clapperboard,
+                title: "art direction",
+                desc: "Every shot pointed the same way — that's how a brand starts to feel expensive.",
               },
               {
                 icon: Monitor,
-                title: "technical precision",
-                desc: "Using the latest rendering engines and production tools to deliver 4K+ high-resolution content.",
+                title: "tv commercials",
+                desc: "The biggest stage there is. Get it right, and people remember the brand, not just the ad.",
+              },
+              {
+                icon: Film,
+                title: "product cinematography",
+                desc: "How a product is filmed decides how it's judged, long before anyone tries it.",
+              },
+              {
+                icon: Sparkles,
+                title: "brand identity animation",
+                desc: "A logo that moves says more than one that just sits there.",
+              },
+              {
+                icon: Lightbulb,
+                title: "storytelling",
+                desc: "Every brand has a reason to exist. We make sure people feel it first, and read about it after.",
               },
             ].map((item) => (
               <div key={item.title} className="space-y-3 p-8 lg:p-10">
