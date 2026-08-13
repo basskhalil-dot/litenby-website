@@ -137,7 +137,7 @@ export default function Storytelling() {
               {
                 icon: Clapperboard,
                 title: "art direction",
-                desc: "Every shot pointed the same way — that's how a brand starts to feel expensive.",
+                desc: "Every shot pointed the same way. That's how a brand starts to feel expensive.",
               },
               {
                 icon: Monitor,
