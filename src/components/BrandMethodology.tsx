@@ -5,19 +5,19 @@ const steps = [
   {
     title: "discovery",
     description:
-      "Before anything gets designed, we find what makes you different — and what's worth building around.",
+      "Before anything gets designed, we find what makes you different, and what's worth building around.",
     icon: Search,
   },
   {
     title: "visual identity",
     description:
-      "Logo, typography, color — the system that gives your brand a physical presence, on packaging and off.",
+      "Logo, typography, color, the system that gives your brand a physical presence, on packaging and off.",
     icon: PenTool,
   },
   {
     title: "brand voice",
     description:
-      "The language and tone that make your brand sound like it looks — consistent, recognizable, yours.",
+      "The language and tone that make your brand sound like it looks, consistent, recognizable, yours.",
     icon: MessageSquare,
   },
   {

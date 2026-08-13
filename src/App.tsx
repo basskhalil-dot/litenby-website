@@ -27,7 +27,6 @@ const App = () => {
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <PageTransition />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/brand" element={<Brand />} />
