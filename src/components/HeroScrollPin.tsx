@@ -344,7 +344,7 @@ export function HeroScrollPin() {
               marginBottom: "28px",
             }}
           >
-            Branding, packaging, and storytelling — built together, from a single source.
+            Branding, packaging, and storytelling. Built together, from a single source.
           </p>
           <div className="flex flex-col gap-4 w-[70%] mx-auto">
             <Button size="lg" asChild className="font-body font-bold w-full">
@@ -478,7 +478,7 @@ export function HeroScrollPin() {
                 opacity: 0,
               }}
             >
-              Branding, packaging, and storytelling —<br className="block md:hidden" /> built together, from a single source.
+              Branding, packaging, and storytelling.<br className="block md:hidden" /> Built together, from a single source.
             </p>
 
             <div

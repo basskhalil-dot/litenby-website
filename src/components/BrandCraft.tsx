@@ -75,7 +75,7 @@ export function BrandCraft() {
               anyone tastes, tries, or opens anything. That's why branding sits at the center of what
               we do: identity, voice, and system, built to carry a product from concept through
               packaging and into the moment where it actually gets picked up. We notice the things
-              most people don't — the weight of a label, the timing of a motion, the exact shade that
+              most people don't, the weight of a label, the timing of a motion, the exact shade that
               reads premium instead of cheap. That's the difference between a brand that looks fine
               and one that gets remembered.
             </motion.p>

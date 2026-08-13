@@ -7,8 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const contactItems = [
-  { icon: Mail, label: "Email", value: "hello@litenby.com" },
-  { icon: Phone, label: "Phone", value: "+971 50 000 0000" },
+  { icon: Mail, label: "Email", value: "info@litenby.net" },
+  { icon: Phone, label: "Phone", value: "+961 70 146 067" },
   { icon: Globe, label: "OPERATIONS", value: "Global Remote Studio" },
 ];
 

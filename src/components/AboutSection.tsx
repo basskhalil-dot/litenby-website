@@ -62,7 +62,7 @@ export function AboutSection() {
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg lg:mt-8"
             >
               litenby was built on one belief: a great product without a strong brand is a missed
-              opportunity. Every project starts from the same place — brand, packaging, and story,
+              opportunity. Every project starts from the same place. Brand, packaging, and story,
               built together, not stitched together after the fact.
             </motion.p>
 
@@ -74,7 +74,7 @@ export function AboutSection() {
               viewport={{ once: true, amount: 0.1 }}
               className="max-w-lg text-base leading-relaxed text-muted-foreground lg:text-lg"
             >
-              From brief to brand, bottle to campaign — one process, no gaps in translation. When
+              From brief to brand, bottle to campaign. One process, no gaps in translation. When
               everything comes from one place, it shows. And people trust what they're looking at.
             </motion.p>
 
