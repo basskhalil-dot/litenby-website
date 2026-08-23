@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import blogOneHeroAsset from "@/assets/blog-1-hero.webp.asset.json";
+import blogOneThumbnailAsset from "@/assets/blog-1-thumbnail.webp.asset.json";
 
 const articles = [
   {
@@ -11,7 +13,8 @@ const articles = [
     category: "PROCESS",
     title: "from idea to shelf: what actually happens when you build a brand from scratch.",
     date: "march 12, 2026",
-    image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80",
+    image: blogOneThumbnailAsset.url,
+    heroImage: blogOneHeroAsset.url,
     excerpt: "Not a mood board and a logo. A sequence, where every step decides what the next one can be.",
     body: [
       "Most people picture branding as a moment. You sit down, pick some colors, land on a logo, done. In practice, it's a sequence, and the order matters more than any single decision inside it. Skip a step or do them out of order, and the product ends up looking finished while still feeling unresolved.",
