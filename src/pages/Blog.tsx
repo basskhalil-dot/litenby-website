@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import blogOneHeroAsset from "@/assets/blog-1-hero.webp.asset.json";
-import blogOneThumbnailAsset from "@/assets/blog-1-thumbnail.webp.asset.json";
+import blogOneAsset from "@/assets/blog-1.webp.asset.json";
+import blogTwoAsset from "@/assets/blog-2.webp.asset.json";
+import blogThreeAsset from "@/assets/blog-3.webp.asset.json";
+import blogFourAsset from "@/assets/blog-4.webp.asset.json";
+import blogFiveAsset from "@/assets/blog-5.webp.asset.json";
+import blogSixAsset from "@/assets/blog-6.webp.asset.json";
 
 const articles = [
   {
@@ -13,8 +17,8 @@ const articles = [
     category: "PROCESS",
     title: "from idea to shelf: what actually happens when you build a brand from scratch.",
     date: "march 12, 2026",
-    image: blogOneThumbnailAsset.url,
-    heroImage: blogOneHeroAsset.url,
+    image: blogOneAsset.url,
+    heroImage: blogOneAsset.url,
     excerpt: "Not a mood board and a logo. A sequence, where every step decides what the next one can be.",
     body: [
       "Most people picture branding as a moment. You sit down, pick some colors, land on a logo, done. In practice, it's a sequence, and the order matters more than any single decision inside it. Skip a step or do them out of order, and the product ends up looking finished while still feeling unresolved.",
@@ -30,7 +34,8 @@ const articles = [
     category: "PACKAGING",
     title: "how to choose the right container for your product.",
     date: "february 28, 2026",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80",
+    image: blogTwoAsset.url,
+    heroImage: blogTwoAsset.url,
     excerpt: "The shape people remember isn't always the shape that's easiest to make.",
     body: [
       "There's a version of this decision that happens by default. You look at what your competitors use, and you use something close enough. It's fast, it's safe, and it's the reason so many shelves look the same. The container is usually the first physical thing a customer touches. Copying the category isn't a shortcut; it's a missed chance to be the one thing they actually remember.",
@@ -45,7 +50,8 @@ const articles = [
     category: "CONCEPT",
     title: "why we don't split brand, packaging, and storytelling into three jobs.",
     date: "february 15, 2026",
-    image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=800&q=80",
+    image: blogThreeAsset.url,
+    heroImage: blogThreeAsset.url,
     excerpt: "Most studios hand you off between departments. We think that's where good brands go to die.",
     body: [
       "Most products don't fail because the idea was weak. They fail somewhere in the handoff: a brand identity built by one team, packaging designed by another, and a launch campaign written by a third, each one working from a brief instead of from each other.",
@@ -61,7 +67,8 @@ const articles = [
     category: "CAMPAIGN",
     title: "celebrating 100 years of lapiara.",
     date: "january 30, 2026",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+    image: blogFourAsset.url,
+    heroImage: blogFourAsset.url,
     excerpt: "Some brands don't need reinventing. They need reminding people already love them.",
     body: [
       "A hundred years is a hard thing to say without sounding like a plaque on a wall. The challenge with Lapiara's anniversary wasn't finding something new to say, it was finding a way to say the truth without it going flat.",
@@ -77,7 +84,8 @@ const articles = [
     category: "REBRAND",
     title: "more than just olive oil: rebranding boulos.",
     date: "january 18, 2026",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+    image: blogFiveAsset.url,
+    heroImage: blogFiveAsset.url,
     excerpt: "A name people already trusted, doing a lot more than it used to.",
     body: [
       "Boulos had the kind of problem most brands would want, people already trusted the name. The issue was that trust was parked in one place: olive oil. Olives, pickles, vinegar, zaatar, olive oil soap, all real products, all sitting under a name people still associated with a single bottle.",
@@ -92,7 +100,8 @@ const articles = [
     category: "STRATEGY",
     title: "how to make people remember your ad, not just see it.",
     date: "january 05, 2026",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&q=80",
+    image: blogSixAsset.url,
+    heroImage: blogSixAsset.url,
     excerpt: "Most ads get watched. Very few get remembered. That gap is the whole game.",
     body: [
       "An ad can do everything right. Good visuals, clear message, decent budget and still disappear the second it's off screen. That's not a production problem. It's usually a memory problem. People forget things that don't give them anything to hold onto: no line, no image, no feeling strong enough to survive the next thirty things they see that day.",
@@ -161,6 +170,8 @@ export default function Blog() {
                       <img
                         src={article.image}
                         alt={article.title}
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     </AspectRatio>
