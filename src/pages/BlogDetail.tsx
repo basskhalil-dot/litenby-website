@@ -59,7 +59,7 @@ export default function BlogDetail() {
         >
           <AspectRatio ratio={21 / 9}>
             <img
-              src={"heroImage" in article ? article.heroImage : article.image}
+              src={article.heroImage}
               alt={article.title}
               className="h-full w-full object-cover"
             />
