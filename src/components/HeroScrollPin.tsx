@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const FRAME_COUNT = 35;
+const DESKTOP_FRAME_COUNT = 50;
+const MOBILE_FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
 const MOBILE_CONTAIN_SCALE = 1.2;
 
 function frameUrl(i: number, mobile = false): string {
-  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence";
+  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence-v2";
   return `/${dir}/frame_${String(i).padStart(3, "0")}.webp`;
 }
 
@@ -34,16 +35,18 @@ export function HeroScrollPin() {
   // Preload + decode both desktop and mobile frame sets before making the animation interactive.
   useEffect(() => {
     let mounted = true;
-    const frames: HTMLImageElement[] = new Array(FRAME_COUNT);
-    const mobileFrames: HTMLImageElement[] = new Array(FRAME_COUNT);
+    const frames: HTMLImageElement[] = new Array(DESKTOP_FRAME_COUNT);
+    const mobileFrames: HTMLImageElement[] = new Array(MOBILE_FRAME_COUNT);
     framesRef.current = frames;
     mobileFramesRef.current = mobileFrames;
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    for (let i = 0; i < DESKTOP_FRAME_COUNT; i++) {
       const img = new Image();
       img.src = frameUrl(i, false);
       frames[i] = img;
+    }
 
+    for (let i = 0; i < MOBILE_FRAME_COUNT; i++) {
       const mImg = new Image();
       mImg.src = frameUrl(i, true);
       mobileFrames[i] = mImg;
@@ -163,7 +166,7 @@ export function HeroScrollPin() {
       const rect = wrapper.getBoundingClientRect();
       const scrollable = rect.height - cachedViewportH;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-      const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      const frame = Math.min(DESKTOP_FRAME_COUNT - 1, Math.floor(progress * DESKTOP_FRAME_COUNT));
 
       if (frame !== lastFrameRef.current) {
         lastFrameRef.current = frame;
@@ -259,7 +262,7 @@ export function HeroScrollPin() {
       const scrollable = rect.height - cachedViewportH;
       if (scrollable <= 0) return;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-      const frame = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
+      const frame = Math.min(MOBILE_FRAME_COUNT - 1, Math.floor(progress * MOBILE_FRAME_COUNT));
       if (frame !== lastMobileFrameRef.current) {
         lastMobileFrameRef.current = frame;
         if (!mobileTickingRef.current) {
