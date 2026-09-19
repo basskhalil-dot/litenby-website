@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "react-router-dom";
 
 const contactItems = [
   { icon: Mail, label: "Email", value: "info@litenby.net" },
@@ -12,6 +13,12 @@ const contactItems = [
 ];
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
+  const selectedProduct = searchParams.get("product")?.trim();
+  const initialMessage = selectedProduct
+    ? `I'm interested in getting more information about ${selectedProduct}.`
+    : undefined;
+
   return (
     <div className="min-h-screen" style={{ background: "#000000" }}>
       <LitenbyNavbar />
@@ -29,7 +36,7 @@ export default function Contact() {
             <div className="flex flex-col justify-center space-y-10">
               <div className="space-y-4">
                 <h2 className="font-heading text-3xl font-extrabold lowercase text-foreground md:text-4xl lg:text-5xl">
-                  let's talk about your brand
+                  let's talk about <span className="whitespace-nowrap">your brand</span>
                 </h2>
                 <p className="max-w-md font-body text-base leading-relaxed text-muted-foreground">
                   If you have any questions regarding our services or need help,
@@ -101,6 +108,7 @@ export default function Contact() {
                   </label>
                   <Textarea
                     placeholder="Tell us about your project..."
+                    defaultValue={initialMessage}
                     rows={5}
                     className="rounded-[10px] border border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                   />
