@@ -9,7 +9,7 @@ const CONTAIN_SCALE = 0.9;
 const MOBILE_CONTAIN_SCALE = 1.2;
 
 function frameUrl(i: number, mobile = false): string {
-  const dir = mobile ? "hero-sequence-mobile-v2" : "hero-sequence-v2";
+  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence";
   return `/${dir}/frame_${String(i).padStart(3, "0")}.webp`;
 }
 
