@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const DESKTOP_FRAME_COUNT = 50;
+const DESKTOP_FRAME_COUNT = 51;
 const MOBILE_FRAME_COUNT = 35;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
@@ -132,9 +132,11 @@ export function HeroScrollPin() {
         : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
+      const desktopProgress = index / Math.max(1, DESKTOP_FRAME_COUNT - 1);
+      const desktopOffsetX = isMob ? 0 : cw * 0.18 * desktopProgress;
 
       ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+      ctx.drawImage(img, (cw - dw) / 2 + desktopOffsetX, (ch - dh) / 2, dw, dh);
     }
 
     if (!isMob) {
