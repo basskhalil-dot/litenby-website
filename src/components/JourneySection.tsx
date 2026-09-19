@@ -36,14 +36,14 @@ export function JourneySection() {
         <div className="hidden min-h-[260px] grid-cols-[minmax(300px,0.85fr)_minmax(0,1.15fr)] items-center gap-8 md:grid lg:gap-12">
           <div className="min-w-0">
             <div className="relative h-[123px] lg:h-[143px]">
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence mode="sync" initial={false}>
                 {activeJourneyStep ? (
                   <motion.div
                     key="active"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0 flex flex-col justify-center"
                   >
                     <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
@@ -75,7 +75,7 @@ export function JourneySection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0 flex items-center whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]"
                   >
                     the journey

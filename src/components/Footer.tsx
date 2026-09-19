@@ -34,7 +34,12 @@ export function Footer() {
               asChild
               className="h-10 w-10 rounded-full bg-primary text-primary-foreground border-2 border-transparent hover:bg-transparent hover:border-primary hover:text-primary transition-all duration-300"
             >
-              <a href="#" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/litenby_stories/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
                 <Instagram className="h-4 w-4" />
               </a>
             </Button>
