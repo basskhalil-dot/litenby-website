@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const DESKTOP_FRAME_COUNT = 51;
 const MOBILE_FRAME_COUNT = 51;
+const DESKTOP_TRAVEL_END_FRAME = 46;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
 const MOBILE_CONTAIN_SCALE = 1.2;
@@ -132,7 +133,9 @@ export function HeroScrollPin() {
         : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
-      const desktopFrameProgress = index / Math.max(1, DESKTOP_FRAME_COUNT - 1);
+      // Finish the rightward travel while rotation is still clearly visible.
+      // The final frames then complete the bottle animation at its destination.
+      const desktopFrameProgress = Math.min(1, index / DESKTOP_TRAVEL_END_FRAME);
       const desktopOffsetX = isMob ? 0 : cw * 0.18 * desktopFrameProgress;
 
       ctx.clearRect(0, 0, cw, ch);
