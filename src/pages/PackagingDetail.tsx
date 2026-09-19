@@ -105,8 +105,8 @@ const PackagingDetail = () => {
               </div>
             </div>
 
-            <Button className="mt-10 w-fit bg-primary px-8 py-3 text-base font-bold text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_30px_rgba(255,165,0,0.3)]">
-              request a sample
+            <Button className="mt-10 w-fit bg-primary px-8 py-3 text-base font-bold text-primary-foreground hover:bg-primary/90" asChild>
+              <Link to="/contact">get more info</Link>
             </Button>
           </motion.div>
         </div>

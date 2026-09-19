@@ -62,7 +62,7 @@ export function CollabsSection() {
           {mediaItems.map((item) => (
             <div
               key={item.id}
-              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5] transition-transform duration-300 hover:scale-[1.02]"
+              className="group relative overflow-hidden rounded-[12px] cursor-default aspect-[4/5]"
               style={{ border: "1px solid #333333" }}
             >
               <img

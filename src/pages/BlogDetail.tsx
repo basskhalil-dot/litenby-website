@@ -45,7 +45,7 @@ export default function BlogDetail() {
           className="mb-8 flex items-center gap-2 font-body text-sm text-muted-foreground transition-colors hover:text-primary"
         >
           <ArrowLeft className="size-4" />
-          back to insights
+          back to litenby stories
         </motion.button>
       </div>
 
