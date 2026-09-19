@@ -49,22 +49,25 @@ export function JourneySection() {
                     <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
                       covering
                     </p>
-                    <AnimatePresence mode="sync" initial={false}>
-                      <motion.div
-                        key={activeJourneyStep.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
-                          {activeJourneyStep.title}
-                        </h2>
-                        <p className="mt-3 font-body text-base text-primary">
-                          {activeJourneyStep.description}
-                        </p>
-                      </motion.div>
-                    </AnimatePresence>
+                    <div className="relative h-[87px] lg:h-[99px]">
+                      <AnimatePresence mode="sync" initial={false}>
+                        <motion.div
+                          key={activeJourneyStep.id}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute inset-x-0 top-0"
+                        >
+                          <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
+                            {activeJourneyStep.title}
+                          </h2>
+                          <p className="mt-3 font-body text-base text-primary">
+                            {activeJourneyStep.description}
+                          </p>
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.h2
