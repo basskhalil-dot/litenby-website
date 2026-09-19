@@ -102,7 +102,7 @@ export function JourneySection() {
                   onMouseEnter={() => setActiveStep(id)}
                   onFocus={() => setActiveStep(id)}
                   onBlur={() => setActiveStep(null)}
-                  className={`h-28 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent ${
+                  className={`h-28 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-[58px] lg:[&_svg]:!size-16 ${
                     isActive ? "text-primary" : "text-foreground"
                   }`}
                 >
@@ -110,7 +110,7 @@ export function JourneySection() {
                     aria-hidden="true"
                     strokeWidth={1.15}
                     size={58}
-                    className="size-[58px] transition-colors duration-200 lg:size-16"
+                    className="transition-colors duration-200"
                   />
                 </Button>
               );
