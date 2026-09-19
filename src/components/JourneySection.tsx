@@ -36,32 +36,47 @@ export function JourneySection() {
           <div className="min-w-0">
             <div className="relative h-[123px] lg:h-[143px]">
               <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={activeJourneyStep?.id ?? "journey"}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.16, ease: "easeOut" }}
-                  className="absolute inset-0 flex flex-col justify-center"
-                >
-                  {activeJourneyStep ? (
-                    <>
-                      <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                        covering
-                      </p>
-                      <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
-                        {activeJourneyStep.title}
-                      </h2>
-                      <p className="mt-3 font-body text-base text-primary">
-                        {activeJourneyStep.description}
-                      </p>
-                    </>
-                  ) : (
-                    <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]">
-                      the journey
-                    </h2>
-                  )}
-                </motion.div>
+                {activeJourneyStep ? (
+                  <motion.div
+                    key="active"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute inset-0 flex flex-col justify-center"
+                  >
+                    <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                      covering
+                    </p>
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.div
+                        key={activeJourneyStep.id}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.14, ease: "easeOut" }}
+                      >
+                        <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
+                          {activeJourneyStep.title}
+                        </h2>
+                        <p className="mt-3 font-body text-base text-primary">
+                          {activeJourneyStep.description}
+                        </p>
+                      </motion.div>
+                    </AnimatePresence>
+                  </motion.div>
+                ) : (
+                  <motion.h2
+                    key="journey"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute inset-0 flex items-center whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]"
+                  >
+                    the journey
+                  </motion.h2>
+                )}
               </AnimatePresence>
             </div>
           </div>
