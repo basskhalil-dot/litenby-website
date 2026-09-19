@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { packagingProducts } from "@/data/packagingProducts";
 import { packagingLabProducts } from "@/data/packagingLabProducts";
 import { Button } from "@/components/ui/button";
