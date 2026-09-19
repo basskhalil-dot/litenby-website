@@ -114,21 +114,21 @@ export function JourneySection() {
         </div>
 
         <div className="md:hidden">
-          <div className="mb-14 text-center">
-            <h2 className="font-heading text-4xl font-extrabold lowercase leading-tight text-foreground">
+          <div className="mb-10 text-center">
+            <h2 className="font-heading text-3xl font-extrabold lowercase leading-tight text-foreground">
               the journey
             </h2>
           </div>
 
-          <div className="flex flex-col gap-14">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-8">
             {journeySteps.map(({ id, title, description, icon: Icon }) => (
               <div
                 key={id}
-                className="flex flex-col items-center text-center"
+                className="flex flex-col items-center text-center last:col-span-2"
               >
-                <Icon aria-hidden="true" strokeWidth={1.15} size={52} className="mb-5 size-[52px] text-primary" />
-                <h3 className="font-heading text-2xl font-bold lowercase text-foreground">{title}</h3>
-                <p className="mt-2 max-w-[290px] font-body text-base leading-relaxed text-primary">
+                <Icon aria-hidden="true" strokeWidth={1.15} size={40} className="mb-3 size-10 text-primary" />
+                <h3 className="font-heading text-lg font-bold lowercase text-foreground">{title}</h3>
+                <p className="mt-1 max-w-[160px] font-body text-sm leading-snug text-primary">
                   {description}
                 </p>
               </div>
