@@ -4,6 +4,7 @@
 - [x] Review the desktop V2 sequence — scroll and motion approved; visual overlap with text noted for next iteration.
 - [x] Receive the refined 51-frame desktop sequence (frame 0 duplicated/revised between 0 and 1 to fix liquid jump), convert to WebP, and replace the current V2 desktop test set.
 - [x] Adjust desktop bottle positioning to move from center to right and avoid text overlap with the 51-frame sequence.
-- [ ] Prepare and test the mobile V2 sequence using the same refined 51-frame source.
+- [x] Prepare the mobile V2 sequence using the same refined 51-frame source, preserving its centered, non-sliding behavior.
+- [x] Complete visual testing of the mobile V2 sequence across phone sizes.
 - [ ] After desktop and mobile V2 are approved, replace both sequences in the main website and publish.
 - [ ] Preserve the approved homepage redesign plan for later review; no redesign implementation has started.
