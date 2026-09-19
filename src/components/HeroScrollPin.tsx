@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const DESKTOP_FRAME_COUNT = 51;
-const MOBILE_FRAME_COUNT = 35;
+const MOBILE_FRAME_COUNT = 51;
 const GOLD = "hsl(var(--primary))";
 const CONTAIN_SCALE = 0.9;
 const MOBILE_CONTAIN_SCALE = 1.2;
 
 function frameUrl(i: number, mobile = false): string {
-  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence-v2";
+  const dir = mobile ? "hero-sequence-mobile-v2" : "hero-sequence-v2";
   return `/${dir}/frame_${String(i).padStart(3, "0")}.webp`;
 }
 
@@ -132,8 +132,8 @@ export function HeroScrollPin() {
         : Math.min(cw / iw, ch / ih) * CONTAIN_SCALE;
       const dw = iw * scale;
       const dh = ih * scale;
-      const desktopProgress = index / Math.max(1, DESKTOP_FRAME_COUNT - 1);
-      const desktopOffsetX = isMob ? 0 : cw * 0.18 * desktopProgress;
+      const desktopFrameProgress = index / Math.max(1, DESKTOP_FRAME_COUNT - 1);
+      const desktopOffsetX = isMob ? 0 : cw * 0.18 * desktopFrameProgress;
 
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, (cw - dw) / 2 + desktopOffsetX, (ch - dh) / 2, dw, dh);
