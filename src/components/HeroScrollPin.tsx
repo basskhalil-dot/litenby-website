@@ -143,7 +143,7 @@ export function HeroScrollPin() {
         if (!el) return;
         el.style.opacity = "0";
         el.style.transform = "translateX(-55px)";
-        el.style.transition = "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        el.style.transition = "opacity 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       });
     } else {
       // Mobile: always visible — reset any stale desktop styles.
@@ -429,7 +429,7 @@ export function HeroScrollPin() {
         >
           <div className="container">
           <div
-            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]"
+            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px] -translate-x-5"
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
