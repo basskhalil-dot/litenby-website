@@ -9,7 +9,7 @@ const CONTAIN_SCALE = 0.9;
 const MOBILE_CONTAIN_SCALE = 1.2;
 
 function frameUrl(i: number, mobile = false): string {
-  const dir = mobile ? "hero-sequence-mobile-v2" : "hero-sequence-v2";
+  const dir = mobile ? "hero-sequence-mobile" : "hero-sequence";
   return `/${dir}/frame_${String(i).padStart(3, "0")}.webp`;
 }
 
@@ -182,16 +182,21 @@ export function HeroScrollPin() {
       }
 
       // Desktop text reveal: each line slides in from left once progress passes its threshold.
+      // When scrolling back up we fade out faster so the text doesn't linger over the centered bottle.
       if (!isMob) {
+        const showTransition = "opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        const hideTransition = "opacity 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
         lineRefs.current.forEach((el, i) => {
           if (!el) return;
           const threshold = 0.25 + i * 0.12;
           if (progress >= threshold) {
             el.style.opacity = "1";
             el.style.transform = "translateX(0)";
+            el.style.transition = showTransition;
           } else {
             el.style.opacity = "0";
             el.style.transform = "translateX(-55px)";
+            el.style.transition = hideTransition;
           }
         });
       }
@@ -429,7 +434,7 @@ export function HeroScrollPin() {
         >
           <div className="container">
           <div
-            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px]"
+            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px] -translate-x-10"
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",

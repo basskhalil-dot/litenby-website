@@ -7,5 +7,5 @@
 - [x] Prepare the mobile V2 sequence using the same refined 51-frame source, preserving its centered, non-sliding behavior.
 - [x] Complete visual testing of the mobile V2 sequence across phone sizes.
 - [x] Replace the desktop test with the 51-frame sequence whose center-to-right travel is baked into the frames, removing the extra code-based slide.
-- [ ] After desktop and mobile V2 are approved, replace both sequences in the main website and publish.
+- [x] After desktop and mobile V2 are approved, replace both sequences in the main website and publish.
 - [ ] Preserve the approved homepage redesign plan for later review; no redesign implementation has started.
