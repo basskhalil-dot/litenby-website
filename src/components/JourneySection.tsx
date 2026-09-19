@@ -43,19 +43,19 @@ export function JourneySection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0 flex flex-col justify-center"
                   >
                     <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
                       covering
                     </p>
-                    <AnimatePresence mode="wait" initial={false}>
+                    <AnimatePresence mode="sync" initial={false}>
                       <motion.div
                         key={activeJourneyStep.id}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
                           {activeJourneyStep.title}
@@ -72,7 +72,7 @@ export function JourneySection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0 flex items-center whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]"
                   >
                     the journey

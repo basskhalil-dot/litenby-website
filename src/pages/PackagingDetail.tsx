@@ -106,7 +106,7 @@ const PackagingDetail = () => {
             </div>
 
             <Button className="mt-10 w-fit bg-primary px-8 py-3 text-base font-bold text-primary-foreground hover:bg-primary/90" asChild>
-              <Link to="/contact">get more info</Link>
+              <Link to={`/contact?product=${encodeURIComponent(product.name)}`}>get more info</Link>
             </Button>
           </motion.div>
         </div>
