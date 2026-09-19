@@ -28,60 +28,40 @@ const journeySteps: JourneyStep[] = [
 export function JourneySection() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
   const activeJourneyStep = journeySteps.find((step) => step.id === activeStep);
-  const activeTitle = activeJourneyStep?.title ?? "the journey";
 
   return (
     <section className="w-full bg-background py-24 lg:py-32">
       <div className="container">
         <div className="hidden min-h-[260px] grid-cols-[minmax(300px,0.85fr)_minmax(0,1.15fr)] items-center gap-8 md:grid lg:gap-12">
           <div className="min-w-0">
-            <div className="h-6">
-              <AnimatePresence initial={false}>
-                {activeJourneyStep && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.18 }}
-                    className="font-body text-xs font-semibold uppercase tracking-widest text-primary"
-                  >
-                    covering
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <div className="relative h-[72px] overflow-hidden lg:h-[92px]">
+            <div className="relative h-[123px] lg:h-[143px]">
               <AnimatePresence mode="wait" initial={false}>
-                <motion.h2
-                  key={activeTitle}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className={`absolute inset-x-0 top-0 whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none lg:text-[72px] ${
-                    activeJourneyStep ? "text-foreground" : "text-primary"
-                  }`}
+                <motion.div
+                  key={activeJourneyStep?.id ?? "journey"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.16, ease: "easeOut" }}
+                  className="absolute inset-0 flex flex-col justify-center"
                 >
-                  {activeTitle}
-                </motion.h2>
-              </AnimatePresence>
-            </div>
-
-            <div className="h-7">
-              <AnimatePresence mode="wait" initial={false}>
-                {activeJourneyStep && (
-                  <motion.p
-                    key={activeJourneyStep.id}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.18 }}
-                    className="font-body text-base text-primary"
-                  >
-                    {activeJourneyStep.description}
-                  </motion.p>
-                )}
+                  {activeJourneyStep ? (
+                    <>
+                      <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
+                        covering
+                      </p>
+                      <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
+                        {activeJourneyStep.title}
+                      </h2>
+                      <p className="mt-3 font-body text-base text-primary">
+                        {activeJourneyStep.description}
+                      </p>
+                    </>
+                  ) : (
+                    <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]">
+                      the journey
+                    </h2>
+                  )}
+                </motion.div>
               </AnimatePresence>
             </div>
           </div>
@@ -103,14 +83,14 @@ export function JourneySection() {
                   onFocus={() => setActiveStep(id)}
                   onBlur={() => setActiveStep(null)}
                   className={`h-28 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-[58px] lg:[&_svg]:!size-16 ${
-                    isActive ? "text-primary" : "text-foreground"
+                    isActive ? "!text-primary hover:!text-primary" : "!text-foreground hover:!text-foreground"
                   }`}
                 >
                   <Icon
                     aria-hidden="true"
                     strokeWidth={1.15}
                     size={58}
-                    className="transition-colors duration-200"
+                    className={isActive ? "!text-primary transition-colors duration-200" : "!text-foreground transition-colors duration-200"}
                   />
                 </Button>
               );
