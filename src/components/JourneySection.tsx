@@ -13,30 +13,45 @@ import { Button } from "@/components/ui/button";
 type JourneyStep = {
   id: string;
   title: string;
+  description: string;
   icon: LucideIcon;
 };
 
 const journeySteps: JourneyStep[] = [
-  { id: "idea", title: "idea", icon: Lightbulb },
-  { id: "brand", title: "brand", icon: Fingerprint },
-  { id: "pack", title: "pack", icon: Package },
-  { id: "sample", title: "sample", icon: FlaskConical },
-  { id: "launch", title: "launch", icon: Rocket },
+  { id: "idea", title: "idea", description: "share your vision and goals", icon: Lightbulb },
+  { id: "brand", title: "brand", description: "design your identity and labels", icon: Fingerprint },
+  { id: "pack", title: "pack", description: "choose from our real packaging containers", icon: Package },
+  { id: "sample", title: "sample", description: "see and approve your physical product", icon: FlaskConical },
+  { id: "launch", title: "launch", description: "start your marketing and launch plan", icon: Rocket },
 ];
 
 export function JourneySection() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
-  const activeTitle = journeySteps.find((step) => step.id === activeStep)?.title ?? "the journey";
+  const activeJourneyStep = journeySteps.find((step) => step.id === activeStep);
+  const activeTitle = activeJourneyStep?.title ?? "the journey";
 
   return (
-    <section className="w-full border-y border-border bg-background py-20 lg:py-28">
+    <section className="w-full bg-background py-24 lg:py-32">
       <div className="container">
-        <div className="hidden min-h-[300px] grid-cols-[minmax(320px,0.9fr)_minmax(0,1.4fr)] items-center gap-16 md:grid">
+        <div className="hidden min-h-[260px] grid-cols-[minmax(300px,0.85fr)_minmax(0,1.15fr)] items-center gap-8 md:grid lg:gap-12">
           <div className="min-w-0">
-            <p className="mb-4 font-body text-sm font-semibold uppercase tracking-widest text-primary">
-              covering
-            </p>
-            <div className="relative h-[88px] overflow-hidden lg:h-[108px]">
+            <div className="h-6">
+              <AnimatePresence initial={false}>
+                {activeJourneyStep && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.18 }}
+                    className="font-body text-xs font-semibold uppercase tracking-widest text-primary"
+                  >
+                    covering
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="relative h-[72px] overflow-hidden lg:h-[92px]">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.h2
                   key={activeTitle}
@@ -44,22 +59,39 @@ export function JourneySection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute inset-x-0 top-0 whitespace-nowrap font-heading text-[56px] font-extrabold lowercase leading-none text-foreground lg:text-[76px]"
+                  className={`absolute inset-x-0 top-0 whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none lg:text-[72px] ${
+                    activeJourneyStep ? "text-foreground" : "text-primary"
+                  }`}
                 >
                   {activeTitle}
                 </motion.h2>
               </AnimatePresence>
             </div>
+
+            <div className="h-7">
+              <AnimatePresence mode="wait" initial={false}>
+                {activeJourneyStep && (
+                  <motion.p
+                    key={activeJourneyStep.id}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.18 }}
+                    className="font-body text-base text-primary"
+                  >
+                    {activeJourneyStep.description}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           <div
-            className="grid grid-cols-5 border-x border-border"
+            className="grid grid-cols-5 gap-2 lg:gap-5"
             onMouseLeave={() => setActiveStep(null)}
           >
             {journeySteps.map(({ id, title, icon: Icon }) => {
               const isActive = activeStep === id;
-              const isDimmed = activeStep !== null && !isActive;
-
               return (
                 <Button
                   key={id}
@@ -70,16 +102,15 @@ export function JourneySection() {
                   onMouseEnter={() => setActiveStep(id)}
                   onFocus={() => setActiveStep(id)}
                   onBlur={() => setActiveStep(null)}
-                  className={`group h-[220px] w-full rounded-none border-r border-border p-0 transition-colors duration-200 last:border-r-0 hover:bg-secondary/60 focus-visible:bg-secondary/60 [&_svg]:size-14 lg:[&_svg]:size-16 ${
-                    isDimmed ? "text-muted-foreground opacity-40" : "text-foreground opacity-100"
+                  className={`h-28 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent ${
+                    isActive ? "text-primary" : "text-foreground"
                   }`}
                 >
                   <Icon
                     aria-hidden="true"
                     strokeWidth={1.15}
-                    className={`transition-colors duration-200 ${
-                      isActive ? "text-primary" : "text-current"
-                    }`}
+                    size={58}
+                    className="size-[58px] transition-colors duration-200 lg:size-16"
                   />
                 </Button>
               );
@@ -88,25 +119,23 @@ export function JourneySection() {
         </div>
 
         <div className="md:hidden">
-          <div className="mb-12 text-center">
-            <p className="mb-3 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-              covering
-            </p>
+          <div className="mb-14 text-center">
             <h2 className="font-heading text-4xl font-extrabold lowercase leading-tight text-foreground">
               the journey
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 border-l border-t border-border">
-            {journeySteps.map(({ id, title, icon: Icon }, index) => (
+          <div className="flex flex-col gap-14">
+            {journeySteps.map(({ id, title, description, icon: Icon }) => (
               <div
                 key={id}
-                className={`flex min-h-[150px] flex-col items-center justify-center gap-4 border-b border-r border-border ${
-                  index === journeySteps.length - 1 ? "col-span-2" : ""
-                }`}
+                className="flex flex-col items-center text-center"
               >
-                <Icon aria-hidden="true" strokeWidth={1.15} className="size-11 text-primary" />
-                <p className="font-heading text-base font-bold lowercase text-foreground">{title}</p>
+                <Icon aria-hidden="true" strokeWidth={1.15} size={52} className="mb-5 size-[52px] text-primary" />
+                <h3 className="font-heading text-2xl font-bold lowercase text-foreground">{title}</h3>
+                <p className="mt-2 max-w-[290px] font-body text-base leading-relaxed text-primary">
+                  {description}
+                </p>
               </div>
             ))}
           </div>

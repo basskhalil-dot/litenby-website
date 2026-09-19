@@ -10,3 +10,4 @@
 - [x] After desktop and mobile V2 are approved, replace both sequences in the main website and publish.
 - [ ] Preserve the approved homepage redesign plan for later review; no redesign implementation has started.
 - [x] Add and visually verify “The Journey” section between the homepage bottle and three labs.
+- [ ] Refine “The Journey” to the approved clean desktop interaction and single-column mobile layout, then visually verify it.
