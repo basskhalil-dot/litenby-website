@@ -168,7 +168,9 @@ export function HeroScrollPin() {
       const rect = wrapper.getBoundingClientRect();
       const scrollable = rect.height - cachedViewportH;
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
-      const frame = Math.min(DESKTOP_FRAME_COUNT - 1, Math.floor(progress * DESKTOP_FRAME_COUNT));
+      // Keep the last frame reserved for the exact end of the scroll so the
+      // bottle's animation and its final horizontal position finish together.
+      const frame = Math.floor(progress * (DESKTOP_FRAME_COUNT - 1));
 
       if (frame !== lastFrameRef.current) {
         lastFrameRef.current = frame;
