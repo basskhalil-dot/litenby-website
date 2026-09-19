@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, Globe } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { LitenbyNavbar } from "@/components/LitenbyNavbar";
 import { Footer } from "@/components/Footer";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 const contactItems = [
   { icon: Mail, label: "Email", value: "info@litenby.net" },
   { icon: Phone, label: "Phone", value: "+961 70 146 067" },
-  { icon: Globe, label: "OPERATIONS", value: "Global Remote Studio" },
 ];
 
 export default function Contact() {
@@ -30,7 +29,7 @@ export default function Contact() {
             <div className="flex flex-col justify-center space-y-10">
               <div className="space-y-4">
                 <h2 className="font-heading text-3xl font-extrabold lowercase text-foreground md:text-4xl lg:text-5xl">
-                  let's start the experiment
+                  let's talk about your brand
                 </h2>
                 <p className="max-w-md font-body text-base leading-relaxed text-muted-foreground">
                   If you have any questions regarding our services or need help,
@@ -71,7 +70,7 @@ export default function Contact() {
                     </label>
                     <Input
                       placeholder="John"
-                      className="rounded-[10px] border-2 border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
+                      className="rounded-[10px] border border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                     />
                   </div>
                   <div className="space-y-2">
@@ -80,7 +79,7 @@ export default function Contact() {
                     </label>
                     <Input
                       placeholder="Doe"
-                      className="rounded-[10px] border-2 border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
+                      className="rounded-[10px] border border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                     />
                   </div>
                 </div>
@@ -92,7 +91,7 @@ export default function Contact() {
                   <Input
                     type="email"
                     placeholder="hello@example.com"
-                    className="rounded-[10px] border-2 border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
+                    className="rounded-[10px] border border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                   />
                 </div>
 
@@ -103,7 +102,7 @@ export default function Contact() {
                   <Textarea
                     placeholder="Tell us about your project..."
                     rows={5}
-                    className="rounded-[10px] border-2 border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
+                    className="rounded-[10px] border border-primary bg-transparent font-body text-foreground placeholder:text-muted-foreground/30 focus-visible:ring-0 focus-visible:border-primary transition-colors duration-300"
                   />
                 </div>
 

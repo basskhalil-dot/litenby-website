@@ -11,3 +11,4 @@
 - [ ] Preserve the approved homepage redesign plan for later review; no redesign implementation has started.
 - [x] Add and visually verify “The Journey” section between the homepage bottle and three labs.
 - [x] Refine “The Journey” to the approved clean desktop interaction and single-column mobile layout, then visually verify it.
+- [x] Apply the approved site-wide polish amendments for Journey, Collabs, Packaging, Blog, and Contact.

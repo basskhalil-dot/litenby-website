@@ -14,15 +14,16 @@ type JourneyStep = {
   id: string;
   title: string;
   description: string;
+  mobileDescriptionLines?: [string, string];
   icon: LucideIcon;
 };
 
 const journeySteps: JourneyStep[] = [
-  { id: "idea", title: "idea", description: "share your vision and goals", icon: Lightbulb },
-  { id: "brand", title: "brand", description: "design your identity and labels", icon: Fingerprint },
+  { id: "idea", title: "idea", description: "share your vision and goals", mobileDescriptionLines: ["share your vision", "and goals"], icon: Lightbulb },
+  { id: "brand", title: "brand", description: "design your identity and labels", mobileDescriptionLines: ["design your identity", "and labels"], icon: Fingerprint },
   { id: "pack", title: "pack", description: "choose from our real packaging containers", icon: Package },
   { id: "sample", title: "sample", description: "see and approve your physical product", icon: FlaskConical },
-  { id: "launch", title: "launch", description: "start your marketing and launch plan", icon: Rocket },
+  { id: "launch", title: "launch", description: "start your marketing and launch plan", mobileDescriptionLines: ["start your marketing", "and launch plan"], icon: Rocket },
 ];
 
 export function JourneySection() {
@@ -54,7 +55,7 @@ export function JourneySection() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.14, ease: "easeOut" }}
+                        transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
                           {activeJourneyStep.title}
@@ -121,7 +122,7 @@ export function JourneySection() {
           </div>
 
           <div className="grid grid-cols-2 gap-x-6 gap-y-8">
-            {journeySteps.map(({ id, title, description, icon: Icon }) => (
+            {journeySteps.map(({ id, title, description, mobileDescriptionLines, icon: Icon }) => (
               <div
                 key={id}
                 className="flex flex-col items-center text-center last:col-span-2"
@@ -129,7 +130,13 @@ export function JourneySection() {
                 <Icon aria-hidden="true" strokeWidth={1.15} size={40} className="mb-3 size-10 text-primary" />
                 <h3 className="font-heading text-lg font-bold lowercase text-foreground">{title}</h3>
                 <p className="mt-1 max-w-[160px] font-body text-sm leading-snug text-primary">
-                  {description}
+                  {mobileDescriptionLines ? (
+                    <>
+                      {mobileDescriptionLines[0]}
+                      <br />
+                      {mobileDescriptionLines[1]}
+                    </>
+                  ) : description}
                 </p>
               </div>
             ))}
