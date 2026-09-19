@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { LitenbyNavbar } from '@/components/LitenbyNavbar';
 import { Preloader } from '@/components/Preloader';
 import { HeroScrollPin } from '@/components/HeroScrollPin';
+import { JourneySection } from '@/components/JourneySection';
 import { ThreeLabsSection } from '@/components/ThreeLabsSection';
 import { PackagingLabSection } from '@/components/PackagingLabSection';
 import { CollabsSection } from '@/components/CollabsSection';
@@ -26,6 +27,7 @@ const Index = () => {
       )}
       <LitenbyNavbar />
       <HeroScrollPin />
+       <JourneySection />
       <ThreeLabsSection />
       <PackagingLabSection />
       <CollabsSection />
