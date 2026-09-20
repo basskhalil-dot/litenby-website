@@ -11,8 +11,8 @@ const mainLinks = [
 ];
 
 const legalLinks = [
-  { label: "privacy", href: "#" },
-  { label: "terms", href: "#" },
+  { label: "privacy", href: "/privacy" },
+  { label: "terms", href: "/terms" },
 ];
 
 export function Footer() {
