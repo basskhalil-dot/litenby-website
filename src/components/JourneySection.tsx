@@ -80,18 +80,18 @@ export function JourneySection() {
           </div>
         </div>
 
-        <div className="mx-auto grid max-w-[340px] grid-cols-2 items-center gap-x-10 gap-y-14 md:hidden">
-          <h2 className="justify-self-start font-heading text-[38px] font-extrabold lowercase leading-[0.95] text-primary">
+        <div className="mx-auto grid max-w-[300px] grid-cols-2 items-center gap-x-8 gap-y-9 md:hidden">
+          <h2 className="justify-self-start self-start pt-1 font-heading text-[34px] font-extrabold lowercase leading-[0.92] text-primary">
             the<br />journey
           </h2>
 
           {journeySteps.map(({ id, title, icon: Icon }) => (
               <div
                 key={id}
-                className="flex min-h-[116px] flex-col items-center justify-center text-center"
+                className="flex min-h-[86px] flex-col items-center justify-center text-center"
               >
-                <Icon aria-hidden="true" strokeWidth={1.15} size={48} className="mb-4 size-12 text-primary" />
-                <h3 className="font-heading text-xl font-bold lowercase leading-none text-foreground">{title}</h3>
+                <Icon aria-hidden="true" strokeWidth={1.15} size={40} className="mb-3 size-10 text-primary" />
+                <h3 className="font-heading text-base font-bold lowercase leading-none text-foreground">{title}</h3>
               </div>
             ))}
         </div>
