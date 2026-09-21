@@ -158,6 +158,7 @@ export function HeroScrollPin() {
     sizeCanvas();
     render(0);
     lastFrameRef.current = 0;
+    if (canvas) canvas.style.transform = "translateX(0vw)";
 
     function onScroll() {
       const wrapper = wrapperRef.current;
@@ -168,6 +169,7 @@ export function HeroScrollPin() {
       const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
       // Keep the last frame reserved for the exact end of the scroll so the
       // bottle's animation and its final horizontal position finish together.
+      if (canvas) canvas.style.transform = `translateX(${progress * 4}vw)`;
       const frame = Math.floor(progress * (DESKTOP_FRAME_COUNT - 1));
 
       if (frame !== lastFrameRef.current) {
@@ -434,7 +436,7 @@ export function HeroScrollPin() {
         >
           <div className="container">
           <div
-            className="ml-[7vw] md:!max-w-[50%] lg:!max-w-[520px] -translate-x-10"
+            className="ml-[9vw] md:!max-w-[50%] lg:!max-w-[520px] md:translate-x-0 lg:translate-x-5"
             style={{
               pointerEvents: "auto",
               maxWidth: "520px",
