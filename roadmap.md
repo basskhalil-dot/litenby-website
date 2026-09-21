@@ -14,3 +14,4 @@
 - [x] Apply the approved site-wide polish amendments for Journey, Collabs, Packaging, Blog, and Contact.
 - [x] Smooth the desktop Journey crossfade, keep “your brand” together, and prefill Contact with the selected packaging item.
 - [x] Add Privacy Policy and Terms of Service pages from the approved legal document and connect the footer links.
+- [x] Refine the Journey section into the approved compact desktop interaction and mobile composition.
