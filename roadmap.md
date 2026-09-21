@@ -1,5 +1,8 @@
 # Roadmap
 
+**FINAL LOCKED VERSION — September 21, 2026**
+All tasks below are complete, tested, and approved. The website is saved in its current state. Future work (packaging inventory/items, homepage redesign review) will happen in a new iteration and must not overwrite this locked version without explicit approval.
+
 - [x] Prepare and connect the optimized 50-frame desktop bottle V2 sequence for preview testing while preserving the original desktop and mobile assets.
 - [x] Review the desktop V2 sequence — scroll and motion approved; visual overlap with text noted for next iteration.
 - [x] Receive the refined 51-frame desktop sequence (frame 0 duplicated/revised between 0 and 1 to fix liquid jump), convert to WebP, and replace the current V2 desktop test set.
