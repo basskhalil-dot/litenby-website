@@ -13,80 +13,30 @@ import { Button } from "@/components/ui/button";
 type JourneyStep = {
   id: string;
   title: string;
-  description: string;
-  mobileDescriptionLines?: [string, string];
   icon: LucideIcon;
 };
 
 const journeySteps: JourneyStep[] = [
-  { id: "idea", title: "idea", description: "share your vision and goals", mobileDescriptionLines: ["share your vision", "and goals"], icon: Lightbulb },
-  { id: "brand", title: "brand", description: "design your identity and labels", mobileDescriptionLines: ["design your identity", "and labels"], icon: Fingerprint },
-  { id: "pack", title: "pack", description: "choose from our real packaging containers", icon: Package },
-  { id: "sample", title: "sample", description: "see and approve your physical product", icon: FlaskConical },
-  { id: "launch", title: "launch", description: "start your marketing and launch plan", mobileDescriptionLines: ["start your marketing", "and launch plan"], icon: Rocket },
+  { id: "idea", title: "idea", icon: Lightbulb },
+  { id: "brand", title: "brand", icon: Fingerprint },
+  { id: "pack", title: "pack", icon: Package },
+  { id: "sample", title: "sample", icon: FlaskConical },
+  { id: "launch", title: "launch", icon: Rocket },
 ];
 
 export function JourneySection() {
   const [activeStep, setActiveStep] = useState<string | null>(null);
-  const activeJourneyStep = journeySteps.find((step) => step.id === activeStep);
 
   return (
-    <section className="w-full bg-background py-24 lg:py-32">
+    <section className="w-full bg-background py-20 md:py-16 lg:py-20">
       <div className="container">
-        <div className="hidden min-h-[260px] grid-cols-[minmax(300px,0.85fr)_minmax(0,1.15fr)] items-center gap-8 md:grid lg:gap-12">
-          <div className="min-w-0">
-            <div className="relative h-[123px] lg:h-[143px]">
-              <AnimatePresence mode="sync" initial={false}>
-                {activeJourneyStep ? (
-                  <motion.div
-                    key="active"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0 flex flex-col justify-center"
-                  >
-                    <p className="h-6 font-body text-xs font-semibold uppercase tracking-widest text-primary">
-                      covering
-                    </p>
-                    <div className="relative h-[87px] lg:h-[99px]">
-                      <AnimatePresence mode="sync" initial={false}>
-                        <motion.div
-                          key={activeJourneyStep.id}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                          className="absolute inset-x-0 top-0"
-                        >
-                          <h2 className="whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-foreground lg:text-[72px]">
-                            {activeJourneyStep.title}
-                          </h2>
-                          <p className="mt-3 font-body text-base text-primary">
-                            {activeJourneyStep.description}
-                          </p>
-                        </motion.div>
-                      </AnimatePresence>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.h2
-                    key="journey"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0 flex items-center whitespace-nowrap font-heading text-[52px] font-extrabold lowercase leading-none text-primary lg:text-[72px]"
-                  >
-                    the journey
-                  </motion.h2>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
+        <div className="mx-auto hidden max-w-[800px] grid-cols-[250px_minmax(0,1fr)] items-center gap-5 md:grid lg:max-w-[820px] lg:grid-cols-[270px_minmax(0,1fr)] lg:gap-7">
+          <h2 className="whitespace-nowrap font-heading text-[40px] font-extrabold lowercase leading-none text-primary lg:text-[46px]">
+            the journey
+          </h2>
 
           <div
-            className="grid grid-cols-5 gap-2 lg:gap-5"
+            className="grid grid-cols-5 gap-1 lg:gap-2"
             onMouseLeave={() => setActiveStep(null)}
           >
             {journeySteps.map(({ id, title, icon: Icon }) => {
@@ -101,49 +51,49 @@ export function JourneySection() {
                   onMouseEnter={() => setActiveStep(id)}
                   onFocus={() => setActiveStep(id)}
                   onBlur={() => setActiveStep(null)}
-                  className={`h-28 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-[58px] lg:[&_svg]:!size-16 ${
+                  className={`relative h-20 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-10 lg:[&_svg]:!size-11 ${
                     isActive ? "!text-primary hover:!text-primary" : "!text-foreground hover:!text-foreground"
                   }`}
                 >
                   <Icon
                     aria-hidden="true"
                     strokeWidth={1.15}
-                    size={58}
+                    size={44}
                     className={isActive ? "!text-primary transition-colors duration-200" : "!text-foreground transition-colors duration-200"}
                   />
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-x-0 bottom-0 font-body text-xs font-medium lowercase text-foreground"
+                      >
+                        {title}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </Button>
               );
             })}
           </div>
         </div>
 
-        <div className="md:hidden">
-          <div className="mb-10 text-center">
-            <h2 className="font-heading text-3xl font-extrabold lowercase leading-tight text-foreground">
-              the journey
-            </h2>
-          </div>
+        <div className="mx-auto grid max-w-[340px] grid-cols-2 items-center gap-x-10 gap-y-14 md:hidden">
+          <h2 className="justify-self-start font-heading text-[44px] font-extrabold lowercase leading-[0.95] text-primary">
+            the<br />journey
+          </h2>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-8">
-            {journeySteps.map(({ id, title, description, mobileDescriptionLines, icon: Icon }) => (
+          {journeySteps.map(({ id, title, icon: Icon }) => (
               <div
                 key={id}
-                className="flex flex-col items-center text-center last:col-span-2"
+                className="flex min-h-[116px] flex-col items-center justify-center text-center"
               >
-                <Icon aria-hidden="true" strokeWidth={1.15} size={40} className="mb-3 size-10 text-primary" />
-                <h3 className="font-heading text-lg font-bold lowercase text-foreground">{title}</h3>
-                <p className="mt-1 max-w-[160px] font-body text-sm leading-snug text-primary">
-                  {mobileDescriptionLines ? (
-                    <>
-                      {mobileDescriptionLines[0]}
-                      <br />
-                      {mobileDescriptionLines[1]}
-                    </>
-                  ) : description}
-                </p>
+                <Icon aria-hidden="true" strokeWidth={1.15} size={48} className="mb-4 size-12 text-primary" />
+                <h3 className="font-heading text-xl font-bold lowercase leading-none text-foreground">{title}</h3>
               </div>
             ))}
-          </div>
         </div>
       </div>
     </section>
