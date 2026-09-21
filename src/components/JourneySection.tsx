@@ -81,7 +81,7 @@ export function JourneySection() {
         </div>
 
         <div className="mx-auto grid max-w-[300px] grid-cols-2 items-center gap-x-8 gap-y-9 md:hidden">
-          <h2 className="justify-self-start self-start pt-1 font-heading text-[34px] font-extrabold lowercase leading-[0.92] text-primary">
+          <h2 className="justify-self-start self-start pt-[9px] font-heading text-[34px] font-extrabold lowercase leading-[0.92] text-primary">
             the<br />journey
           </h2>
 
