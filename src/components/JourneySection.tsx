@@ -30,8 +30,8 @@ export function JourneySection() {
   return (
     <section className="w-full bg-background py-20 md:py-16 lg:py-20">
       <div className="container">
-        <div className="mx-auto hidden max-w-[800px] grid-cols-[250px_minmax(0,1fr)] items-center gap-5 md:grid lg:max-w-[820px] lg:grid-cols-[270px_minmax(0,1fr)] lg:gap-7">
-          <h2 className="whitespace-nowrap font-heading text-[40px] font-extrabold lowercase leading-none text-primary lg:text-[46px]">
+        <div className="mx-auto hidden max-w-[880px] grid-cols-[275px_minmax(0,1fr)] items-center gap-6 md:grid lg:max-w-[900px] lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-8">
+          <h2 className="whitespace-nowrap font-heading text-[44px] font-extrabold lowercase leading-none text-primary lg:text-[50px]">
             the journey
           </h2>
 
@@ -51,7 +51,7 @@ export function JourneySection() {
                   onMouseEnter={() => setActiveStep(id)}
                   onFocus={() => setActiveStep(id)}
                   onBlur={() => setActiveStep(null)}
-                  className={`relative h-20 w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-10 lg:[&_svg]:!size-11 ${
+                  className={`relative h-[88px] w-full rounded-none p-0 transition-colors duration-200 hover:bg-transparent focus-visible:bg-transparent [&_svg]:!size-11 lg:[&_svg]:!size-12 ${
                     isActive ? "!text-primary hover:!text-primary" : "!text-foreground hover:!text-foreground"
                   }`}
                 >
