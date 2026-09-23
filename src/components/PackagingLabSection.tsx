@@ -43,17 +43,16 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
         <img
           src={product.primaryImage}
           alt={product.name}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
-          style={{ opacity: hasAlternateImage && isHovered ? 0 : 1 }}
+          className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
         />
         {hasAlternateImage && (
           <img
             src={product.hoverImage}
             alt={`${product.name} alternate view`}
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-out"
             style={{ opacity: isHovered ? 1 : 0 }}
-            loading="lazy"
+            loading="eager"
           />
         )}
       </div>
