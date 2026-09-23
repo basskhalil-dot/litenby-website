@@ -27,6 +27,7 @@ const itemVariants = {
 function PackagingCard({ product }: { product: PackagingProduct }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const hasAlternateImage = product.primaryImage !== product.hoverImage;
 
   return (
     <div
@@ -36,23 +37,25 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
       onClick={() => navigate(`/packaging-lab/${product.id}`)}
     >
       <div
-        className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] transition-transform duration-300 hover:scale-[1.02]"
+        className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px]"
         style={{ border: "1px solid #333333" }}
       >
         <img
           src={product.primaryImage}
           alt={product.name}
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
-          style={{ opacity: isHovered ? 0 : 1 }}
+          style={{ opacity: hasAlternateImage && isHovered ? 0 : 1 }}
           loading="lazy"
         />
-        <img
-          src={product.hoverImage}
-          alt={`${product.name} alternate view`}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
-          style={{ opacity: isHovered ? 1 : 0 }}
-          loading="lazy"
-        />
+        {hasAlternateImage && (
+          <img
+            src={product.hoverImage}
+            alt={`${product.name} alternate view`}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
+            style={{ opacity: isHovered ? 1 : 0 }}
+            loading="lazy"
+          />
+        )}
       </div>
       <p className="mt-2 font-body text-xs font-semibold lowercase text-foreground sm:text-sm">
         {product.name}
