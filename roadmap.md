@@ -19,3 +19,4 @@ All tasks below are complete, tested, and approved. The website is saved in its 
 - [x] Add Privacy Policy and Terms of Service pages from the approved legal document and connect the footer links.
 - [x] Refine the Journey section into the approved compact desktop interaction and mobile composition.
 - [x] Replace Packaging Lab imagery with the supplied Aura Mist and coming-soon images, and remove card scaling.
+- [x] Use Aura Mist P1/P2 across every Packaging Lab card and make the hover dissolve faster without a black gap.
