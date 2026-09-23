@@ -18,3 +18,4 @@ All tasks below are complete, tested, and approved. The website is saved in its 
 - [x] Smooth the desktop Journey crossfade, keep “your brand” together, and prefill Contact with the selected packaging item.
 - [x] Add Privacy Policy and Terms of Service pages from the approved legal document and connect the footer links.
 - [x] Refine the Journey section into the approved compact desktop interaction and mobile composition.
+- [ ] Replace Packaging Lab imagery with the supplied Aura Mist and coming-soon images, and remove card scaling.
