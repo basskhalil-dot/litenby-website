@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { packagingProducts, type PackagingProduct } from "@/data/packagingProducts";
@@ -28,16 +28,50 @@ function PackagingCard({ product }: { product: PackagingProduct }) {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const hasAlternateImage = product.primaryImage !== product.hoverImage;
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const didSwipe = useRef(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+    didSwipe.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const t = e.touches[0];
+    const dx = Math.abs(t.clientX - touchStart.current.x);
+    const dy = Math.abs(t.clientY - touchStart.current.y);
+    // Horizontal finger slide over the image reveals the alternate view
+    if (dx > 12 && dx > dy) {
+      didSwipe.current = true;
+      setIsHovered(true);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    touchStart.current = null;
+    if (didSwipe.current) {
+      // keep the alternate view briefly, then dissolve back
+      setTimeout(() => setIsHovered(false), 900);
+    }
+  };
 
   return (
     <div
       className="group relative flex cursor-pointer flex-col"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate(`/packaging-lab/${product.id}`)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onClick={() => {
+        if (didSwipe.current) return;
+        navigate(`/packaging-lab/${product.id}`);
+      }}
     >
       <div
-        className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px]"
+        className="relative aspect-[4/5] w-full touch-pan-y overflow-hidden rounded-[12px]"
         style={{ border: "1px solid #333333" }}
       >
         <img
